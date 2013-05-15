@@ -1,0 +1,5 @@
+--type-set=haml=.haml
+--type-set=sass=.sass,.scss
+--type-set=coffeescript=.coffee
+--ignore-directory=log
+--ignore-file=is:tags

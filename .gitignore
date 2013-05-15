@@ -1,0 +1,7 @@
+*.log
+.vim/tmp/
+*.swp
+*~
+.project
+.DS_Store
+.netrwhist
