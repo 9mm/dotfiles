@@ -210,6 +210,10 @@ inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 "  Custom Bindings  "
 """""""""""""""""""""
 
+" insert line below without entering insert mode
+
+map <CR> o<Esc>
+
 " Command + Enter doesnt disturb current line
 inoremap <D-CR> <C-O>o 
 
