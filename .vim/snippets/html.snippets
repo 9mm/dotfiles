@@ -4,6 +4,14 @@ extends php
 #  Custom  #
 ############
 
+snippet input "input" w
+<input type="$1" name="$2"$3 />$0
+endsnippet
+
+snippet bb "2 breaks" w
+<br><br>
+endsnippet
+
 snippet tb "target blank" w
 target="_blank"$0
 endsnippet

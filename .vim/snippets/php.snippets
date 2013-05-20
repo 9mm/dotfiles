@@ -4,10 +4,6 @@ extends html
 #  Wordpress  #
 ###############
 
-snippet bb "2 breaks" w
-<br><br>
-endsnippet
-
 snippet php "php" i
 <?php $1 ?>$0
 endsnippet
@@ -35,8 +31,8 @@ endwhile;
 endsnippet
 
 snippet fun "function"
-function ${1:function_name}($2) {
-  $0
+function ${1:name} ($2) {
+    $0
 }
 
 endsnippet
