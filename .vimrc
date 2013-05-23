@@ -147,6 +147,9 @@ autocmd BufWrite * set nobomb
 "  Plugins  "
 """""""""""""
 
+" NERDTree
+map <leader>v :NERDTreeToggle<cr>
+
 " Ctags
 map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log *<CR>
 set tags=./tags

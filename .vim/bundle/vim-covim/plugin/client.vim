@@ -4,7 +4,7 @@ if !has('python')
 endif
 
 "Needs to be set on connect, MacVim overrides otherwise"
-function SetCoVimColors ()
+function! SetCoVimColors ()
   :hi CursorUser gui=bold term=bold cterm=bold 
   :hi Cursor1 ctermbg=DarkRed ctermfg=White guibg=DarkRed guifg=White gui=bold term=bold cterm=bold 
   :hi Cursor2 ctermbg=DarkBlue ctermfg=White guibg=DarkBlue guifg=White gui=bold term=bold cterm=bold 
@@ -18,7 +18,7 @@ function SetCoVimColors ()
   :hi Cursor10 ctermbg=LightCyan ctermfg=Black guibg=LightCyan guifg=Black gui=bold term=bold cterm=bold 
   :hi Cursor0 ctermbg=LightYellow ctermfg=Black guibg=LightYellow guifg=Black gui=bold term=bold cterm=bold 
 endfunction
-
+ 
 :python import vim
 python << EOF
 
@@ -27,7 +27,7 @@ from twisted.internet.protocol import ClientFactory, Protocol
 from twisted.internet import reactor
 #from twisted.internet.interfaces import IReactorThreads
 from threading import Thread
-import pickle
+import json
 import os
 from time import sleep
 
@@ -83,7 +83,28 @@ class VimProtocol(Protocol):
   def connectionMade(self):
     self.send(self.fact.me)
   def dataReceived(self, data_string):
-    packet = pickle.loads(data_string)	
+    def to_utf8(d):
+      if isinstance(d, dict):
+        # no dict comprehension in python2.5/2.6
+        d2 = {}
+        for key, value in d.iteritems():
+          d2[to_utf8(key)] = to_utf8(value)
+        return d2
+      elif isinstance(d, list):
+        return map(to_utf8, d)
+      elif isinstance(d, unicode):
+        return d.encode('utf-8')
+      else:
+        return d
+
+    def clean_data_string(d_s):
+      bad_data = d_s.find("}{")
+      if bad_data > -1:
+        d_s = d_s[:bad_data+1]
+      return d_s
+      
+    data_string = clean_data_string(data_string)
+    packet = to_utf8(json.loads(data_string))
     if 'packet_type' in packet.keys():
       data = packet['data']
       if packet['packet_type'] == 'message':
@@ -156,7 +177,7 @@ class VimFactory(ClientFactory):
       }
     }
     d = self.create_update_packet(d)
-    data = pickle.dumps(d)
+    data = json.dumps(d)
     self.p.send(data)
   def cursor_update(self):
     d = {
@@ -170,7 +191,7 @@ class VimFactory(ClientFactory):
       }
     }
     d = self.create_update_packet(d)
-    data = pickle.dumps(d)
+    data = json.dumps(d)
     self.p.send(data)
   def create_update_packet(self, d):
     current_buffer = vim.current.buffer[:]
@@ -190,7 +211,8 @@ class VimFactory(ClientFactory):
         'end'   : limits['to'],
         'change_y' : change_y,
         'change_x' : change_x,
-        'buffer': vim.current.buffer[limits['from']:limits['to']+1]
+        'buffer': vim.current.buffer[limits['from']:limits['to']+1],
+        'buffer_size': len(current_buffer)
       }
       d['data']['buffer'] = d_buffer
       self.buffer = current_buffer
@@ -227,6 +249,7 @@ class CoVimScope:
       self.connection = reactor.connectTCP(addr, port, self.fact)
       self.reactor_thread = Thread(target=reactor.run, args=(False,))
       self.reactor_thread.start()
+      vim.command('autocmd VimLeave * py CoVim.quit()')
     elif (hasattr(self, 'port') and port != self.port) or (hasattr(self, 'addr') and addr != self.addr):
       print 'ERROR: Different address/port already used. To try another, restart Vim'
       return
@@ -243,7 +266,6 @@ class CoVimScope:
     vim.command(':autocmd!')
     vim.command('autocmd CursorMoved * py CoVim.cursor_update()')
     vim.command('autocmd CursorMovedI * py CoVim.buff_update()')
-    vim.command('autocmd VimLeave * py CoVim.quit()')
     vim.command("1new +setlocal\ stl=%!'CoVim-Collaborators'")
     self.buddylist = vim.current.buffer
     self.buddylist_window = vim.current.window
