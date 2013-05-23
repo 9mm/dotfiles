@@ -15,19 +15,16 @@
 " no vi
 set nocompatible     
 
-" Map leader key to comma
-let mapleader = ","
+" Pathogen
+execute pathogen#infect()
 
 " Filetype stuff
 filetype on
 filetype plugin on
 filetype indent on
 
-" Better splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Map leader key to comma
+let mapleader = ","
 
 " Tabstops are 4 spaces
 set tabstop=4
@@ -207,11 +204,17 @@ inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 "  Custom Bindings  "
 """""""""""""""""""""
 
+" Better splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " insert line below without entering insert mode
-map <CR> o<Esc>
+map <CR> o<esc>
 
 " Command + Enter doesnt disturb current line
-inoremap <D-CR> <C-O>o 
+inoremap <D-CR> <esc>o
 
 " File Movement
 map j gj
