@@ -38,7 +38,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'SirVer/ultisnips'
 Bundle 'lukaszb/vim-web-indent'
-Bundle 'topfunky/PeepOpen-EditorSupport/tree/master/vim-peepopen'
 
 " Filetype stuff
 filetype on

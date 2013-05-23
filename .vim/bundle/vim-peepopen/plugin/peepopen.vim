@@ -35,7 +35,7 @@ noremap <unique> <script> <Plug>PeepOpen <SID>Launch
 noremap <SID>Launch :call <SID>LaunchPeepOpenViaVim()<CR>
 
 if !hasmapto('<Plug>PeepOpen')
-  map <unique> <silent> <leader>t <Plug>PeepOpen
+  map <unique> <silent> <Leader>t <Plug>PeepOpen
 endif
 
 let &cpo = s:save_cpo
