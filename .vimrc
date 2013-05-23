@@ -168,8 +168,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 nmap <silent> <leader>es :UltiSnipsEdit<CR>
 
 " Git Gutter
-nmap <silent> <leader>gd :GitGutterToggle<CR>
-nmap <silent> <leader>gh :GitGutterLineHighlightsToggle<CR>
+nmap <silent> <leader>gg :GitGutterToggle<CR>
 
 " Powerline Statusline
 set encoding=utf-8  
