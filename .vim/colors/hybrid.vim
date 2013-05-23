@@ -1,10 +1,10 @@
 " File:       hybrid.vim
 " Maintainer: Andrew Wong (w0ng)
-" URL:        https://github.com/w0ng/hybrid.vim
-" Modified:   09 August 2012
+" URL:        https://github.com/w0ng/vim-hybrid
+" Modified:   27 Jan 2013 07:33 AM AEST
 " License:    MIT
 
-" DESCRIPTION:"{{{
+" Description:"{{{
 " ----------------------------------------------------------------------------
 " The RGB colour palette is taken from Tomorrow-Night.vim:
 " https://github.com/chriskempson/vim-tomorrow-theme
@@ -16,7 +16,7 @@
 " https://github.com/altercation/vim-colors-solarized
 
 "}}}
-" REQUIREMENTS AND RECOMMENDATIONS:"{{{
+" Requirements And Recommendations:"{{{
 " ----------------------------------------------------------------------------
 " This colourscheme is intended for use on:
 "   - gVim 7.3 for Linux, Mac and Windows.
@@ -39,7 +39,7 @@
 "       colorscheme hybrid
 
 "}}}
-" INITIALISE: "{{{
+" Initialisation:"{{{
 " ----------------------------------------------------------------------------
 if !has("gui_running") && &t_Co < 256
   finish
@@ -59,7 +59,7 @@ endif
 let colors_name = "hybrid"
 
 "}}}
-" GUI AND CTERM PALETTES:"{{{
+" GUI And Cterm Palettes:"{{{
 " ----------------------------------------------------------------------------
 if has("gui_running")
   let s:vmode      = "gui"
@@ -67,7 +67,7 @@ if has("gui_running")
   let s:foreground = "#c5c8c6"
   let s:selection  = "#373b41"
   let s:line       = "#282a2e"
-  let s:comment    = "#969896"
+  let s:comment    = "#707880"
   let s:red        = "#cc6666"
   let s:orange     = "#de935f"
   let s:yellow     = "#f0c674"
@@ -106,7 +106,7 @@ else
     let s:foreground = "250"
     let s:selection  = "237"
     let s:line       = "235"
-    let s:comment    = "246"
+    let s:comment    = "243"
     let s:red        = "167"
     let s:orange     = "173"
     let s:yellow     = "221"
@@ -118,7 +118,7 @@ else
 endif
 
 "}}}
-" FORMATTING OPTIONS:"{{{
+" Formatting Options:"{{{
 " ----------------------------------------------------------------------------
 let s:none   = "NONE"
 let s:t_none = "NONE"
@@ -131,7 +131,7 @@ let s:u      = ",underline"
 let s:i      = ",italic"
 
 "}}}
-" HIGHLIGHTING PRIMITIVES:"{{{
+" Highlighting Primitives:"{{{
 " ----------------------------------------------------------------------------
 exe "let s:bg_none       = ' ".s:vmode."bg=".s:none      ."'"
 exe "let s:bg_foreground = ' ".s:vmode."bg=".s:foreground."'"
@@ -226,7 +226,7 @@ else
 endif
 
 "}}}
-" VIM HIGHLIGHTING: (see :help highlight-groups)"{{{
+" Vim Highlighting: (see :help highlight-groups)"{{{
 " ----------------------------------------------------------------------------
 exe "hi! ColorColumn"   .s:fg_none        .s:bg_line        .s:fmt_none
 "		Conceal"
@@ -247,7 +247,7 @@ exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "		Incsearch"
 exe "hi! LineNr"        .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! CursorLineNr"  .s:fg_yellow      .s:bg_none        .s:fmt_bold
-exe "hi! MatchParen"    .s:fg_none        .s:bg_selection   .s:fmt_none
+exe "hi! MatchParen"    .s:fg_background  .s:bg_changebg    .s:fmt_none
 exe "hi! ModeMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! MoreMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! NonText"       .s:fg_selection   .s:bg_none        .s:fmt_none
@@ -258,10 +258,10 @@ exe "hi! PmenuSel"      .s:fg_foreground  .s:bg_selection   .s:fmt_revr
 exe "hi! Question"      .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! Search"        .s:fg_background  .s:bg_yellow      .s:fmt_none
 exe "hi! SpecialKey"    .s:fg_selection   .s:bg_none        .s:fmt_none
-exe "hi! SpellBad"      .s:fg_background  .s:bg_red         .s:fmt_undr
-exe "hi! SpellCap"      .s:fg_background  .s:bg_blue        .s:fmt_undr
-exe "hi! SpellLocal"    .s:fg_addfg       .s:bg_addbg       .s:fmt_undr
-exe "hi! SpellRare"     .s:fg_changefg    .s:bg_changebg    .s:fmt_undr
+exe "hi! SpellBad"      .s:fg_red         .s:bg_none        .s:fmt_undr
+exe "hi! SpellCap"      .s:fg_blue        .s:bg_none        .s:fmt_undr
+exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_none        .s:fmt_undr
+exe "hi! SpellRare"     .s:fg_purple      .s:bg_none        .s:fmt_undr
 exe "hi! StatusLine"    .s:fg_comment     .s:bg_background  .s:fmt_revr
 exe "hi! StatusLineNC"  .s:fg_window      .s:bg_comment     .s:fmt_revr
 exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
@@ -281,7 +281,7 @@ else
 endif
 
 "}}}
-" SYNTAX HIGHLIGHTING: (see :help group-name)"{{{
+" Generic Syntax Highlighting: (see :help group-name)"{{{
 " ----------------------------------------------------------------------------
 exe "hi! Comment"         .s:fg_comment     .s:bg_none        .s:fmt_none
 
@@ -299,7 +299,7 @@ exe "hi! Statement"       .s:fg_blue        .s:bg_none        .s:fmt_none
 "		Conditional"
 "		Repeat"
 "		Label"
-"		Operator"
+exe "hi! Operator"        .s:fg_aqua        .s:bg_none        .s:fmt_none
 "		Keyword"
 "		Exception"
 
@@ -325,18 +325,39 @@ exe "hi! Underlined"      .s:fg_blue        .s:bg_none        .s:fmt_none
 
 exe "hi! Ignore"          .s:fg_none        .s:bg_none        .s:fmt_none
 
-exe "hi! Error"           .s:fg_background  .s:bg_red         .s:fmt_none
+exe "hi! Error"           .s:fg_red         .s:bg_none        .s:fmt_undr
 
-exe "hi! Todo"            .s:fg_foreground  .s:bg_background  .s:fmt_none
+exe "hi! Todo"            .s:fg_addfg       .s:bg_none        .s:fmt_none
 
-" Quickfix highlighting
-exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none         .s:fmt_none
+" Quickfix window highlighting
+exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 "   qfFileName"
 "   qfLineNr"
 "   qfError"
-"
+
 "}}}
-" LEGAL:"{{{
+" Diff Syntax Highlighting:"{{{
+" ----------------------------------------------------------------------------
+" Diff
+"		diffOldFile
+"		diffNewFile
+"		diffFile
+"		diffOnly
+"		diffIdentical
+"		diffDiffer
+"		diffBDiffer
+"		diffIsA
+"		diffNoEOL
+"		diffCommon
+hi! link diffRemoved Constant
+"		diffChanged
+hi! link diffAdded Special
+"		diffLine
+"		diffSubname
+"		diffComment
+
+"}}}
+" Legal:"{{{
 " ----------------------------------------------------------------------------
 " Copyright (c) 2011 Ethan Schoonover
 " Copyright (c) 2009-2012 NanoTech
