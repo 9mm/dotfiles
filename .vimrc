@@ -15,9 +15,6 @@
 " no vi
 set nocompatible     
 
-" Get pathogen up and running
-call pathogen#infect()
-
 " Map leader key to comma
 let mapleader = ","
 
