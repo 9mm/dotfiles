@@ -15,19 +15,37 @@
 " no vi
 set nocompatible     
 
-" Map leader key to comma
-let mapleader = ","
+" vundle
+filetype off   
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'Townk/vim-autoclose'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'FredKSchott/CoVim'
+Bundle 'skammer/vim-css-color'
+Bundle 'tpope/vim-fugitive'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-haml'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'myusuf3/numbers.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'SirVer/ultisnips'
+Bundle 'lukaszb/vim-web-indent'
 
 " Filetype stuff
 filetype on
 filetype plugin on
 filetype indent on
 
-" Better splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Map leader key to comma
+let mapleader = ","
 
 " Tabstops are 4 spaces
 set tabstop=4
@@ -207,11 +225,17 @@ inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 "  Custom Bindings  "
 """""""""""""""""""""
 
+" Better splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " insert line below without entering insert mode
 map <CR> o<Esc>
 
 " Command + Enter doesnt disturb current line
-inoremap <D-CR> <C-O>o 
+inoremap <D-CR> <esc>o
 
 " File Movement
 map j gj
