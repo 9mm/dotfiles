@@ -268,7 +268,7 @@ function! RunCurrentTest()
       call SetTestRunner("!cucumber")
       exec g:bjo_test_runner g:bjo_test_file
     elseif match(expand('%'), '_spec\.rb$') != -1
-      call SetTestRunner("!bin/rspec")
+      call SetTestRunner("!zeus rspec")
       exec g:bjo_test_runner g:bjo_test_file
     else
       call SetTestRunner("!ruby -Itest")
@@ -288,7 +288,7 @@ function! RunCurrentLineInTest()
   if in_test_file
     call SetTestFileWithLine()
   end
-  exec "!bin/rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
+  exec "!zeus rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
 endfunction
 
 function! SetTestFile()
