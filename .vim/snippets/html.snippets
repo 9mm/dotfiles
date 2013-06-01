@@ -4,6 +4,16 @@ extends php
 #  Custom  #
 ############
 
+snippet form "form" w
+<form action="$1" method="post" accept-charset="UTF-8">
+    $0
+</form>
+endsnippet
+
+snippet label "label" w
+<label>$1</label>$0
+endsnippet
+
 snippet input "input" w
 <input type="$1" name="$2"$3 />$0
 endsnippet
@@ -52,7 +62,7 @@ snippet html "html" w
 endsnippet
 
 snippet script "js script" 
-<script type="text/javascript"${1: src="$2"}>$3</script>$0
+<script type="text/javascript"${1: src="$2"}>$0</script>
 endsnippet
 
 snippet strong "strong" w

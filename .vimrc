@@ -151,7 +151,7 @@ autocmd BufWrite * set nobomb
 map <leader>v :NERDTreeToggle<cr>
 
 " Ctags
-map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log *<CR>
+map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<CR>
 set tags=./tags
 
 " Ack
@@ -206,6 +206,10 @@ inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 "  Custom Bindings  "
 """""""""""""""""""""
 
+map <leader>rn :call RenameFile()<cr>
+map <leader>rf :call RunCurrentTest()<cr>
+map <leader>rl :call RunCurrentLineInTest()<cr>
+
 " Better splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -251,17 +255,50 @@ nmap <silent> <C-i> 10zh
 nmap <silent> <leader>u= :t.\|s/./=/g\|:nohls<cr>
 nmap <silent> <leader>u- :t.\|s/./-/g\|:nohls<cr>
 
-" Multipurpose Tab Key
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
+
+"""""""""""""""
+"  Functions  "
+"""""""""""""""
+
+function! RunCurrentTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+    if match(expand('%'), '\.feature$') != -1
+      call SetTestRunner("!cucumber")
+      exec g:bjo_test_runner g:bjo_test_file
+    elseif match(expand('%'), '_spec\.rb$') != -1
+      call SetTestRunner("!bin/rspec")
+      exec g:bjo_test_runner g:bjo_test_file
     else
-        return "\<c-p>"
+      call SetTestRunner("!ruby -Itest")
+      exec g:bjo_test_runner g:bjo_test_file
     endif
+  else
+    exec g:bjo_test_runner g:bjo_test_file
+  endif
 endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+
+function! SetTestRunner(runner)
+  let g:bjo_test_runner=a:runner
+endfunction
+
+function! RunCurrentLineInTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFileWithLine()
+  end
+  exec "!bin/rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
+endfunction
+
+function! SetTestFile()
+  let g:bjo_test_file=@%
+endfunction
+
+function! SetTestFileWithLine()
+  let g:bjo_test_file=@%
+  let g:bjo_test_file_line=line(".")
+endfunction
 
 " Rename current file
 function! RenameFile()
@@ -273,7 +310,6 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-map <leader>rn :call RenameFile()<cr>
 
 " :Bda to delete all open buffers
 command! -nargs=0 -bang Bda

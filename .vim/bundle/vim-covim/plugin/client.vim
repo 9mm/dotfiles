@@ -5,32 +5,31 @@ endif
 
 "Needs to be set on connect, MacVim overrides otherwise"
 function! SetCoVimColors ()
-  :hi CursorUser gui=bold term=bold cterm=bold 
-  :hi Cursor1 ctermbg=DarkRed ctermfg=White guibg=DarkRed guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor2 ctermbg=DarkBlue ctermfg=White guibg=DarkBlue guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor3 ctermbg=DarkGreen ctermfg=White guibg=DarkGreen guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor4 ctermbg=DarkCyan ctermfg=White guibg=DarkCyan guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor5 ctermbg=DarkMagenta ctermfg=White guibg=DarkMagenta guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor6 ctermbg=Brown ctermfg=White guibg=Brown guifg=White gui=bold term=bold cterm=bold 
-  :hi Cursor7 ctermbg=LightRed ctermfg=Black guibg=LightRed guifg=Black gui=bold term=bold cterm=bold 
-  :hi Cursor8 ctermbg=LightBlue ctermfg=Black guibg=LightBlue guifg=Black gui=bold term=bold cterm=bold 
-  :hi Cursor9 ctermbg=LightGreen ctermfg=Black guibg=LightGreen guifg=Black gui=bold term=bold cterm=bold 
-  :hi Cursor10 ctermbg=LightCyan ctermfg=Black guibg=LightCyan guifg=Black gui=bold term=bold cterm=bold 
-  :hi Cursor0 ctermbg=LightYellow ctermfg=Black guibg=LightYellow guifg=Black gui=bold term=bold cterm=bold 
+  :hi CursorUser gui=bold term=bold cterm=bold
+  :hi Cursor1 ctermbg=DarkRed ctermfg=White guibg=DarkRed guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor2 ctermbg=DarkBlue ctermfg=White guibg=DarkBlue guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor3 ctermbg=DarkGreen ctermfg=White guibg=DarkGreen guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor4 ctermbg=DarkCyan ctermfg=White guibg=DarkCyan guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor5 ctermbg=DarkMagenta ctermfg=White guibg=DarkMagenta guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor6 ctermbg=Brown ctermfg=White guibg=Brown guifg=White gui=bold term=bold cterm=bold
+  :hi Cursor7 ctermbg=LightRed ctermfg=Black guibg=LightRed guifg=Black gui=bold term=bold cterm=bold
+  :hi Cursor8 ctermbg=LightBlue ctermfg=Black guibg=LightBlue guifg=Black gui=bold term=bold cterm=bold
+  :hi Cursor9 ctermbg=LightGreen ctermfg=Black guibg=LightGreen guifg=Black gui=bold term=bold cterm=bold
+  :hi Cursor10 ctermbg=LightCyan ctermfg=Black guibg=LightCyan guifg=Black gui=bold term=bold cterm=bold
+  :hi Cursor0 ctermbg=LightYellow ctermfg=Black guibg=LightYellow guifg=Black gui=bold term=bold cterm=bold
 endfunction
- 
-:python import vim
+
 python << EOF
 
+import vim, os, json, warnings
 from twisted.internet.protocol import ClientFactory, Protocol
-#from twisted.protocols.basic import LineReceiver
 from twisted.internet import reactor
-#from twisted.internet.interfaces import IReactorThreads
 from threading import Thread
-import json
-import os
 from time import sleep
 
+# Ignore Warnings
+warnings.filterwarnings('ignore','.*', UserWarning)
+warnings.filterwarnings('ignore','.*', DeprecationWarning)
 
 # Check for Vundle/Pathogen
 if os.path.exists(os.path.expanduser('~') + '/.vim/bundle/CoVim/plugin'):
@@ -38,6 +37,8 @@ if os.path.exists(os.path.expanduser('~') + '/.vim/bundle/CoVim/plugin'):
 else:
   CoVimServerPath = '~/.vim/plugin/server.py'
 
+
+## CoVim Protocol
 class VimProtocol(Protocol):
   def __init__(self, fact):
     self.fact = fact
@@ -57,7 +58,6 @@ class VimProtocol(Protocol):
     self.refreshBuddyList()
   def refreshBuddyList(self):
     buddylist_window_width = int(vim.eval('winwidth(0)'))
-    #TODO: Set Width to Autogrow with added/deleted users
     CoVim.buddylist[:] = ['']
     current_window_i = vim.eval('winnr()')
     x_a = 1
@@ -102,7 +102,7 @@ class VimProtocol(Protocol):
       if bad_data > -1:
         d_s = d_s[:bad_data+1]
       return d_s
-      
+
     data_string = clean_data_string(data_string)
     packet = to_utf8(json.loads(data_string))
     if 'packet_type' in packet.keys():
@@ -138,7 +138,7 @@ class VimProtocol(Protocol):
           # We need to update your own cursor as soon as possible, then update other cursors after
           for updated_user in data['updated_cursors']:
             if self.fact.me == updated_user['name'] and data['name'] != self.fact.me:
-              vim.current.window.cursor = (updated_user['cursor']['y'], updated_user['cursor']['x']) 
+              vim.current.window.cursor = (updated_user['cursor']['y'], updated_user['cursor']['x'])
           for updated_user in data['updated_cursors']:
             if self.fact.me != updated_user['name']:
               vim.command(':call matchdelete('+str(self.fact.colors[updated_user['name']][1]) + ')')
@@ -158,6 +158,7 @@ class VimFactory(ClientFactory):
     self.colors = {}
     self.color_count = 1
     self.buffer = []
+    vim.command('autocmd VimLeave * py CoVim.quit()')
   def buildProtocol(self, addr):
     self.p = VimProtocol(self)
     return self.p
@@ -224,10 +225,9 @@ class VimFactory(ClientFactory):
       print 'Lost connection.'
   def clientConnectionFailed(self, connector, reason):
     CoVim.disconnect()
-    print 'Connection failed.' 
+    print 'Connection failed.'
 
 class CoVimScope:
-  #def __init__(self):
   def initiate(self, addr, port, name):
     #Check if connected. If connected, throw error.
     if hasattr(self, 'fact') and self.fact.isConnected:
@@ -238,7 +238,7 @@ class CoVimScope:
     if not addr and hasattr(self, 'addr') and self.addr:
       addr = self.addr
     if not addr or not port or not name:
-      print 'Syntax Error: Use form :Covim connect <server address> <port> <name>'  
+      print 'Syntax Error: Use form :Covim connect <server address> <port> <name>'
       return
     port = int(port)
     addr = str(addr)
@@ -249,23 +249,20 @@ class CoVimScope:
       self.connection = reactor.connectTCP(addr, port, self.fact)
       self.reactor_thread = Thread(target=reactor.run, args=(False,))
       self.reactor_thread.start()
-      vim.command('autocmd VimLeave * py CoVim.quit()')
+      print 'Connecting...'
     elif (hasattr(self, 'port') and port != self.port) or (hasattr(self, 'addr') and addr != self.addr):
-      print 'ERROR: Different address/port already used. To try another, restart Vim'
-      return
+      print 'ERROR: Different address/port already used. To try another, you need to restart Vim'
     else:
       self.fact.setup(name)
       self.connection.connect()
       print 'Reconnecting...'
-      return
-    #if first time run, setup
-    #if not connected, reconnect
-    print 'Connecting...'
+
   def setupWorkspace(self):
     vim.command('call SetCoVimColors()')
     vim.command(':autocmd!')
     vim.command('autocmd CursorMoved * py CoVim.cursor_update()')
     vim.command('autocmd CursorMovedI * py CoVim.buff_update()')
+    vim.command('autocmd VimLeave * py CoVim.quit()')
     vim.command("1new +setlocal\ stl=%!'CoVim-Collaborators'")
     self.buddylist = vim.current.buffer
     self.buddylist_window = vim.current.window
@@ -274,8 +271,10 @@ class CoVimScope:
     if arg1=="connect":
       if arg2 and arg3 and arg4:
         self.initiate(arg2, arg3, arg4)
+      elif arg2 and arg3:
+        self.initiate('localhost', arg2, arg3)
       else:
-        print "usage :CoVim connect [host address] [port] [your name]"
+        print "usage :CoVim connect [host address - default: localhost] [port] [your name]"
     elif arg1=="disconnect":
       self.disconnect()
     elif arg1=="start":
@@ -287,7 +286,7 @@ class CoVimScope:
       print "usage: CoVim [start] [connect] [disconnect]"
   def createServer(self, port, name):
     vim.command(':silent execute "!'+CoVimServerPath+' '+port+' &>/dev/null &"')
-    sleep(0.4)
+    sleep(0.5)
     self.initiate('localhost', port, name)
   def buff_update(self):
     reactor.callFromThread(self.fact.buff_update)
