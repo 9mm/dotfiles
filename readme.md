@@ -12,11 +12,11 @@
  
 ## Link MacVim to Homebrew Python
 
-Many Vim plugins use Python and have extremely troublesome issues on versions of MacVim compiled with system Python. Even if you install MacVim with homebrew and the latest Python active, it still seems to compile with system Python. To fix, you want to link homebrew Macvim to homebrew Python manually:
+Many Vim plugins use Python and have extremely troublesome issues on versions of MacVim compiled with system Python. Even if you install MacVim with homebrew with the latest Python active, it still seems to compile with system Python. To fix, you want to link homebrew Macvim to homebrew Python manually:
 
 * Install Homebrew Python with `brew install python`.
 * Remove old version of MacVim with `brew uninstall macvim && brew install macvim`
-* If you run `otool -L /Applications/MacVim.app/Contents/MacOS/Vim` and see system Python in that list, you will likely have a problem. Note that if you don't symlink MacVim to `/Applications` your path will need to link to the Cellar directory accordingly. You may also need to run `otool` on `MacVim` in addition to `Vim`
+* If you run `otool -L /Applications/MacVim.app/Contents/MacOS/Vim` and see system Python in that list, you will likely have a problem. Note that if you don't symlink MacVim to `/Applications` your path will need to link to the Cellar directory accordingly. 
 * Follow [this](https://github.com/Valloric/YouCompleteMe/issues/241#issuecomment-16466715) solution by running the following code. You will need to once again change the last path (for MacVim and Vim) according to whether you symlinked Macvim.
 
 ```
