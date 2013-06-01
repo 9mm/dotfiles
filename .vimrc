@@ -3,9 +3,9 @@
 "  To Remember  "
 """""""""""""""""
 " 
-" gi        go to last position of insert mode
-" <ctrl+o>  move out a level
-" <ctrl+i>  move in a level
+" gi          go to last position of insert mode
+" q:          open last command window, enter to run
+" <c+w><c+]>  open ctags in split
 
 
 """""""""""""""""
