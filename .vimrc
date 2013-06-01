@@ -2,10 +2,19 @@
 """""""""""""""""
 "  To Remember  "
 """""""""""""""""
-" 
+"
+" Normal: 
+" <c+w><c+]>  open ctags in split
 " gi          go to last position of insert mode
 " q:          open last command window, enter to run
-" <c+w><c+]>  open ctags in split
+"
+" Insert:
+" <c-j>       enter
+" <c-h>       backspace
+" <c-u>       delete whole line
+" <c-r>       access register. <c-r>/ to put search
+" <c-x><c-l>  line completion
+" <c-o>       run single normal mode command
 
 
 """""""""""""""""
@@ -17,6 +26,9 @@ set nocompatible
 
 " Pathogen
 execute pathogen#infect()
+
+" No splash scree
+set shortmess+=I
 
 " Filetype stuff
 filetype on
