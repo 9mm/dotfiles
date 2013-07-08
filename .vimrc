@@ -24,6 +24,9 @@
 " no vi
 set nocompatible     
 
+" system clipboard
+" set clipboard=unnamed
+
 " Pathogen
 execute pathogen#infect()
 
@@ -221,6 +224,8 @@ inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 map <leader>rn :call RenameFile()<cr>
 map <leader>rf :call RunCurrentTest()<cr>
 map <leader>rl :call RunCurrentLineInTest()<cr>
+map <leader>2  :set shiftwidth=2<cr>
+map <leader>4  :set shiftwidth=4<cr>
 
 " Better splits
 nnoremap <C-J> <C-W><C-J>

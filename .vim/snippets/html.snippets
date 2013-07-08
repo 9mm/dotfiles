@@ -4,6 +4,14 @@ extends php
 #  Custom  #
 ############
 
+snippet t "magic tag" w
+<$1>$0</${1/(\w+).*/$1/}>
+endsnippet
+
+snippet title "title"
+<title>$0</title>
+endsnippet
+
 snippet form "form" w
 <form action="$1" method="post" accept-charset="UTF-8">
     $0

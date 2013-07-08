@@ -5,7 +5,7 @@ extends html
 ###############
 
 snippet php "php" i
-<?php $1 ?>$0
+<?php $1 ?>
 endsnippet
 
 snippet gbi "get blog info" i
@@ -31,7 +31,7 @@ endwhile;
 endsnippet
 
 snippet fun "function"
-function ${1:name} ($2) {
+function ${1:name}($2) {
     $0
 }
 
@@ -126,8 +126,8 @@ $_GET['${1}']${2}
 endsnippet
 
 snippet if "if"
-if (${1:/* condition */}) {
-	${2:// code...}
+if ( $1 ) {
+    $0
 }
 endsnippet
 
@@ -149,10 +149,6 @@ endsnippet
 
 snippet session "session"
 $_SESSION['${1}']${2}
-endsnippet
-
-snippet t "t"
-$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};${5}
 endsnippet
 
 snippet var "var"
