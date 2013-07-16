@@ -15,6 +15,18 @@
 " <c-r>       access register. <c-r>/ to put search
 " <c-x><c-l>  line completion
 " <c-o>       run single normal mode command
+"
+" OSX:
+" <c-a>       jump to beginning of line
+" <c-e>       jump to end of line
+" <c-b>       move left one character
+" <c-f>       move right one character
+" <c-n>       move down one line
+" <c-p>       move up one line
+" <c-k>       delete remainder of current paragraph
+" <c-y>       paste text from <c-k>
+" <c-h>       backspace
+" <c-v>       page down
 
 
 """""""""""""""""
@@ -55,6 +67,12 @@ autocmd FileType nginx setlocal softtabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
 
+" Disable left scrollbar 
+set guioptions-=L
+
+" Remove toolbar
+set guioptions-=T
+
 " Search stuff
 set wrapscan
 set ignorecase
@@ -89,9 +107,6 @@ set mousehide
 
 " Set up the gui cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-
-" set the gui options the way I like
-set guioptions-=T
 
 " This is the timeout used while waiting for user input on a multi-keyed macro
 " or while just sitting and waiting for another key to be pressed measured
