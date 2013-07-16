@@ -103,6 +103,9 @@ set showcmd
 " Show the current mode
 set showmode
 
+" Show tab bar
+set showtabline=2
+
 " Switch on syntax highlighting.
 syntax on
 
@@ -141,6 +144,9 @@ set diffopt+=iwhite
 
 " Enable search highlighting
 set hls
+
+" Set relative numbering
+set relativenumber
 
 " Incrementally match the search
 set incsearch
