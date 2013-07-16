@@ -36,11 +36,18 @@
 " no vi
 set nocompatible     
 
-" system clipboard
-" set clipboard=unnamed
-
 " Pathogen
 execute pathogen#infect()
+
+" Map leader key to comma
+let mapleader = ","
+
+" Edit the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" system clipboard
+" set clipboard=unnamed
 
 " No splash scree
 set shortmess+=I
@@ -49,9 +56,6 @@ set shortmess+=I
 filetype on
 filetype plugin on
 filetype indent on
-
-" Map leader key to comma
-let mapleader = ","
 
 " Tabstops are 4 spaces
 set tabstop=4
@@ -144,9 +148,6 @@ set incsearch
 " Automatically read a file that has changed on disk
 set autoread
 
-" Line numbering
-set nu
-
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
 
@@ -206,6 +207,7 @@ let g:Powerline_symbols = 'fancy'
 
 " Autoclose
 let AutoCloseExpandEnterOn = '{'
+
 
 
 """"""""""""""""""""""""""""""""
@@ -274,10 +276,6 @@ nmap <silent> <leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Delete empty lines
 nmap <leader>del :g/^$/d<cr>
-
-" Edit the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Make horizontal scrolling easier
 nmap <silent> <C-o> 10zl
@@ -384,9 +382,10 @@ endfunction
 
 " Set up the window colors and size
 set transparency=3
-set guifont=Anonymous\ Pro:h14
 set background=dark
 colorscheme hybrid
+
+set guifont=Anonymous\ Pro:h14
 
 " Returns syntax highlighting group that the current word under the cursor belongs to
 " Useful for custom syntax highlighting
