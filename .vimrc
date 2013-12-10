@@ -49,7 +49,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " system clipboard
 " set clipboard=unnamed
 
-" No splash scree
+" No splash screen
 set shortmess+=I
 
 " Filetype stuff
@@ -184,28 +184,39 @@ autocmd BufWrite * set nobomb
 "  Plugins  "
 """""""""""""
 
+" Tabular
+vmap <leader>t= :Tabularize /=<cr>
+vmap <leader>t> :Tabularize /=><cr>
+
+" CTRL-P
+let g:ctrlp_custom_ignore = '\v[\/](\.git|daemon2|coverage|daemon_ssh|daemon2|tmp)$'
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("e")': [],
+  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
+  \ }
+
 " NERDTree
 map <leader>v :NERDTreeToggle<cr>
 
 " Ctags
-map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<CR>
+map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<cr>
 set tags=./tags
 
 " Ack
 set grepprg=ack
-map <C-n> :cn<CR>
-map <C-p> :cp<CR>
+map <c-n> :cn<cr>
+map <c-p> :cp<cr>
 
 " Ultisnips
 let g:UltiSnipsSnippetDirectories = [ "snippets" ]
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-nmap <silent> <leader>es :UltiSnipsEdit<CR>
+nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
 " Git Gutter
-nmap <silent> <leader>gg :GitGutterToggle<CR>
+nmap <silent> <leader>gg :GitGutterToggle<cr>
 
 " Powerline Statusline
 set encoding=utf-8  
@@ -213,7 +224,6 @@ let g:Powerline_symbols = 'fancy'
 
 " Autoclose
 let AutoCloseExpandEnterOn = '{'
-
 
 
 """"""""""""""""""""""""""""""""

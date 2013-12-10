@@ -1,14 +1,17 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="sorin"
+
+# Also good: sorin
+ZSH_THEME="af-magic"
 
 # Custom aliases
 source $HOME/.zsh/aliases
 
 # ~/.oh-my-zsh/plugins/
-plugins=(bundler git github osx vi-mode)
+# plugins=(git github osx)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-export PATH=/usr/local/bin:~/bin:$PATH:$HOME/usr/local/share/python:/.rvm/bin:/usr/local/mysql/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/local/git/bin
+export PATH=/Users/Zesty/.rvm/gems/ruby-head/bin:/Users/Zesty/.rvm/gems/ruby-head@global/bin:/Users/Zesty/.rvm/rubies/ruby-head/bin:/Users/Zesty/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
