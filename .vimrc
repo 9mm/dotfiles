@@ -3,7 +3,7 @@
 "  To Remember  "
 """""""""""""""""
 "
-" Normal: 
+" Normal:
 " <c+w><c+]>  open ctags in split
 " gi          go to last position of insert mode
 " q:          open last command window, enter to run
@@ -34,7 +34,7 @@
 """""""""""""""""
 
 " no vi
-set nocompatible     
+set nocompatible
 
 " Pathogen
 execute pathogen#infect()
@@ -71,7 +71,7 @@ autocmd FileType nginx setlocal softtabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
 
-" Disable left scrollbar 
+" Disable left scrollbar
 set guioptions-=L
 
 " Remove toolbar
@@ -155,7 +155,7 @@ set incsearch
 set autoread
 
 " Syntax coloring lines that are too long just slows down the world
-set synmaxcol=2048
+set synmaxcol=500
 
 " Highlight the current line and column
 " Don't do this - It makes window redraws painfully slow
@@ -219,7 +219,7 @@ nmap <silent> <leader>es :UltiSnipsEdit<cr>
 nmap <silent> <leader>gg :GitGutterToggle<cr>
 
 " Powerline Statusline
-set encoding=utf-8  
+set encoding=utf-8
 let g:Powerline_symbols = 'fancy'
 
 " Autoclose
@@ -237,9 +237,9 @@ map <leader>p <s-v><s-s>tp><s-j>x<s-j>x0
 map <leader>a <s-s>ta href="#">f#xi
 nnoremap <leader>a f>
 
-" Haml                                
+" Haml
 map <leader>ch 0<c-v>lr/<cr>
-                                
+
 " Rails
 inoremap <D-lt> <%=  %><esc>hhi
 inoremap <D->> <%  %><esc>hhi
@@ -282,7 +282,7 @@ inoremap <D-[> <esc><<i
 
 " Easy match bracket pairs
 nnoremap <tab> %
-vnoremap <tab> %  
+vnoremap <tab> %
 
 " Disable highlight search
 nmap <silent> <leader>n :nohls<CR>
@@ -399,10 +399,10 @@ endfunction
 " Set up the window colors and size
 set transparency=3
 set background=dark
-colorscheme hybrid
+colorscheme base16-tomorrow
 
 set guifont=Anonymous\ Pro:h14
 
 " Returns syntax highlighting group that the current word under the cursor belongs to
 " Useful for custom syntax highlighting
-nmap <silent> ,qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nmap <silent> <leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
