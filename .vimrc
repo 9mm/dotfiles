@@ -175,6 +175,7 @@ endif
 
 " Remove windows bullshit
 autocmd BufWrite * set ff=unix
+autocmd BufWrite * :%s/\r//ge
 
 " Remove Byte Order Mark bullshit
 autocmd BufWrite * set nobomb
@@ -227,7 +228,7 @@ let AutoCloseExpandEnterOn = '{'
 
 
 """"""""""""""""""""""""""""""""
-"  Language Specific Bindings  "
+"  Language Specific Bindings  "                           
 """"""""""""""""""""""""""""""""
 
 " HTML
@@ -236,6 +237,7 @@ map <leader>e <s-s>tem>
 map <leader>p <s-v><s-s>tp><s-j>x<s-j>x0
 map <leader>a <s-s>ta href="#">f#xi
 nnoremap <leader>a f>
+map <leader>g <s-s>"i<?= __(<esc>lx/"<cr>:nohls<cr>a); ?><esc>
 
 " Haml
 map <leader>ch 0<c-v>lr/<cr>
@@ -265,6 +267,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Line break in normal mode
+nnoremap <NL> i<CR><ESC>
 
 " insert line below without entering insert mode
 map <CR> o<esc>

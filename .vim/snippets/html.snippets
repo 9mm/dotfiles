@@ -56,10 +56,26 @@ snippet td "td" w
 <td>$0</td>
 endsnippet
 
+snippet th "td" w
+<th>$0</th>
+endsnippet
+
 snippet tr "tr" w
 <tr>
   $0
 </tr>
+endsnippet
+
+snippet thead "thead" w
+<thead>
+  $0
+</thead>
+endsnippet
+
+snippet tbody "tbody" w
+<tbody>
+  $0
+</tbody>
 endsnippet
 
 snippet table "table" w
@@ -74,13 +90,21 @@ endsnippet
 
 snippet html "html" w
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <title>$1</title>
+
+  <link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="/css/main.css" type="text/css">
 </head>
 <body>
   $0
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </body>
 </html>
 endsnippet

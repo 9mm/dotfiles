@@ -5,15 +5,15 @@ extends html
 ###############
 
 snippet php "php" i
-<?php $1 ?>
+<? $1 ?>
 endsnippet
 
-snippet gbi "get blog info" i
+snippet phpe "phpe" i
+<?= $1 ?>
+endsnippet
+
+snippet gbi "blog info" i
 bloginfo('$1');$0
-endsnippet
-
-snippet gpm "get post meta" i
-echo get_post_meta(${1:$post->ID}, '$2', true);$0
 endsnippet
 
 snippet wpq "wordpress query" i
