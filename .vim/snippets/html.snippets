@@ -13,7 +13,7 @@ snippet title "title"
 endsnippet
 
 snippet form "form" w
-<form action="$1" method="post" accept-charset="UTF-8">
+<form action="$1" method="post" accept-charset="utf-8">
   $0
 </form>
 endsnippet
@@ -23,7 +23,7 @@ snippet label "label" w
 endsnippet
 
 snippet input "input" w
-<input type="$1" name="$2"$3 />$0
+<input type="$1" name="$2"$3>$0
 endsnippet
 
 snippet bb "2 breaks" w
@@ -104,13 +104,13 @@ snippet html "html" w
 <body>
   $0
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 </html>
 endsnippet
 
 snippet script "js script" 
-<script type="text/javascript"${1: src="$2"}>$0</script>
+<script ${1: src="$2"}>$0</script>
 endsnippet
 
 snippet strong "strong" w

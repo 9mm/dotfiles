@@ -57,17 +57,20 @@ filetype on
 filetype plugin on
 filetype indent on
 
-" Tabstops are 4 spaces
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+" Tabstops are 2 spaces
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
 set expandtab
 set autoindent
 
-" Special Syntaxes
-autocmd FileType ruby  setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType scss  setlocal softtabstop=4 shiftwidth=4 tabstop=4
-autocmd FileType nginx setlocal softtabstop=4 shiftwidth=4 tabstop=4
+" override them anyway
+autocmd FileType css  setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType php  setlocal softtabstop=2 shiftwidth=2 tabstop=2
+
+" Custom syntaxes
+autocmd BufRead,BufNewFile *.md       set filetype=markdown
 autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
 
@@ -76,6 +79,9 @@ set guioptions-=L
 
 " Remove toolbar
 set guioptions-=T
+
+" No wordwrap by default
+set nowrap
 
 " Search stuff
 set wrapscan
@@ -190,7 +196,7 @@ vmap <leader>t= :Tabularize /=<cr>
 vmap <leader>t> :Tabularize /=><cr>
 
 " CTRL-P
-let g:ctrlp_custom_ignore = '\v[\/](\.git|daemon2|coverage|daemon_ssh|daemon2|tmp)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|tmp|\.sass-cache|dist|bower_components|node_modules)$'
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': [],
   \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
@@ -234,7 +240,7 @@ let AutoCloseExpandEnterOn = '{'
 " HTML
 map <leader>b <s-s>tstrong>
 map <leader>e <s-s>tem>
-map <leader>p <s-v><s-s>tp><s-j>x<s-j>x0
+map <leader>p <esc>^i<p><esc>$a</p><esc>^
 map <leader>a <s-s>ta href="#">f#xi
 nnoremap <leader>a f>
 map <leader>g <s-s>"i<?= __(<esc>lx/"<cr>:nohls<cr>a); ?><esc>

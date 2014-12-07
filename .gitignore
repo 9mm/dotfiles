@@ -9,3 +9,5 @@ Session.vim
 .DS_Store
 .netrwhist
 HARDLINKS.md
+.zsh/aws
+.zsh/av

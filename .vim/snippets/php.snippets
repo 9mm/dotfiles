@@ -25,7 +25,7 @@ $${1:query} = new WP_Query(array(
   'meta_key'       => '$8'}}
 ));
 
-while ( $$1->have_posts() ) : $$1->the_post();
+while ($$1->have_posts()) : $$1->the_post();
   $0
 endwhile;
 endsnippet
@@ -63,11 +63,11 @@ snippet class "class"
  */
 class ${2:ClassName}
 {
-	${3}
-	function ${4:__construct}(${5:argument})
-	{
-		${6:// code...}
-	}
+  ${3}
+  function ${4:__construct}(${5:argument})
+  {
+	${6:// code...}
+  }
 }
 endsnippet
 
@@ -105,19 +105,19 @@ endsnippet
 
 snippet else "else"
 else {
-	${1:// code...}
+  ${1:// code...}
 }
 endsnippet
 
 snippet for "for"
 for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
-	${4:// code...}
+  ${4:// code...}
 }
 endsnippet
 
 snippet foreachk "foreachk"
 foreach ($${1:variable} as $${2:key} => $${3:value}){
-	${4:// code...}
+  ${4:// code...}
 }
 endsnippet
 
@@ -126,8 +126,8 @@ $_GET['${1}']${2}
 endsnippet
 
 snippet if "if"
-if ( $1 ) {
-    $0
+if ($1) {
+  $0
 }
 endsnippet
 
