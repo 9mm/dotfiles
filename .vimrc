@@ -1,4 +1,12 @@
 
+"""""""""""""""""""""""""""
+"  TEMP ANGULAR TRANSLATE "
+"""""""""""""""""""""""""""
+
+nnoremap ta ci"{{'' \| translate}}<esc>F'i
+nnoremap tt dithi translate<esc>f<i
+
+
 """""""""""""""""
 "  To Remember  "
 """""""""""""""""
@@ -152,7 +160,8 @@ set diffopt+=iwhite
 set hls
 
 " Set relative numbering
-set relativenumber
+" set relativenumber
+set number
 
 " Incrementally match the search
 set incsearch
@@ -215,11 +224,10 @@ map <c-n> :cn<cr>
 map <c-p> :cp<cr>
 
 " Ultisnips
-let g:UltiSnipsSnippetDirectories = [ "snippets" ]
+let g:UltiSnipsSnippetDirectories = ["snippets"]
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<Tab>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
 " Git Gutter
@@ -229,8 +237,9 @@ nmap <silent> <leader>gg :GitGutterToggle<cr>
 set encoding=utf-8
 let g:Powerline_symbols = 'fancy'
 
-" Autoclose
-let AutoCloseExpandEnterOn = '{'
+" DelimitMate
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_space = 1
 
 
 """"""""""""""""""""""""""""""""
@@ -251,7 +260,6 @@ map <leader>ch 0<c-v>lr/<cr>
 " Rails
 inoremap <D-lt> <%=  %><esc>hhi
 inoremap <D->> <%  %><esc>hhi
-imap <c-l> <space>=><space>
 
 " CSS
 nmap <leader>i =i{
@@ -408,9 +416,11 @@ endfunction
 """""""""""
 
 " Set up the window colors and size
-set transparency=3
-set background=dark
-colorscheme base16-tomorrow
+if exists("&transparency")
+  :set transparency=3
+  :set background=dark
+  :colorscheme base16-tomorrow
+endif
 
 set guifont=Anonymous\ Pro:h14
 
