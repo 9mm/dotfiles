@@ -1,12 +1,6 @@
-alias z='zeus'
 alias redodb='rake db:drop && rake db:create && rake db:migrate && rake db:seed'
-alias history='fc -l 1'
-alias a='ls -lrthG'
 alias v='mvim'
 alias o='open .'
-alias ea='mvim ~/.zsh/aliases'
-alias es='elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml'
-
+alias brewup='brew update && brew upgrade --all'
 
 source $HOME/.zsh/aws
-source $HOME/.zsh/av
