@@ -1,18 +1,21 @@
+# zsh path
 ZSH=$HOME/.oh-my-zsh
 
-# Also good: sorin
+# styling 
 ZSH_THEME="af-magic"
 
-# Custom aliases
+# custom aliases
 source $HOME/.zsh/aliases
 
-# ~/.oh-my-zsh/plugins/
-plugins=(git virtualenv)
+# plugins 
+plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
-
+# autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+# paths
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
