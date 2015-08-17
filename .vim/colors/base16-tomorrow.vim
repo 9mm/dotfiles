@@ -2,8 +2,8 @@
 " Scheme: Chris Kempson (http://chriskempson.com)
 
 " GUI color definitions
-let s:gui00 = "1d1f21"
-let s:gui01 = "282a2e"
+let s:gui00 = "111111"
+let s:gui01 = "111111"
 let s:gui02 = "373b41"
 let s:gui03 = "969896"
 let s:gui04 = "b4b7b4"
@@ -263,7 +263,7 @@ call <sid>hi("markdownHeadingDelimiter",  s:gui0D, "", s:cterm0D, "", "")
 " Git highlighting
 call <sid>hi("gitCommitOverflow",  s:gui08, "", s:cterm08, "", "")
 call <sid>hi("gitCommitSummary",   s:gui0B, "", s:cterm0B, "", "")
-  
+
 " GitGutter highlighting
 call <sid>hi("GitGutterAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "")
 call <sid>hi("GitGutterChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "")
