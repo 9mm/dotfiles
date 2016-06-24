@@ -1,8 +1,137 @@
+extends html
 
+###########################################################################
+#                             React                                       #
+###########################################################################
+
+snippet i
+import $1 from '${0:../$1}';
+endsnippet
+
+snippet e
+<$0 />
+endsnippet
+
+snippet rc
+import React, { Component } from 'react';
+import withStyles from '../../decorators/withStyles';
+import styles from './$1.css';
+
+@withStyles(styles)
+
+class ${1} extends Component {
+  render() {
+    return (
+      $0
+    );
+  };
+}
+
+export default $1;
+endsnippet
+
+snippet pt
+static propTypes = {
+  $0
+};
+endsnippet
+
+snippet ptb
+React.PropTypes.bool,$0
+endsnippet
+
+snippet ptbr
+React.PropTypes.bool.isRequired,$0
+endsnippet
+
+snippet pts
+React.PropTypes.string,$0
+endsnippet
+
+snippet ptsr
+React.PropTypes.string.isRequired,$0
+endsnippet
+
+snippet ptn
+React.PropTypes.number,$0
+endsnippet
+
+snippet ptnr
+React.PropTypes.number.isRequired,$0
+endsnippet
+
+snippet pta
+React.PropTypes.array,$0
+endsnippet
+
+snippet ptar
+React.PropTypes.array.isRequired,$0
+endsnippet
+
+snippet pto
+React.PropTypes.object,$0
+endsnippet
+
+snippet ptor
+React.PropTypes.object.isRequired,$0
+endsnippet
+
+snippet ptf
+React.PropTypes.func,$0
+endsnippet
+
+snippet ptfr
+React.PropTypes.func.isRequired,$0
+endsnippet
+
+snippet pte
+React.PropTypes.element,$0
+endsnippet
+
+snippet pter
+React.PropTypes.element.isRequired,$0
+endsnippet
+
+snippet dp
+static defaultProps = {
+  $0
+};
+endsnippet
+
+snippet c
+constructor(props) {
+  super(props);
+  $0
+}
+endsnippet
+
+snippet cdm
+componentDidMount() {
+  $0
+}
+endsnippet
+
+snippet cwm
+componentWillUnmount() {
+  $0
+}
+endsnippet
+
+snippet scu
+shouldComponentUpdate() {
+  $0
+}
+endsnippet
 
 ###########################################################################
 #                             Custom Commands                             #
 ###########################################################################
+
+snippet vf
+var $1 = function() {
+  $0
+};
+endsnippet
 
 snippet con "console log" w
 console.log($1);$0
@@ -10,7 +139,7 @@ endsnippet
 
 snippet j "jquery object" w
 $($1)$0;
-endsnippet  
+endsnippet
 
 snippet ready "document ready" w
 $(function() {
@@ -100,7 +229,7 @@ if ($1) {
   $2
 } else {
   $0
-} 
+}
 endsnippet
 
 snippet if "if"

@@ -13,7 +13,7 @@ snippet title "title"
 endsnippet
 
 snippet form "form" w
-<form action="$1" method="post" accept-charset="utf-8">
+<form action="$1" method="post">
   $0
 </form>
 endsnippet
@@ -41,8 +41,8 @@ endsnippet
 snippet style "style"
 <style type="text/css">
   $0
-</style> 
-endsnippet   
+</style>
+endsnippet
 
 snippet il "inline style" w
 style="$0"
@@ -90,26 +90,26 @@ endsnippet
 
 snippet html "html" w
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <title>$1</title>
 
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/main.css" type="text/css">
 </head>
 <body>
   $0
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </body>
 </html>
 endsnippet
 
-snippet script "js script" 
+snippet script "js script"
 <script ${1:src="$2"}>$0</script>
 endsnippet
 
@@ -127,10 +127,6 @@ endsnippet
 
 snippet s "strong" w
 <strong>$1</strong>$0
-endsnippet
-
-snippet e "em" w
-<em>$1</em>$0
 endsnippet
 
 snippet div "div" w
