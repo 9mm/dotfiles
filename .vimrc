@@ -72,15 +72,17 @@ set tabstop=2
 set expandtab
 set autoindent
 
-" override them anyway
-autocmd FileType css  setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType php  setlocal softtabstop=2 shiftwidth=2 tabstop=2
+" Readme wrapping
+" set textwidth=80
+
+" Overrides
+autocmd FileType sh setlocal softtabstop=4 shiftwidth=4 tabstop=4
 
 " Custom syntaxes
 autocmd BufRead,BufNewFile *.md       set filetype=markdown
 autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
+autocmd BufRead,BufNewFile *.gradle   set filetype=java " Because groovy highlighting is stupid
 
 " Disable left scrollbar
 set guioptions-=L
@@ -159,8 +161,7 @@ set diffopt+=iwhite
 " Enable search highlighting
 set hls
 
-" Set relative numbering
-" set relativenumber
+" No relative numbering
 set number
 
 " Incrementally match the search
@@ -200,12 +201,17 @@ autocmd BufWrite * set nobomb
 "  Plugins  "
 """""""""""""
 
+" Vim-JSX
+let g:jsx_ext_required = 0
+
 " Tabular
 vmap <leader>t= :Tabularize /=<cr>
 vmap <leader>t> :Tabularize /=><cr>
 
 " CTRL-P
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|tmp|\.sass-cache|dist|bower_components|node_modules)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|tmp|\.sass-cache|dist|Pods|build|bower_components|node_modules|_site)$'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path  = 0
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': [],
   \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
@@ -233,9 +239,9 @@ nmap <silent> <leader>es :UltiSnipsEdit<cr>
 " Git Gutter
 nmap <silent> <leader>gg :GitGutterToggle<cr>
 
-" Powerline Statusline
+" Fancy satus line
 set encoding=utf-8
-let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
 
 " DelimitMate
 let g:delimitMate_expand_cr = 2
@@ -243,7 +249,7 @@ let g:delimitMate_expand_space = 1
 
 
 """"""""""""""""""""""""""""""""
-"  Language Specific Bindings  "                           
+"  Language Specific Bindings  "
 """"""""""""""""""""""""""""""""
 
 " HTML
@@ -286,7 +292,10 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <NL> i<CR><ESC>
 
 " insert line below without entering insert mode
-map <CR> o<esc>
+map <cr> o<esc>
+
+" emulate enter then insert while in normal
+map <s-cr> hmua<cr><esc>`u
 
 " Command + Enter doesnt disturb current line
 inoremap <D-CR> <esc>o
@@ -324,6 +333,15 @@ nmap <silent> <leader>u- :t.\|s/./-/g\|:nohls<cr>
 """""""""""""""
 "  Functions  "
 """""""""""""""
+
+" Strip trailing whitespace on save
+function! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 function! RunCurrentTest()
   let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
@@ -367,47 +385,46 @@ endfunction
 
 " Rename current file
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 
 " :Bda to delete all open buffers
-command! -nargs=0 -bang Bda
-    \ :call BufDeleteAll('<bang>')
+command! -nargs=0 -bang Bda :call BufDeleteAll('<bang>')
 function! BufDeleteAll(bang)
-    let last_buffer = bufnr('$')
-    let n = 1
-    while n <= last_buffer
-        if a:bang == '' && getbufvar(n, '&modified')
-            echohl ErrorMsg
-            echomsg 'No write since last change for buffer'
-                        \ n '(add ! to override)'
-            echohl None
-            return 0
-        endif
-        let n = n+1
-    endwhile
-    let delete_count = 0
-    let n = 1
-    while n <= last_buffer
-        if buflisted(n)
-            silent exe 'bdel' . a:bang . ' ' . n
-            if ! buflisted(n)
-                let delete_count = delete_count+1
-            endif
-        endif
-        let n = n+1
-    endwhile
-    if delete_count == 1
-        echomsg delete_count "buffer deleted"
-    elseif delete_count > 1
-        echomsg delete_count "buffers deleted"
+  let last_buffer = bufnr('$')
+  let n = 1
+  while n <= last_buffer
+    if a:bang == '' && getbufvar(n, '&modified')
+      echohl ErrorMsg
+      echomsg 'No write since last change for buffer'
+            \ n '(add ! to override)'
+      echohl None
+      return 0
     endif
+    let n = n+1
+  endwhile
+  let delete_count = 0
+  let n = 1
+  while n <= last_buffer
+    if buflisted(n)
+      silent exe 'bdel' . a:bang . ' ' . n
+      if ! buflisted(n)
+        let delete_count = delete_count+1
+      endif
+    endif
+    let n = n+1
+  endwhile
+  if delete_count == 1
+    echomsg delete_count "buffer deleted"
+  elseif delete_count > 1
+    echomsg delete_count "buffers deleted"
+  endif
 endfunction
 
 
@@ -419,10 +436,10 @@ endfunction
 if exists("&transparency")
   :set transparency=3
   :set background=dark
-  :colorscheme base16-tomorrow
+  :colorscheme atom-dark
 endif
 
-set guifont=Anonymous\ Pro:h14
+set guifont=Anonymous\ Pro\ for\ Powerline:h14
 
 " Returns syntax highlighting group that the current word under the cursor belongs to
 " Useful for custom syntax highlighting
