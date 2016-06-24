@@ -1,3 +1,4 @@
 *.sw[a-z]
 dump.rdb
 .DS_Store
+.localized

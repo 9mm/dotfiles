@@ -1,6 +1,15 @@
 --type-set=haml=.haml
 --type-set=sass=.sass,.scss
 --type-set=coffeescript=.coffee
---ignore-directory=log
 --ignore-directory=coverage
+--ignore-directory=build
+--ignore-directory=fonts
+--ignore-directory=log
+--ignore-directory=bower_components
+--ignore-directory=node_packages
+--ignore-directory=.tmp
+--ignore-directory=tmp
+--ignore-directory=dist
+--ignore-directory=_site
+--ignore-directory=Pods
 --ignore-file=is:tags
