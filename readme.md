@@ -1,11 +1,8 @@
 ## Setup
 
-1. Install packages
+1. Install packages `brew update && brew install macvim ack autojump`
 
-       brew update
-       brew install macvim ack autojump
-
-2. Install the fonts in `Library/Fonts`
+2. Install fonts in `Library/Fonts`
 
 3. Install [iTerm 2](http://www.iterm2.com/).
 
