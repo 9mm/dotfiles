@@ -1,6 +1,8 @@
 alias redodb='rake db:drop && rake db:create && rake db:migrate && rake db:seed'
 alias v='mvim'
 alias o='open .'
-alias brewup='brew update && brew upgrade --all'
+alias brewup='brew update && brew upgrade'
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
 source $HOME/.zsh/aws

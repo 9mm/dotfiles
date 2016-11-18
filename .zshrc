@@ -8,22 +8,28 @@ ZSH_THEME="af-magic"
 source $HOME/.zsh/aliases
 
 # Plugins
-plugins=(git)
+#plugins=(git)
 
 # Paths
 source $ZSH/oh-my-zsh.sh
 
-# Android SDK
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export ANDROID_NDK=/usr/local/opt/android-ndk
+# Load SSH keys after reboot
+ssh-add -A 2>/dev/null
+
+# Brew
+export PATH="/usr/local/bin:$PATH"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+# Android
+export PATH="~/Library/Android/sdk/tools:$PATH"
+export PATH="~/Library/Android/sdk/platform-tools:$PATH"
+
 # Go
 export GOPATH="$HOME/Code"
-export PATH="$PATH:$GOPATH/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$GOPATH:$GOPATH/bin:$PATH"
 
 # Postgres
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
@@ -32,4 +38,4 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 eval "$(rbenv init -)"
 
 # Autojump
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh

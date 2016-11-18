@@ -209,6 +209,7 @@ vmap <leader>t= :Tabularize /=<cr>
 vmap <leader>t> :Tabularize /=><cr>
 
 " CTRL-P
+map <d-5> <f5>
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|tmp|\.sass-cache|dist|Pods|build|bower_components|node_modules|_site)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
