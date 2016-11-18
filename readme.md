@@ -2,8 +2,8 @@
 
 1. Install packages
 
-    brew update
-    brew install macvim ack autojump
+      brew update
+      brew install macvim ack autojump
 
 2. Install the fonts in `Library/Fonts`
 
