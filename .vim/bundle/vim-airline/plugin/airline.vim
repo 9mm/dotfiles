@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
@@ -37,6 +39,14 @@ function! s:on_window_changed()
   if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
     return
   endif
+  " Handle each window only once, since we might come here several times for
+  " different autocommands.
+  let l:key = [bufnr('%'), winnr(), winnr('$'), tabpagenr()]
+  if get(g:, 'airline_last_window_changed', []) == l:key
+        \ && &stl is# '%!airline#statusline('.winnr().')'
+    return
+  endif
+  let g:airline_last_window_changed = l:key
   call s:init()
   call airline#update_statusline()
 endfunction
@@ -52,7 +62,7 @@ function! s:on_colorscheme_changed()
   call airline#load_theme()
 endfunction
 
-function airline#cmdwinenter(...)
+function! airline#cmdwinenter(...)
   call airline#extensions#apply_left_override('Command Line', '')
 endfunction
 
@@ -79,10 +89,11 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
-      autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
+      autocmd SessionLoadPost,VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
 
-      autocmd TabEnter * :unlet! w:airline_lastmode
+      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
             \ | call airline#load_theme()
@@ -110,7 +121,15 @@ function! s:airline_theme(...)
 endfunction
 
 function! s:airline_refresh()
-  silent doautocmd User AirlineBeforeRefresh
+  if !exists("#airline")
+    " disabled
+    return
+  endif
+  let nomodeline=''
+  if v:version > 703 || v:version == 703 && has("patch438")
+    let nomodeline = '<nomodeline>'
+  endif
+  exe printf("silent doautocmd %s User AirlineBeforeRefresh", nomodeline)
   call airline#load_theme()
   call airline#update_statusline()
 endfunction

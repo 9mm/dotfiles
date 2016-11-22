@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 function! airline#extensions#wordcount#formatters#default#format()
   let words = string(s:wordcount())
   if empty(words)
@@ -48,7 +50,7 @@ function! s:wordcount()
   endif
 endfunction
 
-function s:get_decimal_group()
+function! s:get_decimal_group()
   if match(v:lang, '\v\cC|en') > -1
     return ','
   elseif match(v:lang, '\v\cde|dk|fr|pt') > -1

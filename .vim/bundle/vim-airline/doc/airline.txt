@@ -140,6 +140,10 @@ values):
 * disable the Airline customization for selective windows (this is a
   window-local variable so you can disable it for only some windows) >
   let w:airline_disabled = 1
+
+* Do not draw separators for empty sections (only for the active window)
+ >
+  let g:airline_skip_empty_sections = 1
 <
 
 ==============================================================================
@@ -164,6 +168,7 @@ Airline comes with some user-defined autocommands.
 
 |AirlineAfterInit|     after plugin is initialized, but before the statusline
                     is replaced
+|AirlineAfterTheme|   after theme of the statusline has been changed
 |AirlineToggledOn|    after airline is activated and replaced the statusline
 |AirlineToggledOff|   after airline is deactivated and the statusline is
                     restored to the original
@@ -190,6 +195,8 @@ its contents. >
   let g:airline_symbols.linenr = '␊'
   let g:airline_symbols.linenr = '␤'
   let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.maxlinenr = '☰'
+  let g:airline_symbols.maxlinenr = ''
   let g:airline_symbols.branch = '⎇'
   let g:airline_symbols.paste = 'ρ'
   let g:airline_symbols.paste = 'Þ'
@@ -316,9 +323,16 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
   let g:airline#extensions#bufferline#overwrite_variables = 1
 <
 -------------------------------------                       *airline-branch*
+
+vim-airline will display the branch-indicator together with the branch name in
+the statusline, if one of the following plugins is installed:
+
 fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
+
+If a file is edited, that is not yet in the repository, the
+notexists symbol will be displayed after the branch name.
 
 * enable/disable fugitive/lawrencium integration >
   let g:airline#extensions#branch#enabled = 1
@@ -359,6 +373,10 @@ syntastic <https://github.com/scrooloose/syntastic>
 
 * enable/disable syntastic integration >
   let g:airline#extensions#syntastic#enabled = 1
+
+  Note: The recommendation from syntastic to modify the statusline directly
+  does not apply, if you use vim-airline, since it will take care for you of
+  adjusting the statusline.
 <
 -------------------------------------                       *airline-tagbar*
 tagbar <https://github.com/majutsushi/tagbar>
@@ -476,6 +494,9 @@ eclim <https://eclim.org>
   " trailing: trailing whitespace
   " mixed-indent-file: different indentation in different lines
   let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+
+  " this can also be configured for an individual buffer
+  let b:airline_whitespace_checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
 <
 * configure the maximum number of lines where whitespace checking is enabled. >
   let g:airline#extensions#whitespace#max_lines = 20000
@@ -491,6 +512,19 @@ eclim <https://eclim.org>
 
 * configure custom trailing whitespace regexp rule >
   let g:airline#extensions#whitespace#trailing_regexp = '\s$'
+
+* configure, which filetypes have special treatment of /* */ comments,
+  matters for mix-indent-file algorithm: >
+  let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
+<
+* disable whitespace checking for an individual buffer >
+  " Checking is enabled by default because b:airline_whitespace_disabled
+  " is by default not defined:
+  unlet b:airline_whitespace_disabled
+
+  " If b:airline_whitespace_disabled is defined and is non-zero for a buffer,
+  " then whitespace checking will be disabled for that buffer; for example:
+  " let b:airline_whitespace_disabled = 1
 <
 -------------------------------------                      *airline-tabline*
 Note: If you're using the ctrlspace tabline only the option marked with (c)
@@ -508,6 +542,11 @@ are supported!
 * enable/disable displaying buffers with a single tab. (c)
   let g:airline#extensions#tabline#show_buffers = 1
 <
+
+Note: If you are using neovim (has('tablineat') = 1), then you can click
+on the tabline with the left mouse button to switch to that buffer, and
+with the middle mouse button to delete that buffer.
+
 * enable/disable displaying tabs, regardless of number. (c)
   let g:airline#extensions#tabline#show_tabs = 1
 <
@@ -527,6 +566,9 @@ are supported!
 
 * enable/disable displaying tab type (far right) >
   let g:airline#extensions#tabline#show_tab_type = 1
+  
+  Note: The tab-type will only be displayed in tab-mode, 
+  if there are no splits shown. (See: g:airline#extensions#tabline#show_splits)
 
 * rename label for buffers (default: 'buffers') (c)
   let g:airline#extensions#tabline#buffers_label = 'b'
@@ -694,6 +736,15 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 * set marked window indicator string >
   let g:airline#extensions#windowswap#indicator_text = 'WS'
 <
+-------------------------------------                    *airline-obsession*
+vim-obsession <https://github.com/tpope/vim-obsession>
+
+* enable/disable vim-obsession integration >
+  let g:airline#extensions#obsession#enabled = 1
+
+* set marked window indicator string >
+  let g:airline#extensions#obsession#indicator_text = '$'
+<
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 
@@ -796,10 +847,18 @@ colors instead of the section's default foreground color.
 
 The following accents are defined by default. Themes can define their variants
 of the colors, but defaults will be provided if missing. >
-  bold, italic, red, green, blue, yellow, orange, purple
+  bold, italic, red, green, blue, yellow, orange, purple, none
 <
 The defaults configure the mode and line number parts to be bold, and the
 readonly part to be red.
+
+"none" is special. This can be used, to remove a bold accent from an existing
+theme. For example, usually the mode part of the statusline is usually defined
+to be bold. However, it can be hard to remove an existing bold accent from the
+default configuration. Therefore, you can use the none accent to remove
+existing accents, so if you put >
+    call airline#parts#define_accent('mode', 'none')
+the mode section will be set to non-bold font style.
 
 -------------------------------------                     *airline-sections*
 Once a part is defined, you can use helper functions to generate the

@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:prototype = {}
 
 function! s:prototype.split(...)
@@ -8,7 +10,8 @@ function! s:prototype.split(...)
 endfunction
 
 function! s:prototype.add_section_spaced(group, contents)
-  call self.add_section(a:group, (g:airline_symbols.space).a:contents.(g:airline_symbols.space))
+  let spc = empty(a:contents) ? '' : g:airline_symbols.space
+  call self.add_section(a:group, spc.a:contents.spc)
 endfunction
 
 function! s:prototype.add_section(group, contents)
@@ -37,12 +40,33 @@ function! s:prototype.build()
   let i = 0
   let length = len(self._sections)
   let split = 0
+  let is_empty = 0
+  let prev_group = ''
 
   while i < length
     let section = self._sections[i]
     let group = section[0]
     let contents = section[1]
+    let pgroup = prev_group
     let prev_group = s:get_prev_group(self._sections, i)
+    if group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
+      let group = 'airline_c'. self._context.bufnr
+    elseif prev_group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
+      let prev_group = 'airline_c'. self._context.bufnr
+    endif
+    if is_empty
+      let prev_group = pgroup
+    endif
+    let is_empty = s:section_is_empty(self, contents)
+
+    if is_empty
+      " need to fix highlighting groups, since we
+      " have skipped a section, we actually need
+      " the previous previous group and so the
+      " seperator goes from the previous previous group
+      " to the current group
+      let pgroup = group
+    endif
 
     if group == ''
       let line .= contents
@@ -54,18 +78,23 @@ function! s:prototype.build()
       if prev_group == ''
         let line .= '%#'.group.'#'
       elseif split
-        let line .= s:get_transitioned_seperator(self, prev_group, group, side)
+        if !is_empty
+          let line .= s:get_transitioned_seperator(self, prev_group, group, side)
+        endif
         let split = 0
       else
-        let line .= s:get_seperator(self, prev_group, group, side)
+        if !is_empty
+          let line .= s:get_seperator(self, prev_group, group, side)
+        endif
       endif
-      let line .= s:get_accented_line(self, group, contents)
+      let line .= is_empty ? '' : s:get_accented_line(self, group, contents)
     endif
 
     let i = i + 1
   endwhile
 
   if !self._context.active
+    "let line = substitute(line, '%#airline_c#', '%#airline_c'.self._context.bufnr.'#', '')
     let line = substitute(line, '%#.\{-}\ze#', '\0_inactive', 'g')
   endif
   return line
@@ -116,6 +145,48 @@ function! s:get_accented_line(self, group, contents)
     let line = substitute(line, '%#__restore__#', '', 'g')
   endif
   return line
+endfunction
+
+function! s:section_is_empty(self, content)
+  let start=1
+
+  " do not check for inactive windows or the tabline
+  if a:self._context.active == 0
+    return 0
+  elseif get(a:self._context, 'tabline', 0)
+    return 0
+  endif
+
+  " only check, if airline#skip_empty_sections == 1
+  if get(g:, 'airline_skip_empty_sections', 0) == 0
+    return 0
+  endif
+  " assume accents sections to be never empty
+  " (avoides, that on startup the mode message becomes empty)
+  if match(a:content, '%#__accent_[^#]*#.*__restore__#') > -1
+    return 0
+  endif
+  if empty(a:content)
+    return 1
+  endif
+  let list=matchlist(a:content, '%{\zs.\{-}\ze}', 1, start)
+  if empty(list)
+    return 0 " no function in statusline text
+  endif
+  while len(list) > 0
+    let expr = list[0]
+    try
+      " catch all exceptions, just in case
+      if !empty(eval(expr))
+        return 0
+      endif
+    catch
+      return 0
+    endtry
+    let start += 1
+    let list=matchlist(a:content, '%{\zs.\{-}\ze}', 1, start)
+  endw
+  return 1
 endfunction
 
 function! airline#builder#new(context)
