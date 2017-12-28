@@ -53,6 +53,7 @@ values."
      (ruby :variables ruby-version-manager 'rbenv)
      ruby-on-rails
      (shell :variables
+            shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'bottom)
      (spell-checking :variables spell-checking-enable-by-default nil)
@@ -69,13 +70,8 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(
-                                    ;; github.com/syl20bnr/spacemacs/issues/9626
-                                    firebelly-theme
-                                    niflheim-theme
-                                    pastels-on-dark-theme
-                                    tronesque-theme
-                                    zonokai-theme)
+   ;; github.com/syl20bnr/spacemacs/issues/9626
+   dotspacemacs-excluded-packages '(firebelly-theme niflheim-theme pastels-on-dark-theme tronesque-theme zonokai-theme)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -135,7 +131,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+                                (projects . 5))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -143,10 +139,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(noctilux
-                         molokai
-                         spacemacs-dark
-                         spolsky)
+   dotspacemacs-themes '(noctilux molokai spacemacs-dark spolsky)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -309,7 +302,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -328,8 +321,26 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; Don't allow Vim normal mode in shell. You can still access vim with C-z
-  (evil-set-initial-state 'term-mode 'emacs)
+  ;; 2-space indent
+  (setq-default tab-width 2)
+  (setq-default
+   css-indent-offset tab-width
+   js-indent-level tab-width
+   js2-basic-offset tab-width
+   web-mode-attr-indent-offset tab-width
+   web-mode-css-indent-offset tab-width
+   web-mode-code-indent-offset tab-width
+   web-mode-markup-indent-offset tab-width
+   sh-basic-offset tab-width
+   sh-indentation tab-width)
+  ;; Proper Vim indenting
+  (setq-default evil-shift-round nil)
+  ;; No newline at end of file
+  (setq require-final-newline nil)
+  ;; Smooth scrolling
+  (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; Three lines at a time
+  (setq mouse-wheel-progressive-speed nil)            ;; Don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't)                  ;; Scroll window under mouse
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
