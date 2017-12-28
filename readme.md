@@ -21,6 +21,7 @@ Enable Git colorization
 
     brew tap d12frosted/emacs-plus
     brew install emacs-plus --with-24bit-color --with-natural-title-bar --without-spacemacs-icon
+    npm install -g tern # for the javascript layer
     
 Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-blog-posts-wiki/109?source_topic_id=3191)
 
