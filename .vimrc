@@ -101,6 +101,12 @@ let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 
+" vim-yankstack
+call yankstack#setup() " prevents conflict with vim-surround
+if has("gui_running")
+  set macmeta
+endif
+
 
 """ OPTIONS
 
