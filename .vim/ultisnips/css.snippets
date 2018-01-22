@@ -1,0 +1,129 @@
+snippet css
+/* setup */
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, segoe ui, sans-serif;
+  line-height: 1.6;
+  color: #111;
+}
+
+*:focus {
+  outline: 0;
+}
+
+/* elements */
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* buttons */
+
+/* forms */
+
+/* tables */
+
+/* layout */
+
+.wrapper {
+	$0
+}
+
+/* header */
+
+/* content */
+
+/* footer */
+endsnippet
+
+# margin
+
+snippet mt
+margin-top: $1${2:px};$0
+endsnippet
+
+snippet mr
+margin-right: $1${2:px};$0
+endsnippet
+
+snippet mb
+margin-bottom: $1${2:px};$0
+endsnippet
+
+snippet ml
+margin-left: $1${2:px};$0
+endsnippet
+
+snippet mtt
+margin-top: 0;
+endsnippet
+
+snippet mrr
+margin-right: 0;
+endsnippet
+
+snippet mbb
+margin-bottom: 0;
+endsnippet
+
+snippet mll
+margin-left: 0;
+endsnippet
+
+# padding
+
+snippet pt
+padding-top: $1${2:px};
+endsnippet
+
+snippet pr
+padding-right: $1${2:px};
+endsnippet
+
+snippet pb
+padding-bottom: $1${2:px};
+endsnippet
+
+snippet pl
+padding-left: $1${2:px};
+endsnippet
+
+snippet ptt
+padding-top: 0;
+endsnippet
+
+snippet prr
+padding-right: 0;
+endsnippet
+
+snippet pbb
+padding-bottom: 0;
+endsnippet
+
+snippet pll
+padding-left: 0;
+endsnippet
+
+# borders
+
+snippet bn
+border: none;
+endsnippet
+
+# fonts
+
+snippet fs
+font-size: $1${2:px};
+endsnippet

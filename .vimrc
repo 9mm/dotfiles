@@ -1,390 +1,327 @@
-
-"""""""""""""""""""""""""""
-"  TEMP ANGULAR TRANSLATE "
-"""""""""""""""""""""""""""
-
-nnoremap ta ci"{{'' \| translate}}<esc>F'i
-nnoremap tt dithi translate<esc>f<i
-
-
-"""""""""""""""""
-"  To Remember  "
-"""""""""""""""""
 "
-" Normal:
-" <c+w><c+]>  open ctags in split
-" gi          go to last position of insert mode
-" q:          open last command window, enter to run
+"                               ____
+"                ,---,        ,'  , `.
+"        ,---.,`--.' |     ,-+-,.' _ |
+"       /__./||   :  :  ,-+-. ;   , ||
+"  ,---.;  ; |:   |  ' ,--.'|'   |  ;|
+" /___/ \  | ||   :  ||   |  ,', |  ':
+" \   ;  \ ' |'   '  ;|   | /  | |  ||
+"  \   \  \: ||   |  |'   | :  | :  |,
+"   ;   \  ' .'   :  ;;   . |  ; |--'
+"    \   \   '|   |  '|   : |  | ,
+"     \   `  ;'   :  ||   : '  |/
+"      :   \ |;   |.' ;   | |`-'
+"       '---" '---'   |   ;/
+"                     '---'
 "
-" Insert:
-" <c-j>       enter
-" <c-h>       backspace
-" <c-u>       delete whole line
-" <c-r>       access register. <c-r>/ to put search
-" <c-x><c-l>  line completion
-" <c-o>       run single normal mode command
-"
-" OSX:
-" <c-a>       jump to beginning of line
-" <c-e>       jump to end of line
-" <c-b>       move left one character
-" <c-f>       move right one character
-" <c-n>       move down one line
-" <c-p>       move up one line
-" <c-k>       delete remainder of current paragraph
-" <c-y>       paste text from <c-k>
-" <c-h>       backspace
-" <c-v>       page down
+
+""" VUNDLE
+
+set rtp+=~/.vim/bundle/vim-vundle
+call vundle#begin()
+
+Plugin 'mileszs/ack.vim',                        {'name': 'vim-ack'}
+Plugin 'vim-airline/vim-airline',                {'name': 'vim-airline'}
+Plugin 'vim-airline/vim-airline-themes',         {'name': 'vim-airline-themes'}
+Plugin 'slashmili/alchemist.vim',                {'name': 'vim-alchemist'}
+Plugin 'hail2u/vim-css3-syntax',                 {'name': 'vim-css3-syntax'}
+Plugin 'ctrlpvim/ctrlp.vim',                     {'name': 'vim-ctrlp'}
+Plugin 'Raimondi/delimitMate',                   {'name': 'vim-delimitmate'}
+Plugin 'junegunn/vim-easy-align',                {'name': 'vim-easy-align'}
+Plugin 'elixir-editors/vim-elixir',              {'name': 'vim-elixir'}
+Plugin 'airblade/vim-gitgutter',                 {'name': 'vim-gitgutter'}
+Plugin 'fatih/vim-go',                           {'name': 'vim-go'}
+Plugin 'othree/html5.vim',                       {'name': 'vim-html5'}
+Plugin 'pangloss/vim-javascript',                {'name': 'vim-javascript'}
+Plugin 'othree/javascript-libraries-syntax.vim', {'name': 'vim-javascript-libraries'}
+Plugin 'tpope/vim-markdown',                     {'name': 'vim-markdown'}
+Plugin 'scrooloose/nerdcommenter',               {'name': 'vim-nerd-commenter'}
+Plugin 'scrooloose/nerdtree',                    {'name': 'vim-nerdtree'}
+Plugin 'chr4/nginx.vim',                         {'name': 'vim-nginx'}
+Plugin 'prettier/vim-prettier',                  {'name': 'vim-prettier'}
+Plugin 'tpope/vim-rails',                        {'name': 'vim-rails'}
+Plugin 'tpope/vim-repeat',                       {'name': 'vim-repeat'}
+Plugin 'cakebaker/scss-syntax.vim',              {'name': 'vim-scss'}
+Plugin 'justinmk/vim-sneak',                     {'name': 'vim-sneak'}
+Plugin 'tpope/vim-surround',                     {'name': 'vim-surround'}
+Plugin 'SirVer/ultisnips',                       {'name': 'vim-ultisnips'}
+Plugin 'VundleVim/Vundle.vim',                   {'name': 'vim-vundle'}
+Plugin 'maxbrunsfeld/vim-yankstack',             {'name': 'vim-yankstack'}
+
+call vundle#end()
 
 
-"""""""""""""""""
-"  Main Config  "
-"""""""""""""""""
+""" CORE
+
+" filetype setup
+filetype plugin indent on
+
+" syntax highlighting
+syntax on
+
+
+""" VARIABLES
+
+" leader key
+let mapleader = ","
+
+
+""" BUNDLE CONFIG
+
+" vim-airline
+set encoding=utf-8
+let g:airline_powerline_fonts = 1
+
+" vim-ctrlp
+map <d-5> <f5>
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|tmp)$'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path  = 0
+let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
+
+" vim-delimitmate
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_space = 1
+
+" vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" vim-gitgutter
+set updatetime=250
+nmap <silent> <leader>gg :GitGutterToggle<cr>
+
+" vim-nerdtree
+map <leader>v :NERDTreeToggle<cr>
+
+" vim-ultisnips
+nmap <silent> <leader>es :UltiSnipsEdit<cr>
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+
+
+""" OPTIONS
 
 " no vi
 set nocompatible
 
-" Pathogen
-execute pathogen#infect()
+" gui options
+set guioptions-=L " disable left scrollbar
+set guioptions-=T " remove toolbar
 
-" Map leader key to comma
-let mapleader = ","
-
-" Edit the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" system clipboard
-" set clipboard=unnamed
-
-" No splash screen
-set shortmess+=I
-
-" Filetype stuff
-filetype on
-filetype plugin on
-filetype indent on
-
-" Tabstops are 2 spaces
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
-set expandtab
-set autoindent
-
-" Readme wrapping
-" set textwidth=80
-
-" Overrides
-autocmd FileType sh setlocal softtabstop=4 shiftwidth=4 tabstop=4
-
-" Custom syntaxes
-autocmd BufRead,BufNewFile *.md       set filetype=markdown
-autocmd BufRead,BufNewFile *.conf     set filetype=ini
-autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
-autocmd BufRead,BufNewFile *.gradle   set filetype=java " Because groovy highlighting is stupid
-
-" Disable left scrollbar
-set guioptions-=L
-
-" Remove toolbar
-set guioptions-=T
-
-" No wordwrap by default
-set nowrap
-
-" Search stuff
-set wrapscan
-set ignorecase
-
-" Make command line two lines high
-set ch=2
-
-" set visual bell -- i hate that damned beeping
-set vb
-
-" Allow backspacing over indent, eol, and the start of an insert
-set backspace=2
-
-" tell VIM to always put a status line in, even if there is only one window
-set laststatus=2
-
-" Don't update the display while executing macros
-set lazyredraw
-
-" Don't show the current command in the lower right corner.  In OSX, if this is
-" set and lazyredraw is set then it's slow as molasses, so we unset this
-set showcmd
-
-" Show the current mode
-set showmode
-
-" Show tab bar
-set showtabline=2
-
-" Switch on syntax highlighting.
-syntax on
-
-" Hide the mouse pointer while typing
-set mousehide
-
-" Set up the gui cursor to look nice
-set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-
-" This is the timeout used while waiting for user input on a multi-keyed macro
-" or while just sitting and waiting for another key to be pressed measured
-" in milliseconds.
-set timeoutlen=500
-
-" Keep some stuff in the history
-set history=100
-
-" These commands open folds
-set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
-
-" When the page starts to scroll, keep the cursor 8 lines from the top and 8
-" lines from the bottom
-set scrolloff=8
-
-" Allow the cursor to go in to "invalid" places
-set virtualedit=all
-
-" Make the command-line completion better
-set wildmenu
-
-" get rid of the silly characters in separators
-set fillchars = ""
-
-" Add ignorance of whitespace to diff
-set diffopt+=iwhite
-
-" Enable search highlighting
-set hls
-
-" No relative numbering
-set number
-
-" Incrementally match the search
-set incsearch
-
-" Automatically read a file that has changed on disk
-set autoread
-
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=500
-
-" Highlight the current line and column
-" Don't do this - It makes window redraws painfully slow
+" don't line/column highlighting (slow)
 set nocursorline
 set nocursorcolumn
 
+" code folding
+set foldmethod=indent
+set nofoldenable
 
-""""""""""""""""""
-"  Autocommands  "
-""""""""""""""""""
+" commands which open folds
+set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
-" Remember last location in file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal g'\"" | endif
-endif
+" no splash screen
+set shortmess+=I
 
-" Remove windows bullshit
+" disable wordwrap
+set nowrap
+
+" better join
+set formatoptions+=j
+
+" search
+set wrapscan
+
+" ignore case while searching
+set ignorecase
+
+" search highlighting
+set hls
+
+" search as you type
+set incsearch
+
+" command line height
+set ch=2
+
+" no visual bell
+set vb
+
+" allow backspacing over indent, eol, and start of insert
+set backspace=2
+
+" always show status line, even if only one window
+set laststatus=2
+
+" don't update display while executing macros
+set lazyredraw
+
+" show current mode
+set showmode
+
+" show commands while typing
+set showcmd
+
+" show buffer tabs
+set showtabline=2
+
+" hide mouse while typing
+set mousehide
+
+" set gui cursor to look nice
+set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+
+" allow cursor to go anywhere
+set virtualedit=all
+
+" macro wait time
+set timeoutlen=500
+
+" history length
+set history=1000
+
+" scroll when 8 lines away from edge
+set scrolloff=8
+
+" for command-line completion
+set wildmenu
+
+" no characters in separators
+set fillchars = ""
+
+" ignore whitespace in diff
+set diffopt+=iwhite
+
+" fixed line numbers
+set number
+
+" automatically read file after changes on disk
+set autoread
+
+" syntax highlighting max
+set synmaxcol=500
+
+" ctags
+set tags=./tags
+
+" ack
+set grepprg=ack
+
+" tab config
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+
+" text wrapping
+set textwidth=80
+
+
+""" AUTO COMMANDS
+
+" override tab config
+autocmd FileType sh setlocal softtabstop=4 shiftwidth=4 tabstop=4
+
+" filetype
+autocmd BufRead,BufNewFile *.conf   set filetype=ini
+autocmd BufRead,BufNewFile *.css    set filetype=scss " postCSS doesn't require .scss extension
+autocmd BufRead,BufNewFile *.gradle set filetype=java " because groovy highlighting is stupid
+
+" remember last location in file
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+" remove windows bullshit
 autocmd BufWrite * set ff=unix
 autocmd BufWrite * :%s/\r//ge
 
-" Remove Byte Order Mark bullshit
+" remove byte order mark bullshit
 autocmd BufWrite * set nobomb
 
-
-"""""""""""""
-"  Plugins  "
-"""""""""""""
-
-" Vim-JSX
-let g:jsx_ext_required = 0
-
-" Tabular
-vmap <leader>t= :Tabularize /=<cr>
-vmap <leader>t> :Tabularize /=><cr>
-
-" CTRL-P
-map <d-5> <f5>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|tmp|\.sass-cache|dist|Pods|build|bower_components|node_modules|_site)$'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path  = 0
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': [],
-  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-  \ }
-
-" NERDTree
-map <leader>v :NERDTreeToggle<cr>
-
-" Ctags
-map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<cr>
-set tags=./tags
-
-" Ack
-set grepprg=ack
-map <c-n> :cn<cr>
-map <c-p> :cp<cr>
-
-" Ultisnips
-let g:UltiSnipsSnippetDirectories = ["snippets"]
-let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-nmap <silent> <leader>es :UltiSnipsEdit<cr>
-
-" Git Gutter
-nmap <silent> <leader>gg :GitGutterToggle<cr>
-
-" Fancy satus line
-set encoding=utf-8
-let g:airline_powerline_fonts = 1
-
-" DelimitMate
-let g:delimitMate_expand_cr = 2
-let g:delimitMate_expand_space = 1
+" function: strip trailing whitespace on save
+autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
 
 
-""""""""""""""""""""""""""""""""
-"  Language Specific Bindings  "
-""""""""""""""""""""""""""""""""
+""" MAPPINGS
 
-" HTML
+" html
 map <leader>b <s-s>tstrong>
 map <leader>e <s-s>tem>
 map <leader>p <esc>^i<p><esc>$a</p><esc>^
 map <leader>a <s-s>ta href="#">f#xi
-nnoremap <leader>a f>
-map <leader>g <s-s>"i<?= __(<esc>lx/"<cr>:nohls<cr>a); ?><esc>
 
-" Haml
-map <leader>ch 0<c-v>lr/<cr>
+" rails
+inoremap <d-lt> <%=  %><esc>hhi
+inoremap <d->> <%  %><esc>hhi
 
-" Rails
-inoremap <D-lt> <%=  %><esc>hhi
-inoremap <D->> <%  %><esc>hhi
+" css
+nmap <leader>i =i{ " format inner {}
+inoremap <d-s-cr> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
 
-" CSS
-nmap <leader>i =i{
-inoremap <D-S-CR> <esc>:/}<cr>o<cr><esc>:nohls<cr>cc
+" .vimrc
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>sv :so $MYVIMRC<cr>
 
-
-"""""""""""""""""""""
-"  Custom Bindings  "
-"""""""""""""""""""""
-
-map <leader>rn :call RenameFile()<cr>
-map <leader>rf :call RunCurrentTest()<cr>
-map <leader>rl :call RunCurrentLineInTest()<cr>
-map <leader>2  :set shiftwidth=2<cr>
-map <leader>4  :set shiftwidth=4<cr>
-
-" Better splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Line break in normal mode
-nnoremap <NL> i<CR><ESC>
-
-" insert line below without entering insert mode
-map <cr> o<esc>
-
-" emulate enter then insert while in normal
-map <s-cr> hmua<cr><esc>`u
-
-" Command + Enter doesnt disturb current line
-inoremap <D-CR> <esc>o
-
-" File Movement
+" better up and down
 map j gj
 map k gk
 
-" Indenting in insert
+" better splits
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+
+" better horizontal scrolling
+nmap <silent> <c-o> 10zl
+nmap <silent> <c-i> 10zh
+
+" return without disturbing line in insert mode
+inoremap <d-cr> <esc>o
+
+" return from normal mode
+map <cr> o<esc>
+
+" toggle word wrap
+nmap <silent> <leader>ww :set invwrap<cr>:set wrap?<cr>
+
+" indenting from insert mode
 inoremap <D-]> <esc>>>i
 inoremap <D-[> <esc><<i
 
-" Easy match bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
+" clear highlight search
+nmap <silent> <leader>n :nohls<cr>
 
-" Disable highlight search
-nmap <silent> <leader>n :nohls<CR>
-
-" set text wrapping toggles
-nmap <silent> <leader>ww :set invwrap<CR>:set wrap?<CR>
-
-" Delete empty lines
+" delete empty lines
 nmap <leader>del :g/^$/d<cr>
 
-" Make horizontal scrolling easier
-nmap <silent> <C-o> 10zl
-nmap <silent> <C-i> 10zh
+" ctags
+map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<cr>
 
-" Underline the current line with '='
-nmap <silent> <leader>u= :t.\|s/./=/g\|:nohls<cr>
-nmap <silent> <leader>u- :t.\|s/./-/g\|:nohls<cr>
+" show syntax highlighting group under cursor (for theming)
+nmap <silent> <leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
+
+" function: rename file
+map <leader>rn :call RenameFile()<cr>
 
 
-"""""""""""""""
-"  Functions  "
-"""""""""""""""
+""" COMMANDS
 
-" Strip trailing whitespace on save
-function! <SID>StripTrailingWhitespaces()
+" function: delete all open buffers with :Bda
+command! -nargs=0 -bang Bda :call BufDeleteAll('<bang>')
+
+
+""" FUNCTIONS
+
+function! <sid>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-function! RunCurrentTest()
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-    if match(expand('%'), '\.feature$') != -1
-      call SetTestRunner("!cucumber")
-      exec g:bjo_test_runner g:bjo_test_file
-    elseif match(expand('%'), '_spec\.rb$') != -1
-      call SetTestRunner("!zeus rspec")
-      exec g:bjo_test_runner g:bjo_test_file
-    else
-      call SetTestRunner("!ruby -Itest")
-      exec g:bjo_test_runner g:bjo_test_file
-    endif
-  else
-    exec g:bjo_test_runner g:bjo_test_file
-  endif
-endfunction
-
-function! SetTestRunner(runner)
-  let g:bjo_test_runner=a:runner
-endfunction
-
-function! RunCurrentLineInTest()
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call SetTestFileWithLine()
-  end
-  exec "!zeus rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
-endfunction
-
-function! SetTestFile()
-  let g:bjo_test_file=@%
-endfunction
-
-function! SetTestFileWithLine()
-  let g:bjo_test_file=@%
-  let g:bjo_test_file_line=line(".")
-endfunction
-
-" Rename current file
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
@@ -395,8 +332,6 @@ function! RenameFile()
   endif
 endfunction
 
-" :Bda to delete all open buffers
-command! -nargs=0 -bang Bda :call BufDeleteAll('<bang>')
 function! BufDeleteAll(bang)
   let last_buffer = bufnr('$')
   let n = 1
@@ -429,19 +364,13 @@ function! BufDeleteAll(bang)
 endfunction
 
 
-"""""""""""
-"  Style  "
-"""""""""""
+""" STYLE
 
-" Set up the window colors and size
 if exists("&transparency")
-  :set transparency=3
-  :set background=dark
-  :colorscheme atom-dark
+  set transparency=3
+  set background=dark
+
+  colorscheme atom-dark "dracula
 endif
 
 set guifont=Anonymous\ Pro\ for\ Powerline:h14
-
-" Returns syntax highlighting group that the current word under the cursor belongs to
-" Useful for custom syntax highlighting
-nmap <silent> <leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
