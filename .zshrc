@@ -29,7 +29,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # Postgres
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
-
 # Go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
