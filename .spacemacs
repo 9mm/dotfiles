@@ -49,6 +49,7 @@ values."
      markdown
      (org :variables org-enable-github-support t)
      osx
+     racket
      (ruby :variables ruby-version-manager 'rbenv)
      ruby-on-rails
      (shell :variables
@@ -65,12 +66,19 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   ;; GitHub packages: github.com/mbertheau/spacemacs-faq/wiki#how-do-i-install-an-emacs-package-from-github
+   dotspacemacs-additional-packages '(doom-themes
+                                      (highlight-sexp :location (recipe :fetcher github :repo "daimrod/highlight-sexp"))
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    ;; github.com/syl20bnr/spacemacs/issues/9626
-   dotspacemacs-excluded-packages '(firebelly-theme niflheim-theme pastels-on-dark-theme tronesque-theme zonokai-theme)
+   dotspacemacs-excluded-packages '(firebelly-theme
+                                    niflheim-theme
+                                    pastels-on-dark-theme
+                                    tronesque-theme
+                                    zonokai-theme)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -138,7 +146,14 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(noctilux molokai spacemacs-dark spolsky)
+   dotspacemacs-themes '(noctilux
+                         dracula
+                         doom-one
+                         doom-nova
+                         doom-molokai
+                         molokai
+                         spolsky
+                         spacemacs-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -284,7 +299,7 @@ values."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'current
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
@@ -304,6 +319,37 @@ values."
    dotspacemacs-whitespace-cleanup 'trailing
    ))
 
+;; Custom Functions
+(defun save-framegeometry ()
+  (let ((framegeometry-left (frame-parameter (selected-frame) 'left))
+        (framegeometry-top (frame-parameter (selected-frame) 'top))
+        (framegeometry-width (frame-parameter (selected-frame) 'width))
+        (framegeometry-height (frame-parameter (selected-frame) 'height))
+        (framegeometry-file (expand-file-name "~/.emacs.d/framegeometry")))
+
+    (when (not (number-or-marker-p framegeometry-left)) (setq framegeometry-left 0))
+    (when (not (number-or-marker-p framegeometry-top)) (setq framegeometry-top 0))
+    (when (not (number-or-marker-p framegeometry-width)) (setq framegeometry-width 0))
+    (when (not (number-or-marker-p framegeometry-height)) (setq framegeometry-height 0))
+
+    (with-temp-buffer
+      (insert
+       ";;; This is the previous emacs frame's geometry.\n"
+       ";;; Last generated " (current-time-string) ".\n"
+       "(setq initial-frame-alist\n"
+       "      '(\n"
+       (format "        (top . %d)\n" (max framegeometry-top 0))
+       (format "        (left . %d)\n" (max framegeometry-left 0))
+       (format "        (width . %d)\n" (max framegeometry-width 0))
+       (format "        (height . %d)))\n" (max framegeometry-height 0)))
+      (when (file-writable-p framegeometry-file)
+        (write-file framegeometry-file)))))
+
+(defun load-framegeometry ()
+  (let ((framegeometry-file (expand-file-name "~/.emacs.d/framegeometry")))
+    (when (file-readable-p framegeometry-file)
+      (load-file framegeometry-file))))
+
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
@@ -311,6 +357,13 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; Remember window size in GUI
+  (if window-system
+      (progn
+        (add-hook 'after-init-hook 'load-framegeometry)
+        (add-hook 'kill-emacs-hook 'save-framegeometry)))
+  ;; Disable nag warning about $PATH in .zshrc
+  (setq exec-path-from-shell-check-startup-files nil)
   )
 
 (defun dotspacemacs/user-config ()
@@ -320,6 +373,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Don't show trailing whitespace (we strip it anyway)
+  (setq-default spacemacs-show-trailing-whitespace nil)
   ;; 2-space indent
   (setq-default tab-width 2)
   (setq-default
@@ -332,17 +387,37 @@ you should place your code here."
    web-mode-markup-indent-offset tab-width
    sh-basic-offset tab-width
    sh-indentation tab-width)
-  ;; Proper Vim indenting
+  ;; Include _ in word motions
+  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'elixir-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; Proper Vim indenting calculation
   (setq-default evil-shift-round nil)
+  ;; Nicer looking NeoTree
+  (setq neo-theme 'nerd)
+  ;; (doom-themes-neotree-config) ; Optional nicer looking GUI version
   ;; No newline at end of file
   (setq require-final-newline nil)
+  ;; Highlighted parenthesis color
+  (set-face-attribute 'show-paren-match nil :foreground "#80f0f0")
+  (set-face-attribute 'show-paren-match nil :background nil)
+  (set-face-attribute 'show-paren-match nil :underline nil)
+  ;; Outer parenthesis colors using highlight-parenthesis
+  ;(setq hl-paren-colors '("#c28eda" "#ac68cb" "#9744be"))
+  (setq hl-paren-colors '("#e1a5ff" "#d073ff" "#b259ff" "#6c3698"))
+  ;; Sexp highlighting for Lisp using highlight-sexp package
+  (setq hl-sexp-foreground-color nil)
+  (setq hl-sexp-background-color "#333")
+  (add-hook 'racket-mode-hook 'highlight-sexp-mode)
+  (add-hook 'racket-mode-hook #'(lambda () (global-hl-line-mode -1)))
   ;; Smooth scrolling
   (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ; Three lines at a time
   (setq mouse-wheel-progressive-speed nil)            ; Don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't)                  ; Scroll window under mouse
   ;; Clear banner message if eshell is used
   (setq eshell-banner-message "")
-  ;; Aggressive autocomplete with company
+  ;; Disable copy on highlight evil-mode bug
+  (fset 'evil-visual-update-x-selection 'ignore)
+  ;; Aggressive autocomplete every word with company package
   ;; (global-company-mode)
   )
 
@@ -355,7 +430,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ob-elixir zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme reveal-in-osx-finder restart-emacs rbenv rainbow-delimiters railscasts-theme purple-haze-theme pug-mode projectile-rails rake inflections professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox spinner ox-gfm osx-trash osx-dictionary orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme org-plus-contrib neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minitest minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode skewer-mode simple-httpd linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hydra hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck flx-ido flx flatui-theme flatland-theme fill-column-indicator feature-mode farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump f dracula-theme django-theme diminish diff-hl darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode chruby cherry-blossom-theme busybee-theme bundler inf-ruby bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes alchemist s company dash elixir-mode pkg-info epl aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link helm avy helm-core async ac-ispell auto-complete popup ace-jump-helm-line))))
+    (highlight-sexp doom-themes all-the-icons memoize font-lock+ racket-mode faceup ob-elixir zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme reveal-in-osx-finder restart-emacs rbenv rainbow-delimiters railscasts-theme purple-haze-theme pug-mode projectile-rails rake inflections professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox spinner ox-gfm osx-trash osx-dictionary orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme org-plus-contrib neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minitest minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode skewer-mode simple-httpd linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hydra hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck flx-ido flx flatui-theme flatland-theme fill-column-indicator feature-mode farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump f dracula-theme django-theme diminish diff-hl darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode chruby cherry-blossom-theme busybee-theme bundler inf-ruby bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes alchemist s company dash elixir-mode pkg-info epl aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link helm avy helm-core async ac-ispell auto-complete popup ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
