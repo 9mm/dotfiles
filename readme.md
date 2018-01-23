@@ -33,11 +33,15 @@ Enable colorization
 
 Once you install MacVim, start it and run
 
-    :BundleInstall
+    :PlugInstall
 
 You can update plugins at any time by running
 
-    :BundleUpdate
+    :PlugUpdate
+
+You can update `vim-plug` by running
+
+    :PlugUgrade
 
 
 ### Spacemacs

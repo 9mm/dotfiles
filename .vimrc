@@ -15,40 +15,38 @@
 "                     '---'
 "
 
-""" VUNDLE
+""" PLUG
 
-set rtp+=~/.vim/bundle/vim-vundle
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-Plugin 'mileszs/ack.vim',                        {'name': 'vim-ack'}
-Plugin 'vim-airline/vim-airline',                {'name': 'vim-airline'}
-Plugin 'vim-airline/vim-airline-themes',         {'name': 'vim-airline-themes'}
-Plugin 'slashmili/alchemist.vim',                {'name': 'vim-alchemist'}
-Plugin 'hail2u/vim-css3-syntax',                 {'name': 'vim-css3-syntax'}
-Plugin 'ctrlpvim/ctrlp.vim',                     {'name': 'vim-ctrlp'}
-Plugin 'Raimondi/delimitMate',                   {'name': 'vim-delimitmate'}
-Plugin 'junegunn/vim-easy-align',                {'name': 'vim-easy-align'}
-Plugin 'elixir-editors/vim-elixir',              {'name': 'vim-elixir'}
-Plugin 'airblade/vim-gitgutter',                 {'name': 'vim-gitgutter'}
-Plugin 'fatih/vim-go',                           {'name': 'vim-go'}
-Plugin 'othree/html5.vim',                       {'name': 'vim-html5'}
-Plugin 'pangloss/vim-javascript',                {'name': 'vim-javascript'}
-Plugin 'othree/javascript-libraries-syntax.vim', {'name': 'vim-javascript-libraries'}
-Plugin 'tpope/vim-markdown',                     {'name': 'vim-markdown'}
-Plugin 'scrooloose/nerdcommenter',               {'name': 'vim-nerd-commenter'}
-Plugin 'scrooloose/nerdtree',                    {'name': 'vim-nerdtree'}
-Plugin 'chr4/nginx.vim',                         {'name': 'vim-nginx'}
-Plugin 'prettier/vim-prettier',                  {'name': 'vim-prettier'}
-Plugin 'tpope/vim-rails',                        {'name': 'vim-rails'}
-Plugin 'tpope/vim-repeat',                       {'name': 'vim-repeat'}
-Plugin 'cakebaker/scss-syntax.vim',              {'name': 'vim-scss'}
-Plugin 'justinmk/vim-sneak',                     {'name': 'vim-sneak'}
-Plugin 'tpope/vim-surround',                     {'name': 'vim-surround'}
-Plugin 'SirVer/ultisnips',                       {'name': 'vim-ultisnips'}
-Plugin 'VundleVim/Vundle.vim',                   {'name': 'vim-vundle'}
-Plugin 'maxbrunsfeld/vim-yankstack',             {'name': 'vim-yankstack'}
+Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
+Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
+Plug 'vim-airline/vim-airline-themes',         {'as': 'vim-airline-themes'}
+Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
+Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
+Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
+Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
+Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
+Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
+Plug 'fatih/vim-go',                           {'as': 'vim-go'}
+Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
+Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
+Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
+Plug 'tpope/vim-markdown',                     {'as': 'vim-markdown'}
+Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
+Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
+Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
+Plug 'prettier/vim-prettier',                  {'as': 'vim-prettier'}
+Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
+Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
+Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
+Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
+Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
+Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
+Plug 'maxbrunsfeld/vim-yankstack',             {'as': 'vim-yankstack'}
 
-call vundle#end()
+call plug#end()
 
 
 """ CORE
@@ -63,7 +61,7 @@ syntax on
 """ VARIABLES
 
 " leader key
-let mapleader = ","
+let mapleader = ','
 
 
 """ BUNDLE CONFIG
@@ -96,14 +94,14 @@ map <leader>v :NERDTreeToggle<cr>
 
 " vim-ultisnips
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]
-let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsSnippetDirectories = ['ultisnips']
+let g:UltiSnipsEditSplit = 'vertical'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
 
 " vim-yankstack
 call yankstack#setup() " prevents conflict with vim-surround
-if has("gui_running")
+if has('gui_running')
   set macmeta
 endif
 
@@ -195,7 +193,7 @@ set scrolloff=8
 set wildmenu
 
 " no characters in separators
-set fillchars = ""
+set fillchars=""
 
 " ignore whitespace in diff
 set diffopt+=iwhite
@@ -363,9 +361,9 @@ function! BufDeleteAll(bang)
     let n = n+1
   endwhile
   if delete_count == 1
-    echomsg delete_count "buffer deleted"
+    echomsg delete_count 'buffer deleted'
   elseif delete_count > 1
-    echomsg delete_count "buffers deleted"
+    echomsg delete_count 'buffers deleted'
   endif
 endfunction
 

@@ -1,4 +1,4 @@
-snippet html "html" w
+snippet html
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,4 +21,14 @@ endsnippet
 
 snippet p
 <p>$1</p>
+endsnippet
+
+snippet t
+<$1>$0</${1/(\w+).*/$1/}>
+endsnippet
+
+snippet style
+<style type="text/css">
+  $1
+</style>
 endsnippet
