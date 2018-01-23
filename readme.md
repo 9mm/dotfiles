@@ -21,7 +21,7 @@ Enable colorization
     brew analytics off
     brew update
     brew install macvim ack autojump
-    brew install httpie pet rename tree tmate # optional
+    brew install httpie pet jq rename tree tmate # additional
 
 
 ### Oh-My-ZSH

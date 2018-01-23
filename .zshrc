@@ -37,7 +37,7 @@ export PATH="$GOPATH:$GOPATH/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/tools:$PATH"
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
-# rbenv
+# Rbenv
 eval "$(rbenv init -)"
 
 # Autojump

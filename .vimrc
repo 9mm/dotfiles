@@ -370,11 +370,13 @@ endfunction
 
 """ STYLE
 
+set guifont=Anonymous\ Pro\ for\ Powerline:h14
+
+set background=dark
+
+let g:airline_theme='simple' "light kolor
+
 if exists("&transparency")
   set transparency=3
-  set background=dark
-
   colorscheme atom-dark "dracula
 endif
-
-set guifont=Anonymous\ Pro\ for\ Powerline:h14
