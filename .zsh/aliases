@@ -1,8 +1,25 @@
-alias redodb='rake db:drop && rake db:create && rake db:migrate && rake db:seed'
-alias v='mvim'
+# Functions
+mkcd() { mkdir -p "$@" && cd "$@"; }
+
+# General
+alias a='ls -la'
 alias o='open .'
+alias v='~/.zsh/scripts/mvim.sh'
 alias brewup='brew update && brew upgrade'
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+# Rails
+alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec rake db:drop && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed'
+alias cpd='bundle exec cap production deploy'
+alias bu='bundle update && bundle audit check --update'
+
+# Heroku
+alias hc='heroku run rails console'
+alias hd='git push heroku master'
+
+# Utility
+alias wrapon='tput rmam'
+alias wrapoff='tput smam'
+alias ipv6off='networksetup -setv6off "Wi-Fi" && networksetup -setv6off "Thunderbolt Ethernet" && networksetup -setv6off "Thunderbolt Bridge" && networksetup -setv6off "Bluetooth PAN"'
+alias ipv6on='networksetup -setv6automatic "Wi-Fi" && networksetup -setv6automatic "Thunderbolt Ethernet" && networksetup -setv6automatic "Thunderbolt Bridge" && networksetup -setv6automatic "Bluetooth PAN"'
 
 source $HOME/.zsh/aws
