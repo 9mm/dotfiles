@@ -44,6 +44,7 @@ Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
 Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
 Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
+Plug 'mbbill/undotree',                        {'as': 'vim-undo-tree'}
 Plug 'maxbrunsfeld/vim-yankstack',             {'as': 'vim-yankstack'}
 
 call plug#end()
@@ -72,6 +73,7 @@ let g:airline_powerline_fonts = 1
 
 " vim-ctrlp
 map <d-5> <f5>
+map <c-b> :CtrlPBuffer<cr>
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|tmp)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
