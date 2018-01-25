@@ -21,7 +21,6 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
-Plug 'vim-airline/vim-airline-themes',         {'as': 'vim-airline-themes'}
 Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
@@ -315,6 +314,9 @@ map <leader>rn :call RenameFile()<cr>
 
 """ COMMANDS
 
+" run mix format on current file
+command MixFormat silent !{mix format %}
+
 " function: delete all open buffers with :Bda
 command! -nargs=0 -bang Bda :call BufDeleteAll('<bang>')
 
@@ -376,7 +378,7 @@ set guifont=Anonymous\ Pro\ for\ Powerline:h14
 
 set background=dark
 
-let g:airline_theme='simple' "light kolor
+let g:airline_theme='redux'
 
 if exists("&transparency")
   set transparency=3

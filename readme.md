@@ -57,4 +57,4 @@ Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-bl
 
 Install the fonts in `Library/Fonts`
 
-[![vim](https://raw.github.com/9mm/dotfiles/master/.vim/screenshot.png)](https://raw.github.com/9mm/dotfiles/master/.vim/screenshot.png)
+![Vim screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
