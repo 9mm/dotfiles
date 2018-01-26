@@ -28,6 +28,10 @@ Enable colorization
 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+To add Fish-style autosuggestions (plugin is already loaded within `~/.zshrc`):
+
+    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
 
 ### Vim
 

@@ -8,7 +8,7 @@ ZSH_THEME="robbyrussell" # af-magic
 source $HOME/.zsh/aliases
 
 # Plugins
-# plugins=(git)
+plugins=(zsh-autosuggestions)
 
 # Load ZSH
 source $ZSH/oh-my-zsh.sh
@@ -55,12 +55,13 @@ function echo_color() {
   local color="$1"
   printf "${color}$2\033[0m\n"
 }
-# echo_color "\033[0;30m" "C-f  Move forward"
-# echo_color "\033[0;30m" "C-b  Move backward"
-# echo_color "\033[0;30m" "C-p  Move up"
-# echo_color "\033[0;30m" "C-n  Move down"
-# echo_color "\033[0;30m" "C-a  Beginning of line"
-# echo_color "\033[0;30m" "C-e  End of line"
-# echo_color "\033[0;30m" "C-d  Delete forward"
-# echo_color "\033[0;30m" "C-h  Delete backwards"
-# echo_color "\033[0;30m" "C-k  Delete forward whole line"
+# echo_color "\033[0;90m" "c-f  Move forward"
+# echo_color "\033[0;90m" "c-b  Move backward"
+# echo_color "\033[0;90m" "c-p  Move up"
+# echo_color "\033[0;90m" "c-n  Move down"
+# echo_color "\033[0;90m" "c-a  Jump to beginning of line"
+# echo_color "\033[0;90m" "c-e  Jump to end of line"
+# echo_color "\033[0;90m" "c-d  Delete forward"
+# echo_color "\033[0;90m" "c-h  Delete backward"
+# echo_color "\033[0;90m" "c-k  Delete forward to end of line"
+# echo_color "\033[0;90m" "c-u  Delete entire line"

@@ -67,7 +67,6 @@ let mapleader = ','
 """ BUNDLE CONFIG
 
 " vim-airline
-set encoding=utf-8
 let g:airline_powerline_fonts = 1
 
 " vim-ctrlp
@@ -111,6 +110,10 @@ endif
 
 " no vi
 set nocompatible
+
+" encoding
+set encoding=utf-8
+set fileencoding=utf-8
 
 " gui options
 set guioptions-=L " disable left scrollbar
@@ -286,8 +289,11 @@ nmap <silent> <c-i> 10zh
 " return without disturbing line in insert mode
 inoremap <d-cr> <esc>o
 
-" return from normal mode
+" return in normal mode
 map <cr> o<esc>
+
+" unjoin in normal mode
+nnoremap <nl> i<cr><esc>
 
 " toggle word wrap
 nmap <silent> <leader>ww :set invwrap<cr>:set wrap?<cr>
@@ -382,5 +388,8 @@ let g:airline_theme='redux'
 
 if exists("&transparency")
   set transparency=3
-  colorscheme atom-dark "dracula
+  colorscheme atom-dark
 endif
+
+" override ctrl-p
+hi CursorLine cterm=none ctermbg=darkgray ctermfg=white guibg=#333333 guifg=white

@@ -2,19 +2,21 @@ snippet html
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>$1</title>
+	<title>$1</title>
 
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="stylesheet" href="/css/main.css" type="text/css">
+	<link rel="icon" type="image/png" href="/favicon.png">
+	<link rel="stylesheet" href="/css/main.css" type="text/css">
 </head>
 <body>
-  $0
+	<div class="wrapper">
+		$0
+	</div>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>
 endsnippet
@@ -25,7 +27,7 @@ endsnippet
 
 snippet style
 <style>
-  $1
+	$1
 </style>
 endsnippet
 
@@ -41,6 +43,37 @@ endsnippet
 
 snippet img
 <img src="$1">
+endsnippet
+
+snippet table
+<table$1>
+	<thead>
+		<tr>
+			<th>$2</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>$3</td>
+		</tr>
+	</tbody>
+</table>
+endsnippet
+
+snippet tr
+<tr>$1</tr>
+endsnippet
+
+snippet th
+<th>$1</th>
+endsnippet
+
+snippet td
+<td>$1</td>
+endsnippet
+
+snippet hr
+<hr>
 endsnippet
 
 snippet ul
@@ -113,4 +146,18 @@ endsnippet
 
 snippet a
 <a href="$1">$2</a>
+endsnippet
+
+snippet form
+<form action="$1" method="post">
+	$2
+</form>
+endsnippet
+
+snippet input
+<input type="${1:text}" name="$2" value="$3">
+endsnippet
+
+snippet textarea
+<textarea name="$1">$2</textarea>
 endsnippet
