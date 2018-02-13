@@ -31,6 +31,10 @@ snippet style
 </style>
 endsnippet
 
+snippet il
+style="$1"
+endsnippet
+
 snippet script
 <script>
 	$1
@@ -61,7 +65,9 @@ snippet table
 endsnippet
 
 snippet tr
-<tr>$1</tr>
+<tr>
+	$1
+</tr>
 endsnippet
 
 snippet th
@@ -92,19 +98,21 @@ snippet li
 <li>$1</li>
 endsnippet
 
-snippet div
+snippet div "" i
 <div>$1</div>
 endsnippet
 
-snippet divc
-<div class="$1">$2</div>
+snippet divc "" i
+<div class="$1">
+	$2
+</div>
 endsnippet
 
-snippet span
-<span></span>
+snippet span "" i
+<span>$1</span>
 endsnippet
 
-snippet spanc
+snippet spanc "" i
 <span class="$1">$2</span>
 endsnippet
 

@@ -4,20 +4,20 @@ snippet con
 console.log($1);
 endsnippet
 
+snippet afun "" i
+function($1) {
+	$2
+}
+endsnippet
+
 snippet fun
 var $1 = function($2) {
 	$3
 };
 endsnippet
 
-snippet afun
-function($1) {
-	$2
-}
-endsnippet
-
 snippet sef
 (function() {
-	$1;
+	$1
 })();
 endsnippet
