@@ -4,6 +4,15 @@ ZSH="$HOME/.oh-my-zsh"
 # Styling
 ZSH_THEME="robbyrussell" # af-magic
 
+# By default, zsh considers many characters part of a word (e.g., _ and -).
+# Narrow that down to allow easier skipping through words via M-f and M-b.
+export WORDCHARS='*?[]~&;!$%^<>'
+
+# Tweak history
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+export HISTFILE="$HOME/.history"
+
 # Custom aliases
 source $HOME/.zsh/aliases
 
