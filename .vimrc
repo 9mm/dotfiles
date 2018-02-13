@@ -22,8 +22,10 @@ call plug#begin('~/.vim/bundle')
 Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
 Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
+Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
+Plug 'ck3g/vim-change-hash-syntax',            {'as': 'vim-change-hash-syntax'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
@@ -66,9 +68,6 @@ let mapleader = ','
 
 """ BUNDLE CONFIG
 
-" vim-airline
-let g:airline_powerline_fonts = 1
-
 " vim-ctrlp
 map <d-5> <f5>
 map <c-b> :CtrlPBuffer<cr>
@@ -91,6 +90,7 @@ nmap <silent> <leader>gg :GitGutterToggle<cr>
 
 " vim-nerdtree
 map <leader>v :NERDTreeToggle<cr>
+let g:NERDTreeCascadeSingleChildDir = 0
 
 " vim-ultisnips
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
@@ -225,7 +225,7 @@ set expandtab
 set autoindent
 
 " text wrapping
-set textwidth=80
+" set textwidth=80
 
 
 """ AUTO COMMANDS
@@ -234,9 +234,10 @@ set textwidth=80
 autocmd FileType sh setlocal softtabstop=4 shiftwidth=4 tabstop=4
 
 " filetype
-autocmd BufRead,BufNewFile *.conf   set filetype=ini
-autocmd BufRead,BufNewFile *.css    set filetype=scss " postCSS doesn't require .scss extension
-autocmd BufRead,BufNewFile *.gradle set filetype=java " because groovy highlighting is stupid
+autocmd BufRead,BufNewFile *.conf     set filetype=ini
+autocmd BufRead,BufNewFile *.css      set filetype=scss " postCSS doesn't require .scss extension
+autocmd BufRead,BufNewFile *.gradle   set filetype=java " because groovy highlighting is stupid
+autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
 
 " remember last location in file
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
@@ -247,6 +248,9 @@ autocmd BufWrite * :%s/\r//ge
 
 " remove byte order mark bullshit
 autocmd BufWrite * set nobomb
+
+" run current ruby script
+autocmd BufRead, *.rb nmap <leader>r :silent !{ruby %}<cr>
 
 " function: strip trailing whitespace on save
 autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
@@ -260,7 +264,8 @@ map <leader>e <s-s>tem>
 map <leader>p <esc>^i<p><esc>$a</p><esc>^
 map <leader>a <s-s>ta href="#">f#xi
 
-" rails
+" ruby
+map <leader>chs :ChangeHashSyntax<cr>
 inoremap <d-lt> <%=  %><esc>hhi
 inoremap <d->> <%  %><esc>hhi
 
@@ -384,12 +389,21 @@ set guifont=Anonymous\ Pro\ for\ Powerline:h14
 
 set background=dark
 
-let g:airline_theme='redux'
+if has('gui_running')
+  colorscheme exuma
 
-if exists("&transparency")
-  set transparency=3
-  colorscheme atom-dark
+  let g:airline_powerline_fonts = 1
+
+  " set window location to align nicely on start
+  autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 840 0')})
+
 endif
+
+if exists('&transparency')
+  set transparency=3
+endif
+
+let g:airline_theme='redux'
 
 " override ctrl-p
 hi CursorLine cterm=none ctermbg=darkgray ctermfg=white guibg=#333333 guifg=white
