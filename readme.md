@@ -27,7 +27,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install macvim ack autojump
+    brew install macvim ack autojump ctags
     brew install httpie jq rename tree tmate # extra goodies
     brew install knqyf263/pet/pet
 

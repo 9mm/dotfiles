@@ -44,6 +44,7 @@ Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
 Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
 Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
 Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
+Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
 Plug 'mbbill/undotree',                        {'as': 'vim-undo-tree'}
 Plug 'maxbrunsfeld/vim-yankstack',             {'as': 'vim-yankstack'}
@@ -71,7 +72,7 @@ let mapleader = ','
 " vim-ctrlp
 map <d-5> <f5>
 map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|tmp)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|tags|tmp)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
 let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
@@ -314,7 +315,10 @@ nmap <silent> <leader>n :nohls<cr>
 nmap <leader>del :g/^$/d<cr>
 
 " ctags
-map <leader>ct :!/usr/local/bin/ctags -R --exclude=.git --exclude=log --exclude=tmp *<cr>
+map <leader>ct :silent !{ctags -R --exclude=@"$HOME/.ctagsignore" *}<cr>
+
+" tagbar
+nmap <leader>tb :TagbarToggle<cr>
 
 " show syntax highlighting group under cursor (for theming)
 nmap <silent> <leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
