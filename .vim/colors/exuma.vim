@@ -29,10 +29,6 @@ hi iCursor         guifg=#f1f1f1  guibg=#777777
 hi Debug           guifg=#bca3a3                 gui=none
 hi Define          guifg=#a2f2ff
 hi Delimiter       guifg=#888888
-hi DiffAdd                        guibg=#13354a
-hi DiffChange      guifg=#89807d  guibg=#4c4745
-hi DiffDelete      guifg=#960050  guibg=#1e0010
-hi DiffText                       guibg=#4c4745  gui=none
 hi Directory       guifg=#aaaaaa                 gui=none
 hi Error           guifg=#a8ff60  guibg=#1e0010
 hi ErrorMsg        guifg=#92c5f7  guibg=#232526  gui=none
@@ -103,3 +99,6 @@ hi SpecialKey      guifg=#465457
 
 hi NERDTreeDir      guifg=#aaaaaa
 hi NERDTreeDirSlash guifg=#a0d7f3
+
+" CtrlP
+hi CtrlPMatch       guifg=#b6b7eb
