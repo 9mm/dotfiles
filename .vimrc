@@ -72,7 +72,7 @@ let mapleader = ','
 " vim-ctrlp
 map <d-5> <f5>
 map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|tags|tmp)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|.tags|tmp)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
 let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
@@ -213,7 +213,7 @@ set autoread
 set synmaxcol=500
 
 " ctags
-set tags=./tags
+set tags=./tags;,tags;./.tags;,.tags;
 
 " ack
 set grepprg=ack
@@ -239,6 +239,7 @@ autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile *.css      set filetype=scss " postCSS doesn't require .scss extension
 autocmd BufRead,BufNewFile *.gradle   set filetype=java " because groovy highlighting is stupid
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
+autocmd BufRead,BufNewFile .tags      set filetype=tags
 
 " remember last location in file
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
@@ -315,7 +316,7 @@ nmap <silent> <leader>n :nohls<cr>
 nmap <leader>del :g/^$/d<cr>
 
 " ctags
-map <leader>ct :silent !{ctags -R --exclude=@"$HOME/.ctagsignore" *}<cr>
+map <leader>ct :silent !{ctags -R -f .tags --exclude=@"$HOME/.ctagsignore" *}<cr>
 
 " tagbar
 nmap <leader>tb :TagbarToggle<cr>

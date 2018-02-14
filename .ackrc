@@ -14,4 +14,4 @@
 --ignore-directory=Pods
 --ignore-directory=tmp
 --ignore-directory=vendor
---ignore-file=is:tags
+--ignore-file=is:.tags

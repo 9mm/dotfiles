@@ -38,6 +38,16 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # Postgres
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
+# Go (1.7.1 explicit)
+# This is a non-brew version of Go 1.7.1 installed directly from compiled binaries
+# on Golang homepage. This is because installing specific versions of 1.7.1 with Homebrew
+# is challenging, and this is required for LifeBuzz stack-proxy. Once LifeBuzz is sold
+# we can...
+#   1. remove the single `export PATH="/usr/local/go/bin:$PATH"` below this comment
+#   2. delete the entire /usr/local/go folder
+#   3. reinstall Go from brew
+export PATH="/usr/local/go/bin:$PATH"
+
 # Go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
