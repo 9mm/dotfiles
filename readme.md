@@ -1,5 +1,12 @@
 ## 9mm .dotfiles
 
+### Basic Setup
+
+Set a super fast keyboard repeat
+
+    defaults write NSGlobalDomain KeyRepeat -int 1
+
+
 ### iTerm 3
 
 Download and install [iTerm3](https://www.iterm2.com/version3.html)
