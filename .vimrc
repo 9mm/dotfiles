@@ -125,7 +125,7 @@ set nocursorline
 set nocursorcolumn
 
 " code folding
-set foldmethod=indent
+set foldmethod=manual
 set nofoldenable
 
 " commands which open folds
@@ -309,6 +309,14 @@ nmap <silent> <leader>ww :set invwrap<cr>:set wrap?<cr>
 inoremap <D-]> <esc>>>i
 inoremap <D-[> <esc><<i
 
+" move lines up and down
+nnoremap <a-j> :m .+1<cr>==
+nnoremap <a-k> :m .-2<cr>==
+inoremap <a-j> <esc>:m .+1<cr>==gi
+inoremap <a-k> <esc>:m .-2<cr>==gi
+vnoremap <a-j> :m '>+1<cr>gv=gv
+vnoremap <a-k> :m '<-2<cr>gv=gv
+
 " clear highlight search
 nmap <silent> <leader>n :nohls<cr>
 
@@ -316,7 +324,7 @@ nmap <silent> <leader>n :nohls<cr>
 nmap <leader>del :g/^$/d<cr>
 
 " ctags
-map <leader>ct :silent !{ctags -R -f .tags --exclude=@"$HOME/.ctagsignore" *}<cr>
+map <leader>ct :silent !{ctags -R -f .tags --extra=+q --exclude=@"$HOME/.ctagsignore" *}<cr>
 
 " tagbar
 nmap <leader>tb :TagbarToggle<cr>
