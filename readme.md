@@ -2,13 +2,13 @@
 
 ### Cool Features
 
-* Fullscreen overlay terminal with `<c-i>`
+* Fullscreen overlay terminal with `<c-i>` (use iTerm3 `plist`)
 * ZSH autocompletion with `<c-e>`
 * Optional MOTD for remembering hotkeys in `.zshrc`
 * Snippet storage via `pet list`. Type `prev` to store previous command
 * JSON printing with `echo '{"coffee": "time"}' | jq`
 * Autojump to common directories with `j <partial name>`
-* In file searching with `ack <term> -i`
+* In-file searching with `ack <search term> -i`
 
 
 ### Basic Setup
@@ -22,9 +22,9 @@ Set a super fast keyboard repeat
 
 Download and install [iTerm3](https://www.iterm2.com/version3.html)
 
-Use the config in `Library/Preferences/com.googlecode.iterm2.plist`
-
 Install the [Dracula](https://draculatheme.com/iterm/) color scheme and activate it.
+
+Use the config in `Library/Preferences/com.googlecode.iterm2.plist`
 
 
 ### Git
@@ -38,7 +38,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install macvim ack autojump ctags
+    brew install python macvim ack autojump ctags fzf rbenv
     brew install httpie jq rename tree tmate # extra goodies
     brew install knqyf263/pet/pet
 
