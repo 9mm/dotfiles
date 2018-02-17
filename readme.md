@@ -1,5 +1,16 @@
 ## 9mm .dotfiles
 
+### Cool Features
+
+* Fullscreen overlay terminal with `<c-i>`
+* ZSH autocompletion with `<c-e>`
+* Optional MOTD for remembering hotkeys in `.zshrc`
+* Snippet storage via `pet list`. Type `prev` to store previous command
+* JSON printing with `echo '{"coffee": "time"}' | jq`
+* Autojump to common directories with `j <partial name>`
+* In file searching with `ack <term> -i`
+
+
 ### Basic Setup
 
 Set a super fast keyboard repeat
@@ -69,4 +80,7 @@ Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-bl
 
 Install the fonts in `Library/Fonts`
 
-![Vim screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
+
+### Preview
+
+![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
