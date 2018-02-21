@@ -35,6 +35,7 @@ Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
 Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
 Plug 'tpope/vim-markdown',                     {'as': 'vim-markdown'}
+Plug 'tmhedberg/matchit',                      {'as': 'vim-matchit'}
 Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
 Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}

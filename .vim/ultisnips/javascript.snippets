@@ -1,23 +1,27 @@
 extends html
 
-snippet con
+snippet log
 console.log($1);
+endsnippet
+
+snippet dir
+console.dir($1);
 endsnippet
 
 snippet afun "" i
 function($1) {
-	$2
+	$0
 }
 endsnippet
 
 snippet fun
 var $1 = function($2) {
-	$3
+	$0
 };
 endsnippet
 
 snippet sef
 (function() {
-	$1
+	$0
 })();
 endsnippet

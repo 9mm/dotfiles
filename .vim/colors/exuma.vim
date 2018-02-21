@@ -49,7 +49,7 @@ hi ModeMsg         guifg=#a8ff60
 hi MoreMsg         guifg=#a8ff60
 hi Operator        guifg=#92c5f7
 hi Pmenu           guifg=#66d9ef  guibg=#000000
-hi PmenuSel                       guibg=#808080
+hi PmenuSel        guifg=#ffffff  guibg=#444444
 hi PmenuSbar                      guibg=#080808
 hi PmenuThumb      guifg=#66d9ef
 hi PreCondit       guifg=#a0d7f3                 gui=none
@@ -96,7 +96,6 @@ hi NonText         guifg=#465457
 hi SpecialKey      guifg=#465457
 
 " NERDTree
-
 hi NERDTreeDir      guifg=#aaaaaa
 hi NERDTreeDirSlash guifg=#a0d7f3
 
