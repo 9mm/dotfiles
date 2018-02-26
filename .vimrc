@@ -410,7 +410,6 @@ if has('gui_running')
 
   " set window location to align nicely on start
   autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 840 0')})
-
 endif
 
 if exists('&transparency')
