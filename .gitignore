@@ -1,4 +1,4 @@
 *.log
 .vim/tmp/
-.zsh/aws
+.zsh/credentials
 .zshenv
