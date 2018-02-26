@@ -2,7 +2,7 @@
 ZSH="$HOME/.oh-my-zsh"
 
 # Styling
-ZSH_THEME="robbyrussell" # af-magic
+ZSH_THEME="robbyrussell"
 
 # By default, zsh considers many characters part of a word (e.g., _ and -).
 # Narrow that down to allow easier skipping through words via M-f and M-b.
@@ -24,7 +24,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Load SSH keys after reboot
 ssh-add ~/.ssh/id_rsa 2>/dev/null
-ssh-add ssh-add ~/.ssh/ops-lifebuzz-prod.pem 2>/dev/null
 
 # Brew
 export PATH="/usr/local/bin:$PATH"
@@ -37,16 +36,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Postgres
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
-# Go (1.7.1 explicit)
-# This is a non-brew version of Go 1.7.1 installed directly from compiled binaries
-# on Golang homepage. This is because installing specific versions of 1.7.1 with Homebrew
-# is challenging, and this is required for LifeBuzz stack-proxy. Once LifeBuzz is sold
-# we can...
-#   1. remove the single `export PATH="/usr/local/go/bin:$PATH"` below this comment
-#   2. delete the entire /usr/local/go folder
-#   3. reinstall Go from brew
-export PATH="/usr/local/go/bin:$PATH"
 
 # Go
 export GOPATH="$HOME/.go"
