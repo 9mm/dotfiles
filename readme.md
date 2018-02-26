@@ -38,17 +38,16 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install python macvim ack autojump ctags fzf rbenv
+    brew install git python macvim ack autojump ctags fzf curl wget rbenv
     brew install httpie jq rename tree tmate # extra goodies
     brew install knqyf263/pet/pet
 
 
 ### Oh-My-ZSH
 
+Add a ZSH distribution and Fish-style autosuggestions (plugin is already loaded within `~/.zshrc`):
+
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-To add Fish-style autosuggestions (plugin is already loaded within `~/.zshrc`):
-
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 
