@@ -22,4 +22,4 @@ alias wrapoff='tput smam'
 alias ipv6off='networksetup -setv6off "Wi-Fi" && networksetup -setv6off "Thunderbolt Ethernet" && networksetup -setv6off "Thunderbolt Bridge" && networksetup -setv6off "Bluetooth PAN"'
 alias ipv6on='networksetup -setv6automatic "Wi-Fi" && networksetup -setv6automatic "Thunderbolt Ethernet" && networksetup -setv6automatic "Thunderbolt Bridge" && networksetup -setv6automatic "Bluetooth PAN"'
 
-source $HOME/.zsh/aws
+source $HOME/.zsh/credentials
