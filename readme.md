@@ -38,7 +38,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git python macvim ack autojump ctags fzf curl wget rbenv
+    brew install git python macvim ack autojump ctags fzf curl wget rbenv yarn
     brew install httpie jq rename tree tmate # extra goodies
     brew install knqyf263/pet/pet
 
@@ -70,7 +70,7 @@ You can update `vim-plug` by running
 
     brew tap d12frosted/emacs-plus
     brew install emacs-plus --with-24bit-color --with-natural-title-bar --without-spacemacs-icon
-    npm install -g tern # for the javascript layer
+    yarn global add tern # for the javascript layer
 
 Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-blog-posts-wiki/109?source_topic_id=3191)
 
