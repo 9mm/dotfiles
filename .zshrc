@@ -28,6 +28,9 @@ ssh-add ~/.ssh/id_rsa 2>/dev/null
 # Brew
 export PATH="/usr/local/bin:$PATH"
 
+# Rbenv
+eval "$(rbenv init -)"
+
 # Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
 
@@ -35,18 +38,15 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Postgres
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 # Go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
 
 # Android
-export PATH="$HOME/Library/Android/sdk/tools:$PATH"
-export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
-# Rbenv
-eval "$(rbenv init -)"
+export PATH="$PATH:$HOME/Library/Android/sdk/tools"
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
