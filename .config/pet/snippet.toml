@@ -1,0 +1,34 @@
+[[snippets]]
+  description = "Remove executable recursively for all files"
+  command = "find . -type f -exec chmod -x {} \\+"
+  output = ""
+
+[[snippets]]
+  description = "List files with permissions number"
+  command = "ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) *2^(8-i));if(k)printf(\"%0o \",k);print}'"
+  output = ""
+
+[[snippets]]
+  description = "Output primary terminal colors"
+  command = "for i in {0..16}; do echo -e \"\\e[38;05;${i}m\\\\\\e[38;05;${i}m\"; done | column -c 80 -s '  '; echo -e \"\\e[m\""
+  output = ""
+
+[[snippets]]
+  description = "NPM list with top-level only"
+  command = "npm list --depth=0 2>/dev/null"
+  output = ""
+
+[[snippets]]
+  description = "Show active connections"
+  command = "netstat -tn 2>/dev/null | grep :80 | awk '{print $5}' | sed -e 's/::ffff://' |cut -d: -f1 | sort | uniq -c | sort -rn | head"
+  output = ""
+
+[[snippets]]
+  description = "Force kill Rails server"
+  command = "kill -9 $(lsof -i tcp:3000 -t)"
+  output = ""
+
+[[snippets]]
+  description = "Find files and directories in path (supports wildcards)"
+  command = "find . -name \"*.rb\""
+  output = ""
