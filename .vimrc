@@ -15,6 +15,11 @@
 "                     '---'
 "
 
+""" FUCK PYTHON
+if has('python3')
+  silent! python3 1
+endif
+
 """ PLUG
 
 call plug#begin('~/.vim/bundle')
@@ -31,6 +36,7 @@ Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
 Plug 'fatih/vim-go',                           {'as': 'vim-go'}
+Plug 'junegunn/goyo.vim',                      {'as': 'vim-goyo'}
 Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
 Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
@@ -168,6 +174,9 @@ set laststatus=2
 " don't update display while executing macros
 set lazyredraw
 
+" show as much of long lines as possible
+:set display+=lastline
+
 " show current mode
 set showmode
 
@@ -217,7 +226,8 @@ set synmaxcol=500
 set tags=./tags;,tags;./.tags;,.tags;
 
 " ack
-set grepprg=ack
+" set grepprg=ack
+:set grepprg=grep\ --color=always\ -n\ $*\ /dev/null
 
 " tab config
 set tabstop=2

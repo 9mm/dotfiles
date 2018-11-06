@@ -41,12 +41,20 @@ snippet script
 </script>
 endsnippet
 
+snippet scripts
+<script src="$0"></script>
+endsnippet
+
 snippet link
 <link rel="stylesheet" href="$1">
 endsnippet
 
-snippet img "" i
+snippet img "" w
 <img src="$1">
+endsnippet
+
+snippet pre "" w
+<pre>$0</pre>
 endsnippet
 
 snippet table
@@ -98,53 +106,53 @@ snippet li
 <li>$1</li>
 endsnippet
 
-snippet div "" i
+snippet div "" w
 <div>$1</div>
 endsnippet
 
-snippet divc "" i
+snippet divc "" w
 <div class="$1">
 	$0
 </div>
 endsnippet
 
-snippet span "" i
+snippet span "" w
 <span>$1</span>
 endsnippet
 
-snippet spanc "" i
+snippet spanc "" w
 <span class="$1">$2</span>
 endsnippet
 
-snippet h1 "" i
+snippet h1 "" w
 <h1>$1</h1>
 endsnippet
 
-snippet h2 "" i
+snippet h2 "" w
 <h2>$1</h2>
 endsnippet
 
-snippet h3 "" i
+snippet h3 "" w
 <h3>$1</h3>
 endsnippet
 
-snippet h4 "" i
+snippet h4 "" w
 <h4>$1</h4>
 endsnippet
 
-snippet h5 "" i
+snippet h5 "" w
 <h5>$1</h5>
 endsnippet
 
-snippet h6 "" i
+snippet h6 "" w
 <h6>$1</h6>
 endsnippet
 
-snippet p "" i
+snippet p "" w
 <p>$1</p>
 endsnippet
 
-snippet s "" i
+snippet s "" w
 <strong>$1</strong>
 endsnippet
 
@@ -152,7 +160,7 @@ snippet e
 <em>$1</em>
 endsnippet
 
-snippet a "" i
+snippet a "" w
 <a href="$1">$2</a>
 endsnippet
 
@@ -162,10 +170,10 @@ snippet form
 </form>
 endsnippet
 
-snippet input "" i
+snippet input "" w
 <input type="${1:text}" name="$2" value="$3">
 endsnippet
 
-snippet textarea "" i
+snippet textarea "" w
 <textarea name="$1">$2</textarea>
 endsnippet

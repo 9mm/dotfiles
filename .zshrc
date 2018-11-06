@@ -42,7 +42,7 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 # Go
 export GOPATH="$HOME/.go"
-export PATH="$GOPATH:$GOPATH/bin:$PATH"
+export PATH="$PATH:$GOPATH:$GOPATH/bin"
 
 # Android
 export PATH="$PATH:$HOME/Library/Android/sdk/tools"
