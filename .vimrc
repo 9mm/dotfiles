@@ -15,7 +15,7 @@
 "                     '---'
 "
 
-""" FUCK PYTHON
+""" fuck Python
 if has('python3')
   silent! python3 1
 endif
@@ -34,6 +34,7 @@ Plug 'ck3g/vim-change-hash-syntax',            {'as': 'vim-change-hash-syntax'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+Plug 'tpope/vim-fugitive',                     {'as': 'vim-fugitive'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
 Plug 'fatih/vim-go',                           {'as': 'vim-go'}
 Plug 'junegunn/goyo.vim',                      {'as': 'vim-goyo'}
@@ -97,7 +98,7 @@ set updatetime=250
 nmap <silent> <leader>gg :GitGutterToggle<cr>
 
 " vim-nerdtree
-map <leader>v :NERDTreeToggle<cr>
+nnoremap <c-g> :NERDTreeToggle<cr>
 let g:NERDTreeCascadeSingleChildDir = 0
 
 " vim-ultisnips
@@ -236,8 +237,11 @@ set shiftwidth=2
 set expandtab
 set autoindent
 
-" text wrapping
-" set textwidth=80
+" text wrap and disable autoformatting
+" set textwidth=90
+" set wrapmargin=0
+" autocmd FileType * setlocal formatoptions-=t
+" autocmd FileType * setlocal formatoptions-=c
 
 
 """ AUTO COMMANDS
@@ -268,6 +272,15 @@ autocmd BufRead, *.rb nmap <leader>r :silent !{ruby %}<cr>
 " function: strip trailing whitespace on save
 autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
 
+" go
+autocmd FileType go nmap <leader>b <plug>(go-build)
+autocmd FileType go nmap <leader>r <plug>(go-run)
+autocmd FileType go nmap <leader>i <plug>(go-info)
+
+let g:go_fmt_command = "goimports"
+
+let g:go_auto_type_info = 1
+set updatetime=500
 
 """ MAPPINGS
 
