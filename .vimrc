@@ -223,6 +223,12 @@ set autoread
 " syntax highlighting max
 set synmaxcol=500
 
+" move lines
+nnoremap <d-j> :m .+1<cr>==
+nnoremap <d-k> :m .-2<cr>==
+vnoremap <d-j> :m '>+1<cr>gv=gv
+vnoremap <d-k> :m '<-2<cr>gv=gv
+
 " ctags
 set tags=./tags;,tags;./.tags;,.tags;
 

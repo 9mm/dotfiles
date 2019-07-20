@@ -1,5 +1,7 @@
 ## 9mm .dotfiles
 
+![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
+
 ### Cool Features
 
 * Fullscreen overlay terminal with `<c-i>` (use iTerm3 `plist`)
@@ -78,8 +80,3 @@ Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-bl
 ### Fonts
 
 Install the fonts in `Library/Fonts`
-
-
-### Preview
-
-![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
