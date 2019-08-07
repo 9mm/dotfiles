@@ -1,5 +1,15 @@
 extends ruby
 
+snippet trans
+ActiveRecord::Base.transaction do
+	$0
+end
+endsnippet
+
+snippet error
+class $0 < StandardError; end
+endsnippet
+
 snippet test
 test '$1' do
 	$0

@@ -34,19 +34,22 @@ eval "$(rbenv init -)"
 # Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
 
+# Google Cloud SDK
+export PATH="$HOME/.google-cloud-sdk/bin:$PATH"
+
 # Elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Postgres
-export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # Go
 export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH:$GOPATH/bin"
+export PATH="$GOPATH:$GOPATH/bin:$PATH"
 
 # Android
-export PATH="$PATH:$HOME/Library/Android/sdk/tools"
-export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+export PATH="$HOME/Library/Android/sdk/tools:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
