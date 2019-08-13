@@ -22,11 +22,11 @@ Set a super fast keyboard repeat
 
 ### iTerm 3
 
-Download and install [iTerm3](https://www.iterm2.com/version3.html)
+Download and install [iTerm3](https://www.iterm2.com/downloads.html)
 
 Install the [Dracula](https://draculatheme.com/iterm/) color scheme and activate it.
 
-Use the config in `Library/Preferences/com.googlecode.iterm2.plist`
+Open iTerm preferences, and choose `General > Preferences`. Check the box for `load preferences from custom folder` and choose the `iTerm` folder which includes `com.googlecode.iterm2.plist`. Before loading, you may want to change `zesty` to your own home folder via find/replace.
 
 
 ### Git
