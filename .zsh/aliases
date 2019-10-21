@@ -11,6 +11,7 @@ alias brewup='brew update && brew upgrade'
 alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec rake db:drop && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed'
 alias cpd='bundle exec cap production deploy'
 alias bu='bundle update && bundle audit check --update'
+alias meta='pragmater --add --comments "# frozen_string_literal: true" --includes "**/*.rb" && bundle exec erd && bundle exec annotate --models'
 
 # Heroku
 alias hc='heroku run rails console'

@@ -30,7 +30,6 @@ Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
-Plug 'ck3g/vim-change-hash-syntax',            {'as': 'vim-change-hash-syntax'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
@@ -46,6 +45,7 @@ Plug 'tmhedberg/matchit',                      {'as': 'vim-matchit'}
 Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
 Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
+Plug 'lifepillar/pgsql.vim',                   {'as': 'vim-postgres'}
 Plug 'prettier/vim-prettier',                  {'as': 'vim-prettier'}
 Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
 Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
@@ -97,9 +97,21 @@ nmap ga <Plug>(EasyAlign)
 set updatetime=250
 nmap <silent> <leader>gg :GitGutterToggle<cr>
 
+" vim-go
+autocmd FileType go nmap <leader>b <plug>(go-build)
+autocmd FileType go nmap <leader>r <plug>(go-run)
+autocmd FileType go nmap <leader>i <plug>(go-info)
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
+set updatetime=500
+
 " vim-nerdtree
+let g:NERDTreeSortOrder = ['\/$', '\.go$', '\.rb$', '*']
 nnoremap <c-g> :NERDTreeToggle<cr>
 let g:NERDTreeCascadeSingleChildDir = 0
+
+" vim-postgres
+let g:sql_type_default = 'pgsql'
 
 " vim-ultisnips
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
@@ -278,15 +290,6 @@ autocmd BufRead, *.rb nmap <leader>r :silent !{ruby %}<cr>
 " function: strip trailing whitespace on save
 autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
 
-" go
-autocmd FileType go nmap <leader>b <plug>(go-build)
-autocmd FileType go nmap <leader>r <plug>(go-run)
-autocmd FileType go nmap <leader>i <plug>(go-info)
-
-let g:go_fmt_command = "goimports"
-
-let g:go_auto_type_info = 1
-set updatetime=500
 
 """ MAPPINGS
 
