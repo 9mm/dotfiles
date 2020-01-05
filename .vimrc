@@ -15,11 +15,6 @@
 "                     '---'
 "
 
-""" fuck Python
-if has('python3')
-  silent! python3 1
-endif
-
 """ PLUG
 
 call plug#begin('~/.vim/bundle')
@@ -27,12 +22,14 @@ call plug#begin('~/.vim/bundle')
 Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
 Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
+Plug '9mm/vim-closer',                         {'as': 'vim-closer'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
-Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
+" Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+Plug 'tpope/vim-endwise',                      {'as': 'vim-endwise'}
 Plug 'tpope/vim-fugitive',                     {'as': 'vim-fugitive'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
 Plug 'fatih/vim-go',                           {'as': 'vim-go'}
@@ -46,11 +43,10 @@ Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
 Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
 Plug 'lifepillar/pgsql.vim',                   {'as': 'vim-postgres'}
-Plug 'prettier/vim-prettier',                  {'as': 'vim-prettier'}
 Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
 Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
 Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
-Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
+" Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
 Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
 Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
@@ -176,7 +172,7 @@ set incsearch
 set ch=2
 
 " no visual bell
-set vb
+set novb
 
 " allow backspacing over indent, eol, and start of insert
 set backspace=2
@@ -214,8 +210,8 @@ set timeoutlen=500
 " history length
 set history=1000
 
-" scroll when 8 lines away from edge
-set scrolloff=8
+" scroll when x lines away from edge
+set scrolloff=4
 
 " for command-line completion
 set wildmenu
@@ -292,6 +288,13 @@ autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
 
 
 """ MAPPINGS
+
+" VimR
+
+if has("gui_vimr")
+  nnoremap <silent><D-S-{> gT
+  nnoremap <silent><D-S-}> gt
+endif
 
 " html
 map <leader>b <s-s>tstrong>
@@ -431,13 +434,20 @@ endfunction
 
 """ STYLE
 
-set guifont=Anonymous\ Pro\ for\ Powerline:h14
-
 set background=dark
 
-if has('gui_running')
-  colorscheme exuma
+" VimR has it's own font preferences
+if !has('gui_vimr')
+  set guifont=Anonymous\ Pro\ for\ Powerline:h14
+endif
 
+" everything except terminal
+if has('gui_running') || has('gui_vimr')
+  colorscheme exuma
+endif
+
+" MacVim
+if has('gui_running')
   let g:airline_powerline_fonts = 1
 
   " set window location to align nicely on start

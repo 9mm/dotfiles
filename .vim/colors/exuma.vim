@@ -96,9 +96,9 @@ hi NonText         guifg=#465457
 hi SpecialKey      guifg=#465457
 
 " Git Gutter
-hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermb=0
-hi GitGutterChange guifg=#f5db00 guibg=#232526 ctermfg=3 ctermb=0
-hi GitGutterDelete guifg=#ff2222 guibg=#232526 ctermfg=1 ctermb=0
+hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermbg=0
+hi GitGutterChange guifg=#f5db00 guibg=#232526 ctermfg=3 ctermbg=0
+hi GitGutterDelete guifg=#ff2222 guibg=#232526 ctermfg=1 ctermbg=0
 
 " NERDTree
 hi NERDTreeDir      guifg=#aaaaaa
