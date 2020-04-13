@@ -22,11 +22,11 @@ call plug#begin('~/.vim/bundle')
 Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
 Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
-Plug '9mm/vim-closer',                         {'as': 'vim-closer'}
+" Plug '9mm/vim-closer',                         {'as': 'vim-closer'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
-" Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
+Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
 Plug 'tpope/vim-endwise',                      {'as': 'vim-endwise'}
@@ -48,6 +48,7 @@ Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
 Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
 " Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
 Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
+Plug 'gcmt/taboo.vim',                         {'as': 'vim-taboo'}
 Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
 Plug 'mbbill/undotree',                        {'as': 'vim-undo-tree'}
@@ -108,6 +109,9 @@ let g:NERDTreeCascadeSingleChildDir = 0
 
 " vim-postgres
 let g:sql_type_default = 'pgsql'
+
+" vim-taboo
+let g:taboo_tab_format = '  %f%m  '
 
 " vim-ultisnips
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
