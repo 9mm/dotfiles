@@ -9,12 +9,13 @@ ZSH_THEME="robbyrussell"
 export WORDCHARS='*?[]~&;!$%^<>'
 
 # Tweak history
-export HISTSIZE=100000
+export HISTSIZE=1000000
 export SAVEHIST=$HISTSIZE
 export HISTFILE="$HOME/.history"
 
-# Custom aliases
+# Custom includes
 source $HOME/.zsh/aliases
+source $HOME/.zsh/credentials
 
 # Plugins
 plugins=(zsh-autosuggestions)
@@ -26,7 +27,7 @@ source $ZSH/oh-my-zsh.sh
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 # Brew
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Rbenv
 eval "$(rbenv init -)"
@@ -59,6 +60,11 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 function prev() {
   PREV=$(fc -lrn | head -n 1)
   sh -c "pet new `printf %q "$PREV"`"
+}
+
+# mkcd
+function mkcd() {
+  mkdir -p "$@" && cd "$@";
 }
 
 # MOTD
