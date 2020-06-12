@@ -77,7 +77,7 @@ let mapleader = ','
 " vim-ctrlp
 map <d-5> <f5>
 map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|.tags|tmp)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|storage|.tags|tmp)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
 let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
