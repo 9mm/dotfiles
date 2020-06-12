@@ -48,10 +48,6 @@ export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
 
-# Android
-export PATH="$HOME/Library/Android/sdk/tools:$PATH"
-export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
