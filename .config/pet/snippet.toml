@@ -32,3 +32,23 @@
   description = "Find files and directories in path (supports wildcards)"
   command = "find . -name \"*.rb\""
   output = ""
+
+[[snippets]]
+  description = "Run git-hours in current directory repo"
+  command = "docker run --rm -v $(pwd):/code khor/git-hours"
+  output = ""
+
+[[snippets]]
+  description = "Find/replace in files recursively"
+  command = "LC_ALL=C find . -type f -name '*.rb' -exec sed -i '' s/update_attributes/update/ {} +"
+  output = ""
+
+[[snippets]]
+  description = "Flush DNS"
+  command = "sudo killall -HUP mDNSResponder;sleep 2;"
+  output = ""
+
+[[snippets]]
+  description = "Hide FaceTime Audio window"
+  command = "killall -kill FaceTimeNotificationCenterService"
+  output = ""
