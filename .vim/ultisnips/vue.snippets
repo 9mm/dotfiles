@@ -1,0 +1,157 @@
+extends html
+extends javascript
+extends css
+
+priority 1
+
+snippet f
+($1) => {
+	$2
+}$0
+endsnippet
+
+snippet fd
+$1($2) {
+	$3
+},
+endsnippet
+
+snippet impc
+import $1 from '@/components/$2${1/(\w+).*/$1/}.vue';$0
+endsnippet
+
+snippet vtss
+<template>
+	<div>
+		$1
+	</div>
+</template>
+
+<script>
+export default {
+	$2
+};
+</script>
+
+<style scoped>
+	$0
+</style>
+endsnippet
+
+snippet vts
+<template>
+	<div>
+		$1
+	</div>
+</template>
+
+<script>
+export default {
+	$0
+};
+</script>
+endsnippet
+
+snippet template
+<template>
+	$0
+</template>
+endsnippet
+
+snippet script
+<script>
+export default {
+	$0
+};
+</script>
+endsnippet
+
+snippet scripti
+<script>
+$1
+
+export default {
+	$0
+};
+</script>
+endsnippet
+
+snippet style
+<style scoped>
+$0
+</style>
+endsnippet
+
+# https://eslint.vuejs.org/rules/order-in-components.html#options
+
+snippet components
+components: {
+	$0,
+},
+endsnippet
+
+snippet directives
+directives: {
+	$0,
+},
+endsnippet
+
+snippet props
+props: {
+	${1:name}: {
+		type: ${2:type},$0
+	},
+},
+endsnippet
+
+snippet emits
+emits: [$0],
+endsnippet
+
+snippet setup
+setup() {
+	$0
+},
+endsnippet
+
+snippet data
+data() {
+	return {
+		${1:key}: ${0:value},
+	};
+},
+endsnippet
+
+snippet computed
+computed: {
+	${1:name}($2) {
+		return $0;
+	},
+},
+endsnippet
+
+snippet watch
+watch: {
+	${1:name}(newVal, oldVal) {
+		$0
+	},
+},
+endsnippet
+
+snippet created
+created() {
+	$0
+},
+endsnippet
+
+snippet mounted
+mounted() {
+	$0
+},
+endsnippet
+
+snippet methods
+methods: {
+	${1:key}: ${0:value},
+},
+endsnippet

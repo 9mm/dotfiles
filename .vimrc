@@ -19,21 +19,22 @@
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
+" Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
-Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
-" Plug '9mm/vim-closer',                         {'as': 'vim-closer'}
+" Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
+Plug 'dense-analysis/ale',                     {'as': 'vim-ale'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
+" Plug 'vim-crystal/vim-crystal',                {'as': 'vim-crystal'}
 Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
-Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+Plug 'editorconfig/editorconfig-vim',          {'as': 'vim-editorconfig'}
+" Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
 Plug 'tpope/vim-endwise',                      {'as': 'vim-endwise'}
 Plug 'tpope/vim-fugitive',                     {'as': 'vim-fugitive'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
 Plug 'fatih/vim-go',                           {'as': 'vim-go'}
-Plug 'junegunn/goyo.vim',                      {'as': 'vim-goyo'}
 Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
 Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
@@ -41,7 +42,7 @@ Plug 'tpope/vim-markdown',                     {'as': 'vim-markdown'}
 Plug 'tmhedberg/matchit',                      {'as': 'vim-matchit'}
 Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
-Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
+" Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
 Plug 'lifepillar/pgsql.vim',                   {'as': 'vim-postgres'}
 Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
 Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
@@ -52,6 +53,7 @@ Plug 'gcmt/taboo.vim',                         {'as': 'vim-taboo'}
 Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
 Plug 'mbbill/undotree',                        {'as': 'vim-undo-tree'}
+Plug 'posva/vim-vue',                          {'as': 'vim-vue'}
 Plug 'maxbrunsfeld/vim-yankstack',             {'as': 'vim-yankstack'}
 
 call plug#end()
@@ -74,10 +76,23 @@ let mapleader = ','
 
 """ BUNDLE CONFIG
 
+" vim-ale
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\  'json': ['jsonlint'],
+\  'vue': ['eslint'],
+\}
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
+\  'json': ['jq'],
+\  'vue': ['eslint'],
+\}
+
 " vim-ctrlp
 map <d-5> <f5>
 map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|bower_components|build|deps|dist|node_modules|Pods|priv|storage|.tags|tmp)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|build|deps|dist|node_modules|Pods|priv|storage|.tags|tmp)$'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path  = 0
 let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
@@ -270,7 +285,7 @@ autocmd FileType sh setlocal softtabstop=4 shiftwidth=4 tabstop=4
 " filetype
 autocmd BufRead,BufNewFile *.conf     set filetype=ini
 autocmd BufRead,BufNewFile *.css      set filetype=scss " postCSS doesn't require .scss extension
-autocmd BufRead,BufNewFile *.gradle   set filetype=java " because groovy highlighting is stupid
+autocmd BufRead,BufNewFile *.pcss     set filetype=scss
 autocmd BufRead,BufNewFile nginx.conf set filetype=nginx
 autocmd BufRead,BufNewFile .tags      set filetype=tags
 
@@ -455,7 +470,7 @@ if has('gui_running')
   let g:airline_powerline_fonts = 1
 
   " set window location to align nicely on start
-  autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 840 0')})
+  autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 893 0')})
 endif
 
 if exists('&transparency')
