@@ -8,6 +8,7 @@
 	default = simple
 [core]
 	excludesfile = /Users/zesty/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
@@ -15,3 +16,18 @@
 	clean = git-lfs clean -- %f
 [pull]
 	rebase = true
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

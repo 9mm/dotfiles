@@ -43,7 +43,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git python vim macvim ack autojump ctags fzf curl wget rbenv yarn
+    brew install git diff-so-fancy python vim macvim ack autojump ctags fzf curl wget rbenv yarn
     brew install httpie jq rename tree tmate htop # extra goodies
     brew install knqyf263/pet/pet
 
@@ -55,6 +55,11 @@ within `~/.zshrc`):
 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+
+### Diff So Fancy
+
+Follow install instructions on [the repo](https://github.com/so-fancy/diff-so-fancy).
 
 
 ### Vim
