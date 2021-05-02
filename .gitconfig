@@ -1,0 +1,17 @@
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[color]
+	ui = true
+[credential]
+	helper = osxkeychain
+[push]
+	default = simple
+[core]
+	excludesfile = /Users/zesty/.gitignore_global
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[pull]
+	rebase = true
