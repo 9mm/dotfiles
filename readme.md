@@ -48,6 +48,12 @@ Enable colorization
     brew install knqyf263/pet/pet
 
 
+### Other
+
+Set more cores for Bundler
+
+    bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
+
 ### Oh-My-ZSH
 
 Add a ZSH distribution and Fish-style autosuggestions (plugin is already loaded
