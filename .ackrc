@@ -1,7 +1,8 @@
 --ignore-directory=.gem
---ignore-directory=.tmp
+--ignore-directory=.jekyll-cache
 --ignore-directory=.sass-cache
 --ignore-directory=_site
+--ignore-directory=.tmp
 --ignore-directory=bower_components
 --ignore-directory=build
 --ignore-directory=coverage
@@ -14,4 +15,5 @@
 --ignore-directory=Pods
 --ignore-directory=tmp
 --ignore-directory=vendor
+--ignore-file=ext:orig
 --ignore-file=is:.tags

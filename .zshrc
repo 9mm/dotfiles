@@ -8,7 +8,7 @@ ZSH_THEME="robbyrussell"
 # Narrow that down to allow easier skipping through words via M-f and M-b.
 export WORDCHARS='*?[]~&;!$%^<>'
 
-# Tweak history
+# History config
 export HISTSIZE=1000000
 export SAVEHIST=$HISTSIZE
 export HISTFILE="$HOME/.history"
@@ -24,29 +24,31 @@ plugins=(zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 # Load SSH keys after reboot
-ssh-add ~/.ssh/id_rsa 2>/dev/null
+# ssh-add ~/.ssh/id_ed25519 2>/dev/null
+# ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 # Brew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-# Rbenv
+# Postgres
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+# Ruby
 eval "$(rbenv init -)"
 
 # Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
 
-# Google Cloud SDK
-export PATH="$HOME/.google-cloud-sdk/bin:$PATH"
-
 # Elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-# Postgres
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # Go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
+
+# Google Cloud SDK [brew install --cask google-cloud-sdk]
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh

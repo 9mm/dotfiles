@@ -19,7 +19,7 @@
 
 call plug#begin('~/.vim/bundle')
 
-" Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
+Plug 'mileszs/ack.vim',                        {'as': 'vim-ack'}
 Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
 " Plug 'slashmili/alchemist.vim',                {'as': 'vim-alchemist'}
 Plug 'dense-analysis/ale',                     {'as': 'vim-ale'}
@@ -30,7 +30,7 @@ Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'editorconfig/editorconfig-vim',          {'as': 'vim-editorconfig'}
-" Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
 Plug 'tpope/vim-endwise',                      {'as': 'vim-endwise'}
 Plug 'tpope/vim-fugitive',                     {'as': 'vim-fugitive'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
@@ -43,12 +43,14 @@ Plug 'tmhedberg/matchit',                      {'as': 'vim-matchit'}
 Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
 " Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
+Plug 'tyru/open-browser.vim',                  {'as': 'vim-open-browser'}
 Plug 'lifepillar/pgsql.vim',                   {'as': 'vim-postgres'}
 Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
 Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
 Plug 'cakebaker/scss-syntax.vim',              {'as': 'vim-scss'}
 " Plug 'justinmk/vim-sneak',                     {'as': 'vim-sneak'}
 Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
+Plug 'dhruvasagar/vim-table-mode',             {'as': 'vim-table'}
 Plug 'gcmt/taboo.vim',                         {'as': 'vim-taboo'}
 Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
@@ -72,6 +74,21 @@ syntax on
 
 " leader key
 let mapleader = ','
+
+
+""" FIX gx
+
+if has('macunix')
+  function! OpenURLUnderCursor()
+    let s:uri = matchstr(getline('.'), '[a-z]*:\/\/[^ >,;()]*')
+    let s:uri = shellescape(s:uri, 1)
+    if s:uri != ''
+      silent exec "!open '".s:uri."'"
+      :redraw!
+    endif
+  endfunction
+  nnoremap gx :call OpenURLUnderCursor()<cr>
+endif
 
 
 """ BUNDLE CONFIG
@@ -122,6 +139,11 @@ let g:NERDTreeSortOrder = ['\/$', '\.go$', '\.rb$', '*']
 nnoremap <c-g> :NERDTreeToggle<cr>
 let g:NERDTreeCascadeSingleChildDir = 0
 
+" vim-open-browser
+let g:netrw_nogx = 1 " disable netrw gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
 " vim-postgres
 let g:sql_type_default = 'pgsql'
 
@@ -158,6 +180,9 @@ set guioptions-=T " remove toolbar
 " don't line/column highlighting (slow)
 set nocursorline
 set nocursorcolumn
+
+" fuck ex mode
+noremap Q <Nop>
 
 " code folding
 set foldmethod=manual
@@ -455,10 +480,9 @@ endfunction
 
 set background=dark
 
-" VimR has it's own font preferences
-if !has('gui_vimr')
-  set guifont=Anonymous\ Pro\ for\ Powerline:h14
-endif
+set guifont=Anonymous\ Pro\ for\ Powerline:h14
+"set guifont=Iosevka:h15
+set linespace=-2
 
 " everything except terminal
 if has('gui_running') || has('gui_vimr')
