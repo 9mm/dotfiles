@@ -43,7 +43,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git diff-so-fancy python vim macvim ack autojump ctags fzf curl wget rbenv yarn
+    brew install git diff-so-fancy python vim macvim ack autojump ctags fzf fd curl wget rbenv yarn
     brew install httpie jq rename tree tmate htop # extra goodies
     brew install knqyf263/pet/pet
 

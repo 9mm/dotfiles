@@ -1,0 +1,12 @@
+**/assets
+.git
+.sass-cache
+.tmp
+_build
+_site
+build
+deps
+dist
+node_modules
+storage
+tmp

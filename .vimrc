@@ -26,15 +26,17 @@ Plug 'dense-analysis/ale',                     {'as': 'vim-ale'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
 " Plug 'vim-crystal/vim-crystal',                {'as': 'vim-crystal'}
-Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
+" Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
 Plug 'editorconfig/editorconfig-vim',          {'as': 'vim-editorconfig'}
-Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
+" Plug 'elixir-editors/vim-elixir',              {'as': 'vim-elixir'}
 Plug 'tpope/vim-endwise',                      {'as': 'vim-endwise'}
 Plug 'tpope/vim-fugitive',                     {'as': 'vim-fugitive'}
+Plug 'junegunn/fzf',                           {'as': 'vim-fzf'}
+Plug 'junegunn/fzf.vim',                       {'as': 'vim-fzf-wrapper'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
-Plug 'fatih/vim-go',                           {'as': 'vim-go'}
+" Plug 'fatih/vim-go',                           {'as': 'vim-go'}
 Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
 Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
@@ -121,6 +123,12 @@ let g:delimitMate_expand_space = 1
 " vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" vim-fzf
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md#examples
+" https://github.com/junegunn/fzf.vim/issues/453
+" Also see .zshrc for ignored files and folders
+nmap <c-p> :FZF<cr>
 
 " vim-gitgutter
 set updatetime=250
@@ -229,6 +237,9 @@ set lazyredraw
 
 " show as much of long lines as possible
 :set display+=lastline
+
+" og fonts
+set macligatures
 
 " show current mode
 set showmode

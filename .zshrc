@@ -18,7 +18,7 @@ source $HOME/.zsh/aliases
 source $HOME/.zsh/credentials
 
 # Plugins
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions docker)
 
 # Load ZSH
 source $ZSH/oh-my-zsh.sh
@@ -49,6 +49,10 @@ export PATH="$GOPATH:$GOPATH/bin:$PATH"
 # Google Cloud SDK [brew install --cask google-cloud-sdk]
 source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# FZF
+# ignore file comes from ~/.fdignore
+export FZF_DEFAULT_COMMAND="fd --type f"
 
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh  ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
