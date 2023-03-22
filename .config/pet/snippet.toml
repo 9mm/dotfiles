@@ -52,3 +52,18 @@
   description = "Hide FaceTime Audio window"
   command = "killall -kill FaceTimeNotificationCenterService"
   output = ""
+
+[[snippets]]
+  description = "M3U8 to MP4"
+  command = "ffmpeg -i https://example.com/master.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4"
+  output = ""
+
+[[snippets]]
+  description = "Find files and folders which contain string"
+  command = "find . -iname \"*TERM*\" -print"
+  output = ""
+
+[[snippets]]
+  description = "Remove EXIF from image"
+  command = "exiftool -all= -TagsFromFile @ -ColorSpaceTags -Orientation input.jpg"
+  output = ""
