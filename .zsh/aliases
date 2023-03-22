@@ -5,9 +5,6 @@ alias brewup='brew update && brew upgrade'
 
 # Rails
 alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec rake db:drop && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed'
-alias cpd='bundle exec cap production deploy'
-alias bu='bundle update && bundle audit check --update'
-alias meta='pragmater --add --comments "# frozen_string_literal: true" --includes "**/*.rb" && bundle exec erd && bundle exec annotate --models'
 
 # Heroku
 alias hc='heroku run rails console'
@@ -17,8 +14,6 @@ alias hd='git push heroku master'
 alias jsontidy="pbpaste | jq '.'" # pbpaste | jq '.' | pbcopy
 alias wrapon='tput rmam'
 alias wrapoff='tput smam'
-alias ipv6off='networksetup -setv6off "Wi-Fi" && networksetup -setv6off "Thunderbolt Ethernet" && networksetup -setv6off "Thunderbolt Bridge" && networksetup -setv6off "Bluetooth PAN"'
-alias ipv6on='networksetup -setv6automatic "Wi-Fi" && networksetup -setv6automatic "Thunderbolt Ethernet" && networksetup -setv6automatic "Thunderbolt Bridge" && networksetup -setv6automatic "Bluetooth PAN"'
 
 # DNS
 alias a='f() { dig +short a $1 };f'
