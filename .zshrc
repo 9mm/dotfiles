@@ -18,7 +18,7 @@ export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 # Homebrew
 # loaded via .zprofile
-HOMEBREW_NO_ENV_HINTS=true
+export HOMEBREW_NO_ENV_HINTS=true
 
 # Postgres
 # export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
