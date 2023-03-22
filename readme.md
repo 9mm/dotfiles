@@ -86,10 +86,13 @@ You can update `vim-plug` by running
 
     :PlugUgrade
 
-Search the `.vimrc` file for `VimEnter` and either comment the line out, or
-change the `winpos` to fit your screen. This setting automatically resizes
-MacVim on open. Without it, MacVim will open about ~20px off from where it was
-closed at.
+To create a `MacVim.app` icon that will always link to the current version, create an "Application" in Automator with the following:
+
+Make sure to pass input as arguments, and for shell use `/bin/zsh`
+
+    open -a /opt/homebrew/opt/macvim/MacVim.app "$@"
+
+Now save that in /Applications to have a version for the Applications folder that you can link other apps to.
 
 
 ### Spacemacs
