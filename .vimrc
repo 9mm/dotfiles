@@ -25,7 +25,6 @@ Plug 'vim-airline/vim-airline',                {'as': 'vim-airline'}
 Plug 'dense-analysis/ale',                     {'as': 'vim-ale'}
 Plug 'ap/vim-css-color',                       {'as': 'vim-css-color'}
 Plug 'hail2u/vim-css3-syntax',                 {'as': 'vim-css3-syntax'}
-" Plug 'vim-crystal/vim-crystal',                {'as': 'vim-crystal'}
 " Plug 'ctrlpvim/ctrlp.vim',                     {'as': 'vim-ctrlp'}
 Plug 'Raimondi/delimitMate',                   {'as': 'vim-delimitmate'}
 Plug 'junegunn/vim-easy-align',                {'as': 'vim-easy-align'}
@@ -37,6 +36,7 @@ Plug 'junegunn/fzf',                           {'as': 'vim-fzf'}
 Plug 'junegunn/fzf.vim',                       {'as': 'vim-fzf-wrapper'}
 Plug 'airblade/vim-gitgutter',                 {'as': 'vim-gitgutter'}
 " Plug 'fatih/vim-go',                           {'as': 'vim-go'}
+Plug 'junegunn/goyo.vim',                      {'as': 'vim-goyo'}
 Plug 'othree/html5.vim',                       {'as': 'vim-html5'}
 Plug 'pangloss/vim-javascript',                {'as': 'vim-javascript'}
 Plug 'othree/javascript-libraries-syntax.vim', {'as': 'vim-javascript-libraries'}
@@ -46,6 +46,7 @@ Plug 'scrooloose/nerdcommenter',               {'as': 'vim-nerd-commenter'}
 Plug 'scrooloose/nerdtree',                    {'as': 'vim-nerdtree'}
 " Plug 'chr4/nginx.vim',                         {'as': 'vim-nginx'}
 Plug 'tyru/open-browser.vim',                  {'as': 'vim-open-browser'}
+" Plug 'sheerun/vim-polyglot',                   {'as': 'vim-polyglot'}
 Plug 'lifepillar/pgsql.vim',                   {'as': 'vim-postgres'}
 Plug 'tpope/vim-rails',                        {'as': 'vim-rails'}
 Plug 'tpope/vim-repeat',                       {'as': 'vim-repeat'}
@@ -96,6 +97,7 @@ endif
 """ BUNDLE CONFIG
 
 " vim-ale
+let g:ale_virtualtext_cursor = 0
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \  'javascript': ['eslint'],
@@ -109,12 +111,12 @@ let g:ale_fixers = {
 \}
 
 " vim-ctrlp
-map <d-5> <f5>
-map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|build|deps|dist|node_modules|Pods|priv|storage|.tags|tmp)$'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path  = 0
-let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
+" map <d-5> <f5>
+" map <c-b> :CtrlPBuffer<cr>
+" let g:ctrlp_custom_ignore = '\v[\/](\.git|\.tmp|\.sass-cache|_site|_build|build|deps|dist|node_modules|Pods|priv|storage|.tags|tmp)$'
+" let g:ctrlp_switch_buffer = 0
+" let g:ctrlp_working_path  = 0
+" let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>']}
 
 " vim-delimitmate
 let g:delimitMate_expand_cr = 2
@@ -184,6 +186,7 @@ set fileencoding=utf-8
 " gui options
 set guioptions-=L " disable left scrollbar
 set guioptions-=T " remove toolbar
+set guioptions-=e " ugly tabs to fix this: https://github.com/macvim-dev/macvim/issues/1354
 
 " don't line/column highlighting (slow)
 set nocursorline

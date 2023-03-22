@@ -20,11 +20,25 @@ snippet impc
 import $1 from '@/components/$2${1/(\w+).*/$1/}.vue';$0
 endsnippet
 
+snippet impb
+import Base$1 from '@/components/base/Base$2${1/(\w+).*/$1/}.vue';$0
+endsnippet
+
+snippet impu
+import use$1 from '@/composables/use$2${1/(\w+).*/$1/}';$0
+endsnippet
+
+snippet imph
+import { $1 } from '@/helpers';$0
+endsnippet
+
+snippet impv
+import { $1 } from 'vue';$0
+endsnippet
+
 snippet vtss
 <template>
-	<div>
-		$1
-	</div>
+	$1
 </template>
 
 <script>
@@ -40,9 +54,7 @@ endsnippet
 
 snippet vts
 <template>
-	<div>
-		$1
-	</div>
+	$1
 </template>
 
 <script>
@@ -52,7 +64,7 @@ export default {
 </script>
 endsnippet
 
-snippet template
+snippet vt
 <template>
 	$0
 </template>
@@ -94,6 +106,10 @@ snippet directives
 directives: {
 	$0,
 },
+endsnippet
+
+snippet inject
+inject: [$0],
 endsnippet
 
 snippet props
@@ -152,6 +168,8 @@ endsnippet
 
 snippet methods
 methods: {
-	${1:key}: ${0:value},
+	${1:name}($2) {
+		$0
+	},
 },
 endsnippet

@@ -1,5 +1,4 @@
 # General
-alias a='ls -la'
 alias o='open .'
 alias v='~/.zsh/scripts/mvim.sh'
 alias brewup='brew update && brew upgrade'
@@ -15,7 +14,14 @@ alias hc='heroku run rails console'
 alias hd='git push heroku master'
 
 # Utility
+alias jsontidy="pbpaste | jq '.'" # pbpaste | jq '.' | pbcopy
 alias wrapon='tput rmam'
 alias wrapoff='tput smam'
 alias ipv6off='networksetup -setv6off "Wi-Fi" && networksetup -setv6off "Thunderbolt Ethernet" && networksetup -setv6off "Thunderbolt Bridge" && networksetup -setv6off "Bluetooth PAN"'
 alias ipv6on='networksetup -setv6automatic "Wi-Fi" && networksetup -setv6automatic "Thunderbolt Ethernet" && networksetup -setv6automatic "Thunderbolt Bridge" && networksetup -setv6automatic "Bluetooth PAN"'
+
+# DNS
+alias a='f() { dig +short a $1 };f'
+alias cname='f() { dig +short cname $1 };f'
+alias mx='f() { dig +short mx $1 };f'
+alias txt='f() { dig +short txt $1 };f'
