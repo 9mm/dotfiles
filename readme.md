@@ -43,10 +43,14 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git diff-so-fancy python vim macvim ack autojump ctags fzf fd curl wget rbenv yarn
+    brew install git diff-so-fancy nvm python vim macvim ack autojump fzf fd wget rbenv
     brew install httpie jq rename tree tmate htop # extra goodies
     brew install knqyf263/pet/pet
 
+### Node
+
+You should install latest node with `nvm`, and then globally add `yarn` with npm. From there, you can
+use yarn to globally install the rest of your packages. Do not use homebrew to install yarn.
 
 ### Other
 
