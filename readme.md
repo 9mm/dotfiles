@@ -43,7 +43,7 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git nvm python vim macvim ack autojump fzf fd wget rbenv
+    brew install git nvm python macvim ack autojump fzf fd wget rbenv
     brew install httpie jq rename tree tmate htop # extra goodies
     brew install knqyf263/pet/pet
 
