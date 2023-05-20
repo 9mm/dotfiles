@@ -1,6 +1,5 @@
 # General
 alias o='open .'
-alias v='~/.zsh/scripts/mvim.sh'
 alias brewup='brew update && brew upgrade'
 
 # Rails
@@ -11,7 +10,7 @@ alias hc='heroku run rails console'
 alias hd='git push heroku master'
 
 # Utility
-alias jsontidy="pbpaste | jq '.'" # pbpaste | jq '.' | pbcopy
+alias jsontidy="pbpaste | jq '.'"
 alias wrapon='tput rmam'
 alias wrapoff='tput smam'
 
