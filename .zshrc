@@ -20,18 +20,26 @@ export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 # loaded via .zprofile
 export HOMEBREW_NO_ENV_HINTS=true
 
+# Custom scripts
+export PATH="$PATH:$HOME/.zsh/bin"
+
 # Postgres
-# export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 # Ruby
+# eval "$(rbenv init - zsh --no-rehash)"
 eval "$(rbenv init - zsh)"
+
+# fix Typhoeus crashing
+# https://github.com/rails/rails/issues/38560
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # NVM - preventing slow startup with https://github.com/lukechilds/zsh-nvm
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 # export NVM_COMPLETION=true
 # if you receive 'env: node: Not a directory' using a global yarn package, it must be added here
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'wrangler' 'yarn')
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'eslint' 'lt' 'mvim' 'v' 'wrangler' 'yarn')
 
 # Yarn
 export PATH="$PATH:$HOME/.yarn/bin"

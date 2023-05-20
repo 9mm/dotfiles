@@ -56,13 +56,15 @@ Plug 'tpope/vim-surround',                     {'as': 'vim-surround'}
 Plug 'dhruvasagar/vim-table-mode',             {'as': 'vim-table'}
 Plug 'gcmt/taboo.vim',                         {'as': 'vim-taboo'}
 Plug 'gasparch/tagbar',                        {'as': 'vim-tagbar'}
+" https://stackoverflow.com/a/20165747/794481
+Plug 'kana/vim-textobj-line',                  {'as': 'vim-textobj-line'},
+Plug 'kana/vim-textobj-user',                  {'as': 'vim-textobj-user'},
 Plug 'SirVer/ultisnips',                       {'as': 'vim-ultisnips'}
 Plug 'mbbill/undotree',                        {'as': 'vim-undo-tree'}
 Plug 'posva/vim-vue',                          {'as': 'vim-vue'}
 Plug 'maxbrunsfeld/vim-yankstack',             {'as': 'vim-yankstack'}
 
 call plug#end()
-
 
 """ CORE
 
@@ -97,6 +99,7 @@ endif
 """ BUNDLE CONFIG
 
 " vim-ale
+let g:airline#extensions#ale#enabled = 1
 let g:ale_virtualtext_cursor = 0
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
@@ -508,7 +511,10 @@ if has('gui_running')
   let g:airline_powerline_fonts = 1
 
   " set window location to align nicely on start
-  autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 893 0')})
+  " 105 / 870 or 106 / 864
+  " if guioptions-=e is off use 64
+  execute('win 106 65')
+  autocmd VimEnter * call timer_start(120, { tid -> execute('winpos 864 0')})
 endif
 
 if exists('&transparency')
