@@ -8,16 +8,28 @@ snippet log
 console.log($1);
 endsnippet
 
-snippet afun "" i
-function($1) {
+snippet f "" i
+($1) => {
 	$0
 }
 endsnippet
 
-snippet fun
-var $1 = function($2) {
+snippet fe "" i
+($1) => (
 	$0
-};
+)
+endsnippet
+
+snippet fo "" i
+($1) => ({
+	$0
+})
+endsnippet
+
+snippet fa "" i
+($1) => ([
+	$0
+])
 endsnippet
 
 snippet sef

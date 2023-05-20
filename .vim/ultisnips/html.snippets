@@ -39,6 +39,10 @@ snippet t
 <$1>$0</${1/([\w-]+).*/$1/}>
 endsnippet
 
+snippet tt
+<$1 />$0
+endsnippet
+
 snippet style
 <style>
 	$0
@@ -183,7 +187,7 @@ snippet form
 endsnippet
 
 snippet input "" w
-<input type="${1:text}" name="$2" value="$3">
+<input type="${1:text}"$2>$0
 endsnippet
 
 snippet textarea "" w
