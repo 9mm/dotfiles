@@ -6,6 +6,7 @@
 -- essentials
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
+vim.opt.termguicolors = true
 
 -- plugins
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -20,7 +21,12 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-require('lazy').setup('zesty.plugins')
+require('lazy').setup('zesty.plugins', {
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+})
 
 -- gui
 require('zesty.gui')
@@ -32,7 +38,7 @@ require('zesty.keymaps')
 require('zesty.autocommands')
 
 -- aesthetic
-vim.o.guifont = 'AnonymicePro Nerd Font:h14'
+vim.o.guifont = 'AnonymicePro Nerd Font:h15'
 
 -- indentation
 vim.opt.autoindent  = true -- continue indentation to new line
@@ -44,19 +50,27 @@ vim.opt.tabstop     = 2    -- <tab> appears as 4 spaces
 vim.opt.softtabstop = 2    -- <tab> behaves as 4 spaces when editing
 
 -- cursor
+--vim.opt.guicursor = ''
 vim.opt.virtualedit = 'all'
 
 -- line numbers
 vim.opt.number = true
+vim.opt.signcolumn = 'yes:1' -- auto:1'
 
 -- wrap
 vim.opt.wrap = false
 vim.opt.linebreak = true
+vim.opt.breakindent = true
+--vim.o.completeopt = 'menuone,noselect'
 
 -- scroll
 vim.opt.scrolloff = 4
 vim.opt.mouse = 'nv'
 vim.opt.mousescroll = 'ver:2,hor:0'
+
+-- splits
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- search
 vim.opt.hlsearch = true
@@ -67,11 +81,10 @@ vim.opt.smartcase = true
 -- recovery
 vim.opt.backup = false
 vim.opt.undolevels = 1000
-vim.opt.undofile = true
+vim.opt.undofile = false
 vim.opt.undodir = os.getenv('HOME') .. '/.local/state/nvim/undo//'
 vim.opt.swapfile = true
 vim.opt.directory = os.getenv('HOME') .. '/.local/state/nvim/swap//'
 
 -- misc
-vim.opt.termguicolors = true
 vim.opt.updatetime = 50

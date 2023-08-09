@@ -1,27 +1,22 @@
--- strip whitespace on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*' },
-  callback = function()
-    local save_cursor = vim.fn.getpos('.')
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos('.', save_cursor)
-  end,
-})
-
 -- remember last location in file
 vim.api.nvim_create_autocmd('BufReadPost', {
-  pattern = { '*' },
-  command = [[if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif]]
+  callback = function(args)
+    local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line('$')
+    local not_commit = vim.b[args.buf].filetype ~= 'commit'
+
+    if valid_line and not_commit then
+      vim.cmd([[normal! g`"]])
+    end
+  end,
 })
 
 -- remove windows bullshit
 vim.api.nvim_create_autocmd('BufWrite', {
   pattern = { '*' },
-  callback = function() vim.opt.fileformat = 'unix' end,
-})
-vim.api.nvim_create_autocmd('BufWrite', {
-  pattern = { '*' },
-  callback = function() vim.cmd('%s/\\r//ge') end,
+  callback = function()
+    vim.cmd('%s/\\r//ge')
+    vim.opt.fileformat = 'unix'
+  end,
 })
 
 -- remove bom
@@ -29,3 +24,25 @@ vim.api.nvim_create_autocmd('BufWrite', {
   pattern = { '*' },
   callback = function() vim.opt.bomb = false end,
 })
+
+-- confirm ui for unsaved buffers
+-- vim.api.nvim_create_autocmd('BufWinLeave', {
+--   callback = function()
+--     if vim.bo.modified then
+--       vim.ui.select(
+--         { 'Save', 'Lose', 'Cancel' },
+--         { prompt = 'Save or lose before leave?' },
+--         function(choice)
+--           if choice == 'Save' then
+--             vim.cmd('write!')
+--             vim.cmd('blast')
+--           elseif choice == 'Lose' then
+--             vim.cmd('edit!')
+--             vim.cmd('blast')
+--           end
+--         end
+--       )
+--       vim.cmd('last')
+--     end
+--   end
+-- })

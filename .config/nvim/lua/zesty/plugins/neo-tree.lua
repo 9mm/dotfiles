@@ -18,21 +18,44 @@ return {
       event_handlers = {
         {
           event = 'file_opened',
-          handler = function(file_path)
+          handler = function()
             vim.cmd('Neotree close')
           end,
         },
       },
       window = {
-        width = 30,
+        width = 26,
         mappings = {
-          ['b'] = function() vim.cmd('Neotree focus buffers left', true) end,
-          ['f'] = function() vim.cmd('Neotree focus filesystem left', true) end,
+          ['b'] = function() vim.cmd('Neotree focus buffers left') end,
+          ['f'] = function() vim.cmd('Neotree focus filesystem left') end,
           ['o'] = 'open',
           ['O'] = 'system_open',
         },
       },
+      default_component_configs = {
+        icon = {
+          folder_closed = '',
+          folder_open = '',
+        },
+      },
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+        components = {
+          icon = function(config, node, state)
+            -- if node.type == 'directory' then return {} end
+            if node.type == 'file' then
+              return {
+                text = '· ',
+                highlight = config.highlight,
+              }
+            end
+            return require('neo-tree.sources.common.components').icon(config, node, state)
+          end
+        },
+      },
     })
-    vim.keymap.set('n', '<C-g>', ':Neotree toggle<CR>')
+    vim.keymap.set('n', '<C-g>', ':Neotree toggle<CR>', { desc = 'Neo-tree' })
   end,
 }

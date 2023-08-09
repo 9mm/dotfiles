@@ -4,6 +4,7 @@ return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -22,7 +23,14 @@ return {
         },
       },
       pickers = {
+        find_files = {
+          disable_devicons = true,
+        },
+        live_grep = {
+          disable_devicons = true,
+        },
         buffers = {
+          disable_devicons = true,
           sort_mru = true,
           ignore_current_buffer = true,
           mappings = {
@@ -52,29 +60,28 @@ return {
 
     telescope.load_extension('fzf')
     telescope.load_extension('ui-select')
+    telescope.load_extension('project')
   end,
   keys = {
     {
       '<C-p>',
       function() require('telescope.builtin').find_files() end,
-      desc = 'Find files',
+      desc = 'Find file',
     },
     {
       '<Leader>fb',
       function() require('telescope.builtin').buffers() end,
-      desc = 'Find buffers',
+      desc = 'Find buffer',
     },
     {
       '<Leader>gg',
       function() require('telescope.builtin').live_grep() end,
-      desc = 'Grep', -- uses ripgrep
+      desc = 'Live grep', -- uses ripgrep
     },
     {
       '<Leader>p',
-      function()
-        -- switch project folders in code folder
-      end,
-      desc = 'Find project',
+      function() require('telescope').extensions.project.project({}) end,
+      desc = 'Switch project',
     },
   },
   cmd = {

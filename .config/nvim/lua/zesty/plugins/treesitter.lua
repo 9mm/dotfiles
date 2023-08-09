@@ -2,10 +2,11 @@
 
 return {
   'nvim-treesitter/nvim-treesitter',
+  enabled = true,
   build = ':TSUpdate',
   dependencies = {
-    -- extra textobjects
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'yioneko/nvim-yati',
   },
   config = function()
     require('nvim-treesitter.configs').setup({
@@ -17,6 +18,7 @@ return {
         'comment',
         'css',
         'dockerfile',
+        'gitignore',
         'go',
         'html',
         'javascript',
@@ -34,26 +36,29 @@ return {
         'vimdoc',
         'yaml',
       },
-      -- install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
-      -- automatically install missing parsers when entering buffer
       auto_install = true,
-      -- list of parsers to ignore installing (for "all")
       ignore_install = {},
       indent = {
         enable = false,
       },
+      yati = {
+        enable = true, -- disable indent if enabling yati, and vice versa
+        disable = {},
+        default_lazy = true,
+        default_fallback = 'auto',
+      },
       highlight = {
         enable = true,
-        -- setting this to true will run `:h syntax` and tree-sitter at the same time.
         additional_vim_regex_highlighting = false,
       },
       textobjects = {
         select = {
           enable = true,
-          -- automatically jump forward to textobj, similar to targets.vim
           lookahead = true,
           keymaps = {
+            ['aa'] = '@parameter.outer',
+            ['ia'] = '@parameter.inner',
             ['af'] = '@function.outer',
             ['if'] = '@function.inner',
             ['ac'] = '@class.outer',
