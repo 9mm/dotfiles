@@ -1,2 +1,28 @@
-snippet xxx
-	something
+snippet imp 'import'
+	import $1 from '$2';
+
+snippet log 'console.log'
+	console.log($0);
+
+snippet f '() => ()'
+	($1) => ($0)
+
+snippet ff '() => {}'
+	($1) => {
+		$2
+	}
+
+snippet fo '() => ({})'
+	($1) => ({
+		$2,
+	})
+
+snippet fa '() => ([])'
+	($1) => ([
+		$2,
+	])
+
+snippet sef '(() => {})()'
+	(() => {
+		$0
+	})();

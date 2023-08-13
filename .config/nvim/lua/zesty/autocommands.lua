@@ -24,25 +24,3 @@ vim.api.nvim_create_autocmd('BufWrite', {
   pattern = { '*' },
   callback = function() vim.opt.bomb = false end,
 })
-
--- confirm ui for unsaved buffers
--- vim.api.nvim_create_autocmd('BufWinLeave', {
---   callback = function()
---     if vim.bo.modified then
---       vim.ui.select(
---         { 'Save', 'Lose', 'Cancel' },
---         { prompt = 'Save or lose before leave?' },
---         function(choice)
---           if choice == 'Save' then
---             vim.cmd('write!')
---             vim.cmd('blast')
---           elseif choice == 'Lose' then
---             vim.cmd('edit!')
---             vim.cmd('blast')
---           end
---         end
---       )
---       vim.cmd('last')
---     end
---   end
--- })

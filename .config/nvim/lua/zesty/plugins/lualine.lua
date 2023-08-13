@@ -2,9 +2,6 @@
 
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    --'nvim-tree/nvim-web-devicons',
-  },
   config = function()
     require('lualine').setup({
       options = {
@@ -18,32 +15,6 @@ return {
         },
       },
       sections = {
-        lualine_c = {
-          {
-            function()
-              local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line('.') - 1 })
-              local max_severity = 4
-              local max_severity_idx
-              for i, diagnostic in ipairs(diagnostics) do
-                if diagnostic.severity < max_severity then
-                  max_severity_idx = i
-                end
-              end
-              return diagnostics[max_severity_idx].message
-            end,
-            color = function()
-              local severities = { 'Error', 'Warn', 'Info', 'Hint' }
-              local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line('.') - 1 })
-              local max_severity = 4
-              for _, diagnostic in ipairs(diagnostics) do
-                if diagnostic.severity < max_severity then
-                  max_severity = diagnostic.severity
-                end
-              end
-              return 'Diagnostic' .. severities[max_severity]
-            end
-          }
-        },
         lualine_x = {
           'encoding',
           {

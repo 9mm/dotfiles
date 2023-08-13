@@ -1,0 +1,16 @@
+snippet html 'html document'
+	<!doctype html>
+	<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>$1</title>
+	</head>
+	<body>
+		$0
+	</body>
+	</html>
+
+snippet t 'magic tag'
+	<$1>$0</${1/([\w-]+).*/$1/}>

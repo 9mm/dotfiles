@@ -4,7 +4,6 @@
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
-  enabled = true,
   priority = 1000,
   config = function()
     require('catppuccin').setup({
@@ -54,6 +53,14 @@ return {
         telescope = true,
         treesitter = true,
         which_key = true,
+        native_lsp = {
+          underlines = {
+            errors = { 'undercurl' },
+            warnings = { 'undercurl' },
+            hints = { 'undercurl' },
+            information = { 'undercurl' },
+          },
+        },
       },
     })
 

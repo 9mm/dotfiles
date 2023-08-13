@@ -8,7 +8,7 @@ vim.keymap.set('x', '<D-j>', ":m '>+1<CR>gv=gv", { desc = 'Move lines down'})
 vim.keymap.set('n', '<CR>', 'o_<ESC>x')
 
 -- paste and indent
-vim.keymap.set('n', '<Leader>v', 'i<C-r><C-o>+<ESC>l=`[`]$', { desc = 'Past block and indent'})
+vim.keymap.set('n', '<Leader>v', 'i<C-r><C-o>+<ESC>l=`[`]$', { desc = 'Paste block and indent'})
 
 -- fuck ex mode
 vim.keymap.set('n', 'Q', '<NOP>')
@@ -41,5 +41,5 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move to split down' })
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move to split left' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move to split right' })
 
--- unjoin (overwrites better split... fix later)
-vim.keymap.set('n', '<C-j>', 'i<CR><ESC>', { desc = 'Unjoin' })
+-- unjoin
+vim.keymap.set('n', '<C-CR>', 'i<CR><ESC>', { desc = 'Unjoin' })

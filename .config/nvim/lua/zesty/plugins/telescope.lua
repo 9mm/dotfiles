@@ -61,6 +61,15 @@ return {
     telescope.load_extension('fzf')
     telescope.load_extension('ui-select')
     telescope.load_extension('project')
+
+    -- keymaps
+    vim.keymap.set('n', '<Leader>sh', require('telescope.builtin').help_tags, { desc = 'Search help' })
+    vim.keymap.set('n', '<Leader>/', function()
+      require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        winblend = 10,
+        previewer = false,
+      })
+    end, { desc = 'Fuzzy search current buffer' })
   end,
   keys = {
     {

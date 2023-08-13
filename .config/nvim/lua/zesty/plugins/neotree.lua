@@ -32,7 +32,25 @@ return {
           ['O'] = 'system_open',
         },
       },
+      enable_diagnostics = true,
+      enable_git_status = true,
       default_component_configs = {
+        name = {
+          use_git_status_colors = true,
+        },
+        git_status = {
+          symbols = {
+            added     = '',
+            deleted   = '',
+            modified  = '',
+            renamed   = '',
+            untracked = '',
+            ignored   = '',
+            unstaged  = '',
+            staged    = '',
+            conflict  = '',
+          },
+        },
         icon = {
           folder_closed = '',
           folder_open = '',
@@ -56,6 +74,13 @@ return {
         },
       },
     })
-    vim.keymap.set('n', '<C-g>', ':Neotree toggle<CR>', { desc = 'Neo-tree' })
   end,
+  keys = {
+    {
+      '<C-g>',
+      function() vim.cmd('Neotree toggle') end,
+      desc = 'Neotree',
+    },
+  },
+  cmd = 'Neotree',
 }

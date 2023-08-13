@@ -5,8 +5,12 @@ return {
     dependencies =  {
       'nvim-lua/plenary.nvim'
     },
-    config = function()
-      vim.keymap.set('n', '<Leader>gz', ':LazyGit<CR>', { desc = 'LazyGit'})
-    end,
+    keys = {
+      {
+        '<Leader>gz',
+        function() vim.cmd('LazyGit') end,
+        { desc = 'LazyGit' },
+      },
+    },
   },
 }
