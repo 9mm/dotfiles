@@ -30,8 +30,7 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 # eval "$(rbenv init - zsh --no-rehash)"
 eval "$(rbenv init - zsh)"
 
-# fix Typhoeus crashing
-# https://github.com/rails/rails/issues/38560
+# fix Typhoeus crashing - https://github.com/rails/rails/issues/38560
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # NVM - preventing slow startup with https://github.com/lukechilds/zsh-nvm
@@ -39,7 +38,7 @@ export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 # export NVM_COMPLETION=true
 # if you receive 'env: node: Not a directory' using a global yarn package, it must be added here
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'eslint' 'lt' 'mvim' 'v' 'wrangler' 'yarn')
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'eslint' 'mvim' 'rollup' 'v' 'wrangler' 'yarn')
 
 # Yarn
 export PATH="$PATH:$HOME/.yarn/bin"
@@ -52,7 +51,7 @@ export PATH="$PATH:$GOPATH:$GOPATH/bin"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # FZF
-# ignore file comes from ~/.fdignore
+# ignore file comes from ~/.ignore
 export FZF_DEFAULT_COMMAND="fd --type f"
 
 # Autojump
