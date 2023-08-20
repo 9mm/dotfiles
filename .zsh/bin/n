@@ -9,18 +9,21 @@
 # vim uses the cwd of the process to determine the working directory of vim. This is what
 # happens when you pass no flags. To override this, we need to use -c to set :cd ourself
 
+export NEOVIDE_MULTIGRID=true
+export NEOVIDE_FRAME=buttonless
+
 current_dir=$(pwd)
 
 if [ -z "$1" ]; then
   if [ "$current_dir" = "$HOME" ]; then
-    exec neovide --multigrid --frame buttonless -- -c 'cd ~/Desktop' > /dev/null 2>&1
+    exec neovide -- -c 'cd ~/Desktop' > /dev/null 2>&1
   else
-    exec neovide --multigrid --frame buttonless > /dev/null 2>&1
+    exec neovide > /dev/null 2>&1
   fi
 else
   if [ -d "$1" ]; then
-    exec neovide --multigrid --frame buttonless -- -c "cd $1" > /dev/null 2>&1
+    exec neovide -- -c "cd $1" > /dev/null 2>&1
   else
-    exec neovide --multigrid --frame buttonless "$@" > /dev/null 2>&1
+    exec neovide "$@" > /dev/null 2>&1
   fi
 fi
