@@ -93,6 +93,11 @@ Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
     open -a /opt/homebrew/opt/macvim/MacVim.app "$@"
 
+Do the same for `Neovide.app` if you want to use Neovim. In this case we leverage the `n` binary we've already written.
+
+    # only pass the first argument (file) to neovide launcher if multiple files are dragged
+    /bin/zsh -l -c "~/.zsh/bin/n \"$1\""
+
 Now save that in /Applications to have a version for the Applications folder that you can link other apps to.
 
 
