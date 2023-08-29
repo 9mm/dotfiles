@@ -4,13 +4,12 @@
 
 ### Cool Features
 
+* A Neovim/Vim config with full LSP support that I have refined for 10+ years
 * Fullscreen overlay terminal with `<c-i>` (use iTerm3 `plist`)
 * ZSH autocompletion with `<c-e>`
-* Optional MOTD for remembering hotkeys in `.zshrc`
 * Snippet storage via `pet list`. Type `prev` to store previous command
-* JSON printing with `echo '{"coffee": "time"}' | jq`
 * Zoxide (previously autojump) to common directories with `j <partial name>`
-* In-file searching with `ack <search term> -i`
+* Lots of Mac optimizations
 
 
 ### Basic Setup
@@ -18,6 +17,8 @@
 Set a super fast keyboard repeat
 
     defaults write NSGlobalDomain KeyRepeat -int 1
+
+If you're on a Mac, I recommend remapping your `Caps Lock` key to a `Control` key in keyboard settings.
 
 
 ### iTerm 3
@@ -44,7 +45,7 @@ Enable colorization
     brew analytics off
     brew update
     brew install git nvm python neovide ack zoxide ripgrep fzf fd wget rbenv
-    brew install httpie jq tmate htop lazygit # extra goodies
+    brew install pnpm httpie jq htop lazygit tmux # extra goodies
     brew install knqyf263/pet/pet
 
 ### Node
@@ -52,11 +53,19 @@ Enable colorization
 You should install latest node with `nvm`, and then globally add `yarn` with npm. From there, you can
 use yarn to globally install the rest of your packages. Do not use homebrew to install yarn.
 
+I use `pnpm` now, but I still use yarn for several projects, so that's where I keep my global packages.
+
 ### Other
 
 Set more cores for Bundler
 
     bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
+
+
+### Fonts
+
+Install the fonts in `Library/Fonts`
+
 
 ### Oh-My-ZSH
 
@@ -68,12 +77,19 @@ within `~/.zshrc`):
     git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 
 
-### Diff So Fancy
+### Neovide
 
-Follow install instructions on [the repo](https://github.com/so-fancy/diff-so-fancy).
+Update plugins with `:Lazy`
+
+To create a `Neovide.app` icon that will always link to the current version, create an "Application" in Automator with the following:
+
+Make sure to pass input as arguments, and for shell use `/bin/zsh`
+
+    # only pass the first argument (file) to neovide launcher if multiple files are dragged
+    /bin/zsh -l -c "~/.zsh/bin/n \"$1\""
 
 
-### Vim
+### Vim (Legacy)
 
 Once you install MacVim, start it and run
 
@@ -93,11 +109,6 @@ Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
     open -a /opt/homebrew/opt/macvim/MacVim.app "$@"
 
-Do the same for `Neovide.app` if you want to use Neovim. In this case we leverage the `n` binary we've already written.
-
-    # only pass the first argument (file) to neovide launcher if multiple files are dragged
-    /bin/zsh -l -c "~/.zsh/bin/n \"$1\""
-
 Now save that in /Applications to have a version for the Applications folder that you can link other apps to.
 
 
@@ -108,8 +119,3 @@ Now save that in /Applications to have a version for the Applications folder tha
     yarn global add tern # for the javascript layer
 
 Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-blog-posts-wiki/109?source_topic_id=3191)
-
-
-### Fonts
-
-Install the fonts in `Library/Fonts`
