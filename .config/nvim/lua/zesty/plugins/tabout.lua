@@ -9,8 +9,6 @@ return {
     'L3MON4D3/LuaSnip',
   },
   config = function()
-    -- https://github.com/abecodes/tabout.nvim#more-complex-keybindings
-
     require('tabout').setup({
       tabkey = '',
       backwards_tabkey = '',
@@ -26,11 +24,14 @@ return {
         { open = '`', close = '`' },
         { open = '(', close = ')' },
         { open = '[', close = ']' },
-        { open = '{', close = '}' }
+        { open = '{', close = '}' },
       },
       ignore_beginning = true,
       exclude = {},
     })
+
+    -- handle <Tab> key to prioritize LuaSnip over Tabout
+    -- https://github.com/abecodes/tabout.nvim#more-complex-keybindings
 
     local ls = require('luasnip')
 
@@ -40,7 +41,7 @@ return {
 
     function _G.tab_binding()
       if ls.expand_or_jumpable() then
-        return replace_keycodes('<Plug>(luasnip-expand-or-jump)')
+        return replace_keycodes('<Plug>luasnip-expand-or-jump')
       else
         return replace_keycodes('<Plug>(Tabout)')
       end
@@ -48,7 +49,7 @@ return {
 
     function _G.s_tab_binding()
       if ls.jumpable(-1) then
-        --
+        return replace_keycodes('<Plug>luasnip-jump-prev')
       else
         return replace_keycodes('<Plug>(TaboutBack)')
       end

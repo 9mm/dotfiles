@@ -4,7 +4,13 @@ return {
     event = 'InsertEnter',
     version = '*',
     config = function()
-      require('mini.align').setup()
+      local align = require('mini.align')
+      align.setup({
+        steps = {
+          -- align first column by default
+          -- pre_justify = { align.gen_step.filter('n == 1') }
+        },
+      })
     end,
   },
   {

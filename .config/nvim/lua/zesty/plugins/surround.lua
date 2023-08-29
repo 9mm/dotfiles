@@ -5,6 +5,6 @@ return {
   version = '*',
   event = 'InsertEnter',
   config = function()
-    require('nvim-surround').setup({})
+    require('nvim-surround').setup()
   end,
 }

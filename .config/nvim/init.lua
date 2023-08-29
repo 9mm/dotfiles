@@ -38,7 +38,7 @@ require('zesty.keymaps')
 require('zesty.autocommands')
 
 -- aesthetic
-vim.o.guifont = 'AnonymicePro Nerd Font:h15'
+vim.opt.guifont = 'AnonymicePro Nerd Font:h15'
 
 -- indentation
 vim.opt.autoindent  = true -- continue indentation to new line
@@ -50,8 +50,8 @@ vim.opt.tabstop     = 2    -- <tab> appears as 4 spaces
 vim.opt.softtabstop = 2    -- <tab> behaves as 4 spaces when editing
 
 -- cursor
---vim.opt.guicursor = ''
-vim.opt.virtualedit = 'all'
+vim.opt.guicursor = ''
+--vim.opt.virtualedit = 'all'
 
 -- line numbers
 vim.opt.number = true
@@ -61,7 +61,7 @@ vim.opt.signcolumn = 'yes:1' -- auto:1'
 vim.opt.wrap = false
 vim.opt.linebreak = true
 vim.opt.breakindent = true
---vim.o.completeopt = 'menuone,noselect'
+--vim.opt.completeopt = 'menuone,noselect'
 
 -- scroll
 vim.opt.scrolloff = 4
@@ -88,5 +88,6 @@ vim.opt.directory = os.getenv('HOME') .. '/.local/state/nvim/swap//'
 
 -- misc
 vim.opt.updatetime = 50
-vim.o.timeout = true
-vim.o.timeoutlen = 500
+vim.opt.timeout = true
+vim.opt.timeoutlen = 500
+vim.opt.shortmess = 'I'

@@ -9,7 +9,7 @@
 * Optional MOTD for remembering hotkeys in `.zshrc`
 * Snippet storage via `pet list`. Type `prev` to store previous command
 * JSON printing with `echo '{"coffee": "time"}' | jq`
-* Autojump to common directories with `j <partial name>`
+* Zoxide (previously autojump) to common directories with `j <partial name>`
 * In-file searching with `ack <search term> -i`
 
 
@@ -43,8 +43,8 @@ Enable colorization
 
     brew analytics off
     brew update
-    brew install git nvm python macvim ack autojump fzf fd wget rbenv
-    brew install httpie jq rename tree tmate htop # extra goodies
+    brew install git nvm python neovide ack zoxide ripgrep fzf fd wget rbenv
+    brew install httpie jq tmate htop lazygit # extra goodies
     brew install knqyf263/pet/pet
 
 ### Node

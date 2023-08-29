@@ -1,9 +1,13 @@
 if vim.g.neovide then
 
-  local function close_tab()
+  local function buffer_modified()
     local bufnr = vim.api.nvim_get_current_buf()
     local modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
-    if modified then
+    return modified
+  end
+
+  local function ui_close_tab()
+    if buffer_modified() then
       vim.ui.input(
         { prompt = '... unwritten buffer, are you sure? (y/n) ' },
         function(input)
@@ -16,6 +20,17 @@ if vim.g.neovide then
       vim.cmd('bd')
     end
     vim.cmd("echo ''")
+  end
+
+  local function confirm_close_tab()
+    if buffer_modified() then
+      local choice = vim.fn.confirm('... unwritten buffer, are you sure? (y/n) ', '&Yes\n&No\n&Cancel')
+      if choice == 1 then
+        vim.cmd('bd!')
+      end
+    else
+      vim.cmd('bd')
+    end
   end
 
   local alpha = function()
@@ -32,7 +47,7 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.0 -- must be 0.0 for menu bar to match
   vim.g.transparency = 0.98
   vim.g.neovide_background_color = '#0f0f12' .. alpha() -- match theme.lua
-  vim.g.neovide_refresh_rate = 120
+  vim.g.neovide_refresh_rate = 130
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_underline_automatic_scaling = true
@@ -42,17 +57,17 @@ if vim.g.neovide then
   vim.g.neovide_confirm_quit = true
 
   -- animation
-  vim.g.neovide_cursor_animation_length = 0 -- 0.06
-  vim.g.neovide_cursor_trail_size = 0 -- 0.4
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_trail_size = 0
+  vim.g.neovide_scroll_animation_length = 0
   vim.g.neovide_cursor_animate_command_line = false
-  vim.g.neovide_scroll_animation_length = 0.3
 
   -- keys
   vim.g.neovide_input_macos_alt_is_meta = true
 
   -- command mapping
   vim.keymap.set({ 'i', 'n' }, '<D-a>', '<ESC>ggVG')                              -- select all
-  vim.keymap.set({ 'i', 'n' }, '<D-w>', function() close_tab() end)               -- close tab
+  vim.keymap.set({ 'i', 'n' }, '<D-w>', function() confirm_close_tab() end)       -- close tab
   vim.keymap.set({ 'i', 'n' }, '<D-[>', function() vim.cmd('BufferPrevious') end) -- previous tab
   vim.keymap.set({ 'i', 'n' }, '<D-]>', function() vim.cmd('BufferNext') end)     -- next tab
   vim.keymap.set('i', '<D-t>', '<C-o>:tabnew<CR><ESC>')                           -- new tab (insert)

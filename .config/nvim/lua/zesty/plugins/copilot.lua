@@ -1,5 +1,3 @@
--- https://github.com/zbirenbaum/copilot.lua
-
 return {
   'zbirenbaum/copilot.lua',
   enabled = true,
@@ -19,8 +17,12 @@ return {
         typescript = true,
         vue = true,
         ruby = true,
+        eruby = true,
         lua = true,
         go = true,
+        html = true,
+        css = true,
+        php = true,
         ['*'] = false,
       },
       server_opts_overrides = {},

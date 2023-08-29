@@ -54,8 +54,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # ignore file comes from ~/.ignore
 export FZF_DEFAULT_COMMAND="fd --type f"
 
-# Autojump
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+# Zoxide
+eval "$(zoxide init --cmd j zsh)"
 
 # Pet - https://github.com/knqyf263/pet
 function prev() {

@@ -6,15 +6,14 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make',
-    },
   },
   config = function()
     local telescope = require('telescope')
     telescope.setup({
       defaults = {
+        layout_config = {
+          height = 0.80,
+        },
         mappings = {
           i = {
             ['<C-j>'] = require('telescope.actions').move_selection_next,
@@ -46,19 +45,12 @@ return {
         },
       },
       extensions = {
-        fzf = {
-          fuzzy = true,                   -- false will only do exact matching
-          override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true,    -- override the file sorter
-          case_mode = 'smart_case',       -- or 'ignore_case' or 'respect_case'
-        },
         ['ui-select'] = {
           require('telescope.themes').get_cursor(),
         },
       },
     })
 
-    telescope.load_extension('fzf')
     telescope.load_extension('ui-select')
     telescope.load_extension('project')
 

@@ -12,7 +12,32 @@ return {
         function() vim.cmd('TSHighlightCapturesUnderCursor') end,
         'TS Playground Cursor',
       },
+      {
+        '<Leader>tsi',
+        function() vim.cmd('Inspect') end, -- putting here even though it doesn't come from treesitter
+        'Object information',
+      },
     },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = 'BufReadPre',
+    config = function()
+      require('treesitter-context').setup({
+        enable = true,
+        mode = 'topline',
+        max_lines = 2,
+        trim_scope = 'outer',
+      })
+    end,
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'InsertEnter',
+  },
+  {
+    'RRethy/nvim-treesitter-endwise',
+    event = 'InsertEnter',
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -31,10 +56,8 @@ return {
           'comment',
           'css',
           'diff',
-          'dockerfile',
           'gitignore',
           'go',
-          'graphql',
           'html',
           'javascript',
           'json',
@@ -42,7 +65,6 @@ return {
           'markdown',
           'python',
           'query',
-          'r',
           'regex',
           'ruby',
           'rust',
@@ -81,6 +103,12 @@ return {
           disable = {},
           default_lazy = true,
           default_fallback = 'auto',
+        },
+        autotag = {
+          enable = true,
+        },
+        endwise = {
+          enable = true,
         },
         textobjects = {
           select = {

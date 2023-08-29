@@ -7,10 +7,10 @@ return {
   version = '*',
   build = 'make install_jsregexp',
   config = function()
-    local ls = require('luasnip')
+    local luasnip = require('luasnip')
 
     -- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#config-options
-    ls.setup({
+    luasnip.setup({
       update_events = 'TextChanged,TextChangedI',
     })
 
@@ -18,6 +18,26 @@ return {
       paths = '~/.config/nvim/snippets',
     })
 
-    -- keymaps are handled by Tabout
+    vim.keymap.set(
+      'n',
+      '<Leader>es',
+      function()
+        require('luasnip.loaders').edit_snippet_files({
+          extend = function(ft, paths)
+            if #paths == 0 then
+              return {
+                {
+                  '$CONFIG/' .. ft .. '.snippets',
+                  string.format("%s/%s.snippets", '~/.config/nvim/snippets', ft),
+                }
+              }
+            end
+
+            return {}
+          end
+        })
+      end,
+      { desc = 'Edit snippet' }
+    )
   end,
 }
