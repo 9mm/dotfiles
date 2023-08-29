@@ -1,6 +1,6 @@
 # General
 alias o='open .'
-alias brewup='brew update && brew upgrade'
+alias brewup='brew update && brew upgrade && brew cleanup'
 
 # Rails
 alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec rake db:drop && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed'
@@ -9,10 +9,11 @@ alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec 
 alias hc='heroku run rails console'
 alias hd='git push heroku master'
 
+# Fuck typing this
+alias np="pnpm"
+
 # Utility
 alias jsontidy="pbpaste | jq '.'"
-alias wrapon='tput rmam'
-alias wrapoff='tput smam'
 
 # DNS
 alias a='f() { dig +short a $1 };f'
