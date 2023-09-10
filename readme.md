@@ -1,5 +1,11 @@
 ## 9mm .dotfiles
 
+### Neovim:
+
+![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot2.png)
+
+### Vim:
+
 ![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
 
 ### Cool Features
