@@ -24,7 +24,7 @@ if vim.g.neovide then
 
   local function confirm_close_tab()
     if buffer_modified() then
-      local choice = vim.fn.confirm('... unwritten buffer, are you sure? (y/n) ', '&Yes\n&No\n&Cancel')
+      local choice = vim.fn.confirm('Unwritten buffer, are you sure?', '&Yes\n&No\n&Cancel')
       if choice == 1 then
         vim.cmd('bd!')
       end
@@ -44,10 +44,10 @@ if vim.g.neovide then
   vim.g.neovide_padding_left   = 20
 
   -- display
-  vim.g.neovide_transparency = 0.0 -- must be 0.0 for menu bar to match
-  vim.g.transparency = 0.98
-  vim.g.neovide_background_color = '#0f0f12' .. alpha() -- match theme.lua
-  vim.g.neovide_refresh_rate = 130
+  --vim.g.neovide_transparency = 0.8 -- must be 0.0 for menu bar to match
+  --vim.g.transparency = 0.8
+  --vim.g.neovide_background_color = '#0f0f12' .. alpha() -- match theme.lua
+  vim.g.neovide_refresh_rate = 9999 -- fps peaks over 1000+ (requires NEOVIDE_VSYNC=0)
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_underline_automatic_scaling = true

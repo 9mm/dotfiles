@@ -30,6 +30,9 @@ return {
           ['f'] = function() vim.cmd('Neotree focus filesystem left') end,
           ['o'] = 'open',
           ['O'] = 'system_open',
+          -- don't conflict with 'l' key
+          ['l'] = '',
+          ['<C-l>'] = 'focus_preview',
           -- don't conflict with 'o' key, we don't want delay
           ['oc'] = '',
           ['od'] = '',

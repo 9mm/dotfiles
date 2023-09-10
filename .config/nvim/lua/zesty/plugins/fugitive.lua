@@ -5,7 +5,7 @@ return {
     {
       '<Leader>gs',
       ':Git<CR>',
-      { desc = 'Fugitive' },
+      desc = 'Fugitive',
     },
   },
 }

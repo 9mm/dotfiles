@@ -60,7 +60,7 @@ return {
         { name = 'luasnip' },
         { name = 'nvim_lsp', max_item_count = 6 },
         { name = 'path', max_item_count = 3 },
-        --{ name = 'cmp_tabnine', group_index = 0},
+        { name = 'cmp_tabnine', max_item_count = 3, group_index = 0 },
       },
       formatting = {
         expandable_indicator = true,

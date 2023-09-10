@@ -16,8 +16,8 @@ vim.keymap.set('n', 'Q', '<NOP>')
 -- put but without losing original buffer
 vim.keymap.set('x', '<Leader>P', '"_dP', { desc = 'Put original'})
 
--- realtime find/replace word under cursor
-vim.keymap.set('n', '<Leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Realtime word replace'})
+-- find/replace word under cursor
+vim.keymap.set('n', '<Leader>rw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor'})
 
 -- edit vim
 vim.keymap.set('n', '<Leader>ev', ':e ~/.config/nvim/init.lua<cr>', { desc = 'Edit init.lua' })

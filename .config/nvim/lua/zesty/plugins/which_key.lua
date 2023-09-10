@@ -1,7 +1,6 @@
--- currently breaks diagnostics
 return {
   'folke/which-key.nvim',
-  enabled = false,
+  enabled = true,
   event = 'BufReadPre',
   config = function()
     require('which-key').setup()

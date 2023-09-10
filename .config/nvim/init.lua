@@ -38,7 +38,8 @@ require('zesty.keymaps')
 require('zesty.autocommands')
 
 -- aesthetic
-vim.opt.guifont = 'AnonymicePro Nerd Font:h15'
+--vim.opt.guifont = 'AnonymicePro Nerd Font:h15'
+vim.opt.guifont = 'JetBrainsMono Nerd Font:h14'
 
 -- indentation
 vim.opt.autoindent  = true -- continue indentation to new line
@@ -67,6 +68,7 @@ vim.opt.breakindent = true
 vim.opt.scrolloff = 4
 vim.opt.mouse = 'nv'
 vim.opt.mousescroll = 'ver:2,hor:0'
+vim.opt.smoothscroll = true
 
 -- splits
 vim.opt.splitright = true
@@ -89,5 +91,5 @@ vim.opt.directory = os.getenv('HOME') .. '/.local/state/nvim/swap//'
 -- misc
 vim.opt.updatetime = 50
 vim.opt.timeout = true
-vim.opt.timeoutlen = 500
+vim.opt.timeoutlen = 600
 vim.opt.shortmess = 'I'

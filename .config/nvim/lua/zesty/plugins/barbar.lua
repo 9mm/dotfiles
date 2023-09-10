@@ -1,6 +1,5 @@
 return {
   'romgrk/barbar.nvim',
-  lazy = false,
   init = function() vim.g.barbar_auto_setup = false end,
   config = function()
     require('barbar').setup({
@@ -18,17 +17,8 @@ return {
         },
       },
     })
+
+    vim.keymap.set({ 'n' }, '<M-[>', function() vim.cmd('BufferMovePrevious') end, { desc = 'Move tab left' })
+    vim.keymap.set({ 'n' }, '<M-]>', function() vim.cmd('BufferMoveNext') end, { desc = 'Move tab right' })
   end,
-  keys = {
-    {
-      '<M-[>',
-      function() vim.cmd('BufferMovePrevious') end,
-      { desc = 'Move tab left' },
-    },
-    {
-      '<M-]>',
-      function() vim.cmd('BufferMoveNext') end,
-      { desc = 'Move tab right' },
-    },
-  },
 }

@@ -9,7 +9,7 @@ return {
       {
         '<Leader>gz',
         function() vim.cmd('LazyGit') end,
-        { desc = 'LazyGit' },
+        desc = 'LazyGit',
       },
     },
   },

@@ -77,7 +77,7 @@ return {
     {
       '<Leader>gg',
       function() require('telescope.builtin').live_grep() end,
-      desc = 'Live grep', -- uses ripgrep
+      desc = 'Ripgrep',
     },
     {
       '<Leader>p',

@@ -5,17 +5,17 @@ return {
       {
         '<Leader>tsp',
         function() vim.cmd('TSPlaygroundToggle') end,
-        'TS Playground Cursor',
+        desc = 'TS Playground Cursor',
       },
       {
         '<Leader>tsc',
         function() vim.cmd('TSHighlightCapturesUnderCursor') end,
-        'TS Playground Cursor',
+        desc = 'TS Playground Cursor',
       },
       {
         '<Leader>tsi',
         function() vim.cmd('Inspect') end, -- putting here even though it doesn't come from treesitter
-        'Object information',
+        desc = 'Object information',
       },
     },
   },
@@ -23,6 +23,7 @@ return {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'BufReadPre',
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('treesitter-context').setup({
         enable = true,
         mode = 'topline',
@@ -30,6 +31,35 @@ return {
         trim_scope = 'outer',
       })
     end,
+  },
+  {
+    'kiyoon/treesitter-indent-object.nvim',
+    keys = {
+      {
+        'ii',
+        function() require('treesitter_indent_object.textobj').select_indent_inner() end,
+        mode = {'x', 'o'},
+        desc = 'inner indent (partial range)',
+      },
+      {
+        'iI',
+        function() require('treesitter_indent_object.textobj').select_indent_inner(true) end,
+        mode = {'x', 'o'},
+        desc = 'inner indent (entire range)',
+      },
+      {
+        'ai',
+        function() require('treesitter_indent_object.textobj').select_indent_outer() end,
+        mode = {'x', 'o'},
+        desc = 'outer indent',
+      },
+      {
+        'aI',
+        function() require('treesitter_indent_object.textobj').select_indent_outer(true) end,
+        mode = {'x', 'o'},
+        desc = 'outer indent (line-wise)',
+      },
+    },
   },
   {
     'windwp/nvim-ts-autotag',
@@ -47,10 +77,10 @@ return {
       'yioneko/nvim-yati',
     },
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
         ensure_installed = {
-          -- 'all',
           'bash',
           'c',
           'comment',
@@ -147,10 +177,10 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              ['<Leader>a'] = '@parameter.inner',
+              ['<Leader>sp'] = '@parameter.inner',
             },
             swap_previous = {
-              ['<Leader>A'] = '@parameter.inner',
+              ['<Leader>sP'] = '@parameter.inner',
             },
           },
         },
