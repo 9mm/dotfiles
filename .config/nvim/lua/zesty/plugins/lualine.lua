@@ -137,7 +137,7 @@ return {
             colored = false,
             icon_only = false,
             icon = { align = 'right' },
-            padding = { right = 2 },
+            padding = { left = 1, right = 2 },
           },
         },
         lualine_y = { 'progress' },

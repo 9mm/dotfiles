@@ -68,14 +68,14 @@ vim.opt.breakindent = true
 vim.opt.scrolloff = 4
 vim.opt.mouse = 'nv'
 vim.opt.mousescroll = 'ver:2,hor:0'
-vim.opt.smoothscroll = true
+--vim.opt.smoothscroll = true
 
 -- splits
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- search
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

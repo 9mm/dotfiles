@@ -3,7 +3,7 @@ return {
   event = 'InsertEnter',
   keys = {
     {
-      '<Leader>gs',
+      '<Leader>gf',
       ':Git<CR>',
       desc = 'Fugitive',
     },

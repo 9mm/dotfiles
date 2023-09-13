@@ -1,15 +1,24 @@
+-- https://github.com/mhartington/formatter.nvim/tree/master/lua/formatter/filetypes
+
 return {
   'mhartington/formatter.nvim',
   config = function()
-    local prettierd = require('formatter.filetypes.javascript').prettierd;
-
     require('formatter').setup({
       logging = false,
       log_level = vim.log.levels.WARN,
       filetype = {
-        javascript = { prettierd },
-        typescript = { prettierd },
-        vue = { prettierd },
+        html = {
+          require('formatter.filetypes.html').prettierd,
+        },
+        javascript = {
+          require('formatter.filetypes.javascript').prettierd,
+        },
+        typescript = {
+          require('formatter.filetypes.typescript').prettierd,
+        },
+        vue = {
+          -- prettierd not supported
+        },
       },
     })
   end,
@@ -17,7 +26,7 @@ return {
     {
       '<Leader>fF',
       function() vim.cmd('FormatWrite') end,
-      desc = 'Format: Formatter.nvim' ,
+      desc = 'Format: Formatter.nvim',
     },
   },
 }

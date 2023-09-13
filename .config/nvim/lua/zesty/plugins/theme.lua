@@ -17,6 +17,7 @@ return {
     config = function()
       require('catppuccin').setup({
         flavour = 'mocha',
+        term_colors = true,
         transparent_background = not vim.g.neovide,
         show_end_of_buffer = false,
         no_italic = true,
