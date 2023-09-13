@@ -51,7 +51,7 @@ Enable colorization
     brew analytics off
     brew update
     brew install git nvm python neovide ack zoxide ripgrep fzf fd wget rbenv
-    brew install pnpm httpie jq htop lazygit tmux # extra goodies
+    brew install pnpm httpie jq htop lazygit tmux diff-so-fancy # extra goodies
     brew install knqyf263/pet/pet
 
 ### Node
