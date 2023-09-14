@@ -1,0 +1,11 @@
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#default
+
+gui:
+  showFileTree: false
+  theme:
+    inactiveBorderColor:
+      - black
+git:
+  paging:
+    colorArg: always
+    pager: diff-so-fancy
