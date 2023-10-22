@@ -1,10 +1,31 @@
 ## 9mm .dotfiles
 
-### Neovim:
+### Neovim
 
-![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot2.png)
+![Neovim + Neovide](https://raw.github.com/9mm/dotfiles/master/home.png)
+![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/mode-n.png)
+![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/mode-r.png)
+![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/mode-i.png)
+![lazy.nvim](https://raw.github.com/9mm/dotfiles/master/ls.png)
+![mason.nvim](https://raw.github.com/9mm/dotfiles/master/mm.png)
+![LSP + nvim-cmp](https://raw.github.com/9mm/dotfiles/master/cmp.png)
+![LSP + nvim-cmp](https://raw.github.com/9mm/dotfiles/master/cmp2.png)
+![ccc.nvim](https://raw.github.com/9mm/dotfiles/master/cp.png)
+![mini.files](https://raw.github.com/9mm/dotfiles/master/fe.png)
+![vim-floaterm + oh-my-zsh](https://raw.github.com/9mm/dotfiles/master/iterm.png)
+![vim-floaterm + oh-my-zsh](https://raw.github.com/9mm/dotfiles/master/iterm2.png)
+![lsp-config](https://raw.github.com/9mm/dotfiles/master/lspc.png)
+![vim-floaterm + lazygit](https://raw.github.com/9mm/dotfiles/master/lz.png)
+![vim-floaterm + lazygit](https://raw.github.com/9mm/dotfiles/master/lz2.png)
+![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/gg.png)
+![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/q.png)
+![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/telescope.png)
+![treesitter playground](https://raw.github.com/9mm/dotfiles/master/ts.png)
+![undotree](https://raw.github.com/9mm/dotfiles/master/undo.png)
+![which-key.nvim](https://raw.github.com/9mm/dotfiles/master/wk.png)
+![cellular-automaton.nvim](https://raw.github.com/9mm/dotfiles/master/car.png)
 
-### Vim:
+### Vim (Legacy)
 
 ![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
 
