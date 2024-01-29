@@ -1,42 +1,54 @@
-extends javascript
 extends html
+extends javascript
 
-priority 1
+snippet temp "template"
+  <template>$0</template>
 
-snippet impc 'import component'
-	import $1 from '@/components/$2${1/(\w+).*/$1/}.vue';$0
+snippet impc "import component"
+	import $1 from "@/components/$2${1/(\w+).*/$1/}.vue";$0
 
-snippet impu 'import composable'
-	import use$1 from '@/composables/use$2${1/(\w+).*/$1/}';$0
+snippet impu "import composable"
+	import use$1 from "@/composables/use$2${1/(\w+).*/$1/}";$0
 
-snippet ts 'script setup (typescript)'
-	<template>
-		$1
-	</template>
-
-	<script setup lang="ts">
-	$0
-	</script>
-
-snippet style 'style (scoped)'
-	<style scoped>
-	$0
-	</style>
-
-snippet props 'props (runtime)'
+snippet props "props (runtime)"
 	const props = defineProps({
 		$0
 	});
 
-snippet propst 'props (typescript)'
-	const props = defineProps<{
+snippet comp "computed"
+	computed(() => {
 		$0
-	}>();
+	});
 
-snippet emits 'emits (runtime)'
+snippet watch "watch"
+	watch($1, () => {
+		$0
+	});
+
+snippet emits "emits (runtime)"
   const emit = defineEmits([$0]);
 
-snippet emitst 'emits (typescript)'
-	const emit = defineEmits<{
-	  $0
-	}>();
+# snippet ts "script setup (typescript)"
+# 	<template>
+# 		$1
+# 	</template>
+#
+# 	<script setup lang="ts">
+# 	$0
+# 	</script>
+
+# snippet propst "props (typescript)"
+# 	const props = defineProps<{
+# 		$0
+# 	}>();
+
+
+# snippet emitst "emits (typescript)"
+# 	const emit = defineEmits<{
+# 	  $0
+# 	}>();
+
+snippet style "style (scoped)"
+	<style scoped>
+	$0
+	</style>

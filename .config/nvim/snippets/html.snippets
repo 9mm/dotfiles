@@ -1,4 +1,4 @@
-snippet html 'html document'
+snippet html "html document"
 	<!doctype html>
 	<html lang="en">
 	<head>
@@ -12,5 +12,49 @@ snippet html 'html document'
 	</body>
 	</html>
 
-snippet t 'magic tag'
+snippet t "magic tag"
 	<$1>$0</${1/([\w-]+).*/$1/}>
+
+snippet div "div" w
+	<div>$0</div>
+
+snippet span "span" w
+	<span>$0</span>
+
+snippet ul
+	<ul>
+		<li>$0</li>
+	</ul>
+
+snippet ol
+	<ol>
+		<li>$0</li>
+	</ol>
+
+snippet li
+	<li>$0</li>
+
+snippet table
+	<table$1>
+		<thead>
+			<tr>
+				<th>$2</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>$3</td>
+			</tr>
+		</tbody>
+	</table>
+
+snippet tr
+	<tr>
+		$0
+	</tr>
+
+snippet th
+	<th>$0</th>
+
+snippet td
+	<td>$0</td>

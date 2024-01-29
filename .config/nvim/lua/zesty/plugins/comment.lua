@@ -2,9 +2,9 @@
 -- https://github.com/numToStr/Comment.nvim#-treesitter
 
 return {
-  'numToStr/Comment.nvim',
-  event = 'InsertEnter',
+  "numToStr/Comment.nvim",
+  event = "VeryLazy",
   config = function()
-    require('Comment').setup()
+    require("Comment").setup()
   end,
 }

@@ -1,30 +1,30 @@
 -- https://github.com/abecodes/tabout.nvim
 
 return {
-  'abecodes/tabout.nvim',
-  event = 'InsertEnter',
+  "abecodes/tabout.nvim",
+  event = "InsertEnter",
   dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'hrsh7th/nvim-cmp',
-    'L3MON4D3/LuaSnip',
+    "nvim-treesitter/nvim-treesitter",
+    "hrsh7th/nvim-cmp",
+    "L3MON4D3/LuaSnip",
   },
   config = function()
-    require('tabout').setup({
-      tabkey = '',
-      backwards_tabkey = '',
+    require("tabout").setup({
+      tabkey = "",
+      backwards_tabkey = "",
       act_as_tab = true,
       act_as_shift_tab = false,
-      default_tab = '<C-t>',
-      default_shift_tab = '<C-d>',
+      default_tab = "<C-t>",
+      default_shift_tab = "<C-d>",
       enable_backwards = true,
       completion = true,
       tabouts = {
         { open = "'", close = "'" },
         { open = '"', close = '"' },
-        { open = '`', close = '`' },
-        { open = '(', close = ')' },
-        { open = '[', close = ']' },
-        { open = '{', close = '}' },
+        { open = "`", close = "`" },
+        { open = "(", close = ")" },
+        { open = "[", close = "]" },
+        { open = "{", close = "}" },
       },
       ignore_beginning = true,
       exclude = {},
@@ -33,7 +33,7 @@ return {
     -- handle <Tab> key to prioritize LuaSnip over Tabout
     -- https://github.com/abecodes/tabout.nvim#more-complex-keybindings
 
-    local ls = require('luasnip')
+    local ls = require("luasnip")
 
     local function replace_keycodes(c)
       return vim.api.nvim_replace_termcodes(c, true, true, true)
@@ -41,21 +41,21 @@ return {
 
     function _G.tab_binding()
       if ls.expand_or_jumpable() then
-        return replace_keycodes('<Plug>luasnip-expand-or-jump')
+        return replace_keycodes("<Plug>luasnip-expand-or-jump")
       else
-        return replace_keycodes('<Plug>(Tabout)')
+        return replace_keycodes("<Plug>(Tabout)")
       end
     end
 
     function _G.s_tab_binding()
       if ls.jumpable(-1) then
-        return replace_keycodes('<Plug>luasnip-jump-prev')
+        return replace_keycodes("<Plug>luasnip-jump-prev")
       else
-        return replace_keycodes('<Plug>(TaboutBack)')
+        return replace_keycodes("<Plug>(TaboutBack)")
       end
     end
 
-    vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_binding()', { expr = true })
-    vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_binding()', { expr = true })
+    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_binding()", { expr = true })
+    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_binding()", { expr = true })
   end,
 }

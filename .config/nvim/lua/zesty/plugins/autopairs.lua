@@ -1,16 +1,16 @@
 -- https://github.com/altermo/npairs-integrate-upair
 
 return {
-  'altermo/ultimate-autopair.nvim',
-  event = 'InsertEnter',
+  "altermo/ultimate-autopair.nvim",
+  event = "InsertEnter",
   config = function()
-    require('ultimate-autopair').setup({
+    require("ultimate-autopair").setup({
       cmap = false,
       -- can be commented out in next update when he adds disable_in_macro
       extensions = {
         rules = {
           rules = {
-            { 'call', function() return not (vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= '') end },
+            { "call", function() return not (vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= "") end },
           },
         },
       },
@@ -23,14 +23,14 @@ return {
 -- a mega plugin. Use that if you push the limits on this one.
 
 -- return {
---   'altermo/npairs-integrate-upair',
+--   "altermo/npairs-integrate-upair",
 --   dependencies = {
---     'windwp/nvim-autopairs',
---     'altermo/ultimate-autopair.nvim',
+--     "windwp/nvim-autopairs",
+--     "altermo/ultimate-autopair.nvim",
 --   },
 --   config = function()
---     require('npairs-int-upair').setup({
---       bs = 'u',
+--     require("npairs-int-upair").setup({
+--       bs = "u",
 --       npairs_conf = {
 --         disable_in_macro = true,
 --       },

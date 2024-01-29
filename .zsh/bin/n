@@ -4,26 +4,37 @@
 # - if no arguments are provided and the current directory is ~, set ~/Desktop to working directory
 # - if no arguments are provided and the current directory is not ~, open neovim normally
 # - if a directory is provided as an argument, set that working directory
-# - if a file is provided as an argument, open that file directly
+# - if a file or other args are provided as an argument, open that file directly by just running all args
 #
 # vim uses the cwd of the process to determine the working directory of vim. This is what
 # happens when you pass no flags. To override this, we need to use -c to set :cd ourself
+#
+# Note that ENV vars are also set in .zshrc for Neovide.app
 
-export NEOVIDE_MULTIGRID=true
 export NEOVIDE_FRAME=buttonless
+export NEOVIDE_VSYNC=0
+export NEOVIDE_FORK=1
+
+export ENABLE_EDGE=1
+
+if [ "$ENABLE_EDGE" = "1" ]; then
+  neovide_bin="/Users/zesty/.cargo/bin/neovide"
+else
+  neovide_bin="/opt/homebrew/bin/neovide"
+fi
 
 current_dir=$(pwd)
 
 if [ -z "$1" ]; then
   if [ "$current_dir" = "$HOME" ]; then
-    exec neovide -- -c 'cd ~/Desktop' > /dev/null 2>&1
+    exec $neovide_bin -- -c 'cd ~/Desktop' > /dev/null 2>&1
   else
-    exec neovide > /dev/null 2>&1
+    exec $neovide_bin > /dev/null 2>&1
   fi
 else
   if [ -d "$1" ]; then
-    exec neovide -- -c "cd $1" > /dev/null 2>&1
+    exec $neovide_bin -- -c "cd $1" > /dev/null 2>&1
   else
-    exec neovide "$@" > /dev/null 2>&1
+    exec $neovide_bin "$@" > /dev/null 2>&1
   fi
 fi

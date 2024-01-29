@@ -1,108 +1,182 @@
 return {
   {
-    'nvim-treesitter/playground',
+    -- not actually treesitter but so similar it goes here
+    "chrisgrieser/nvim-various-textobjs",
+    config = function()
+      require("various-textobjs").setup({
+        useDefaultKeymaps = false,
+      })
+    end,
     keys = {
       {
-        '<Leader>tsp',
-        function() vim.cmd('TSPlaygroundToggle') end,
-        desc = 'TS Playground Cursor',
+        "gG",
+        function() require("various-textobjs").entireBuffer() end,
+        mode = { "x", "o" },
+        desc = "entire buffer",
       },
       {
-        '<Leader>tsc',
-        function() vim.cmd('TSHighlightCapturesUnderCursor') end,
-        desc = 'TS Playground Cursor',
+        "il",
+        function() require("various-textobjs").lineCharacterwise(true) end,
+        mode = { "x", "o" },
+        desc = "inner line",
       },
       {
-        '<Leader>tsi',
-        function() vim.cmd('Inspect') end, -- putting here even though it doesn't come from treesitter
-        desc = 'Object information',
+        "al",
+        function() require("various-textobjs").lineCharacterwise(false) end,
+        mode = { "x", "o" },
+        desc = "a line",
+      },
+      {
+        "iS",
+        function() require("various-textobjs").subword("inner") end,
+        mode = { "x", "o" },
+        desc = "inner subword",
+      },
+      {
+        "aS",
+        function() require("various-textobjs").subword("outer") end,
+        mode = { "x", "o" },
+        desc = "a subword",
+      },
+      {
+        "ik",
+        function() require("various-textobjs").key("inner") end,
+        mode = { "x", "o" },
+        desc = "inner KVP key",
+      },
+      {
+        "ak",
+        function() require("various-textobjs").key("outer") end,
+        mode = { "x", "o" },
+        desc = "a KVP key",
+      },
+      {
+        "iv",
+        function() require("various-textobjs").value("inner") end,
+        mode = { "x", "o" },
+        desc = "inner KVP value",
+      },
+      {
+        "av",
+        function() require("various-textobjs").value("outer") end,
+        mode = { "x", "o" },
+        desc = "a KVP value",
+      },
+      {
+        "ix",
+        function() require("various-textobjs").htmlAttribute("outer") end,
+        mode = { "x", "o" },
+        desc = "inner HTML attribute", -- faking because htmlAttribute("inner") is same as vi"
+      },
+      {
+        "ax",
+        function() require("various-textobjs").htmlAttribute("outer") end,
+        mode = { "x", "o" },
+        desc = "a HTML attribute",
       },
     },
   },
   {
-    'nvim-treesitter/nvim-treesitter-context',
-    event = 'BufReadPre',
+    "nvim-treesitter/playground",
+    keys = {
+      {
+        "<Leader>tsp",
+        function() vim.cmd("TSPlaygroundToggle") end,
+        desc = "TS Playground",
+      },
+      {
+        "<Leader>tsc",
+        function() vim.cmd("TSHighlightCapturesUnderCursor") end,
+        desc = "TS Playground Cursor",
+      },
+      {
+        "<Leader>tsi",
+        function() vim.cmd("Inspect") end, -- putting here even though it doesn"t come from treesitter
+        desc = "Object information",
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('treesitter-context').setup({
+      require("treesitter-context").setup({
         enable = true,
-        mode = 'topline',
+        mode = "topline",
         max_lines = 2,
-        trim_scope = 'outer',
+        trim_scope = "outer",
       })
     end,
   },
   {
-    'kiyoon/treesitter-indent-object.nvim',
+    "kiyoon/treesitter-indent-object.nvim",
     keys = {
       {
-        'ii',
-        function() require('treesitter_indent_object.textobj').select_indent_inner() end,
-        mode = {'x', 'o'},
-        desc = 'inner indent (partial range)',
+        "ii",
+        function() require("treesitter_indent_object.textobj").select_indent_inner() end,
+        mode = { "x", "o" },
+        desc = "inner indent (partial range)",
       },
       {
-        'iI',
-        function() require('treesitter_indent_object.textobj').select_indent_inner(true) end,
-        mode = {'x', 'o'},
-        desc = 'inner indent (entire range)',
+        "iI",
+        function() require("treesitter_indent_object.textobj").select_indent_inner(true) end,
+        mode = { "x", "o" },
+        desc = "inner indent (entire range)",
       },
       {
-        'ai',
-        function() require('treesitter_indent_object.textobj').select_indent_outer() end,
-        mode = {'x', 'o'},
-        desc = 'outer indent',
+        "ai",
+        function() require("treesitter_indent_object.textobj").select_indent_outer() end,
+        mode = { "x", "o" },
+        desc = "outer indent",
       },
       {
-        'aI',
-        function() require('treesitter_indent_object.textobj').select_indent_outer(true) end,
-        mode = {'x', 'o'},
-        desc = 'outer indent (line-wise)',
+        "aI",
+        function() require("treesitter_indent_object.textobj").select_indent_outer(true) end,
+        mode = { "x", "o" },
+        desc = "outer indent (line-wise)",
       },
     },
   },
   {
-    'windwp/nvim-ts-autotag',
-    event = 'InsertEnter',
-  },
-  {
-    'RRethy/nvim-treesitter-endwise',
-    event = 'InsertEnter',
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'yioneko/nvim-yati',
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "RRethy/nvim-treesitter-endwise",
+      "windwp/nvim-ts-autotag",
+      "yioneko/nvim-yati",
     },
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup({
+      require("nvim-treesitter.configs").setup({
         -- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
         ensure_installed = {
-          'bash',
-          'c',
-          'comment',
-          'css',
-          'diff',
-          'gitignore',
-          'go',
-          'html',
-          'javascript',
-          'json',
-          'lua',
-          'markdown',
-          'python',
-          'query',
-          'regex',
-          'ruby',
-          'rust',
-          'sql',
-          'typescript',
-          'vim',
-          'vimdoc',
-          'yaml',
+          "bash",
+          "c",
+          "comment",
+          "css",
+          "diff",
+          "gitignore",
+          "go",
+          "html",
+          "javascript",
+          "jsdoc",
+          "json",
+          "lua",
+          "luadoc",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "query",
+          "regex",
+          "ruby",
+          "rust",
+          "sql",
+          "toml",
+          "typescript",
+          "vim",
+          "vimdoc",
+          "yaml",
         },
         sync_install = false,
         auto_install = true,
@@ -112,27 +186,28 @@ return {
           disable = {},
           additional_vim_regex_highlighting = false,
         },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
-          },
-        },
+        -- prefer mini.bracketed
+        -- incremental_selection = {
+        --   enable = true,
+        --   keymaps = {
+        --     init_selection = "gnn",
+        --     node_incremental = "grn",
+        --     node_decremental = "grm",
+        --     scope_incremental = "grc",
+        --   },
+        -- },
         indent = {
           enable = true,
           disable = function(_, bufnr)
             -- only enable for ruby, let yati handle all the rest
-            return vim.bo[bufnr].filetype ~= 'ruby'
+            return vim.bo[bufnr].filetype ~= "ruby"
           end,
         },
         yati = {
           enable = true,
           disable = {},
           default_lazy = true,
-          default_fallback = 'auto',
+          default_fallback = "auto",
         },
         autotag = {
           enable = true,
@@ -145,42 +220,39 @@ return {
             enable = true,
             lookahead = true,
             keymaps = {
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-              ['as'] = { query = '@scope', query_group = 'locals' },
+              -- prefer mini.ai for argument selection/swap
+              -- ["aa"] = "@parameter.outer",
+              -- ["ia"] = "@parameter.inner",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["as"] = { query = "@scope", query_group = "locals" },
             },
           },
           move = {
             enable = true,
             set_jumps = true,
             goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = '@class.outer',
+              ["]m"] = "@function.outer",
             },
             goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
+              ["]M"] = "@function.outer",
             },
             goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
+              ["[m"] = "@function.outer",
             },
             goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
+              ["[M"] = "@function.outer",
             },
           },
           swap = {
             enable = true,
             swap_next = {
-              ['<Leader>sp'] = '@parameter.inner',
+              ["<Leader>Nf"] = "@function.outer",
             },
             swap_previous = {
-              ['<Leader>sP'] = '@parameter.inner',
+              ["<Leader>Pf"] = "@function.outer",
             },
           },
         },

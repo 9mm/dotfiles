@@ -1,28 +1,30 @@
-snippet imp 'import'
-	import $1 from '$2';
+extends html
 
-snippet log 'console.log'
+snippet imp "import"
+	import $1 from "$0";
+
+snippet log "console.log"
 	console.log($0);
 
-snippet f '() => ()'
+snippet f "() => ()"
 	($1) => ($0)
 
-snippet ff '() => {}'
+snippet ff "() => {}"
 	($1) => {
-		$2
+		$0
 	}
 
-snippet fo '() => ({})'
+snippet fo "() => ({})"
 	($1) => ({
-		$2,
+		$0,
 	})
 
-snippet fa '() => ([])'
+snippet fa "() => ([])"
 	($1) => ([
-		$2,
+		$0,
 	])
 
-snippet sef '(() => {})()'
+snippet sef "(() => {})()"
 	(() => {
 		$0
 	})();

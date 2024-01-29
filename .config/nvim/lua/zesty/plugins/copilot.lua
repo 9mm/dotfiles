@@ -1,15 +1,14 @@
 return {
-  'zbirenbaum/copilot.lua',
-  enabled = true,
-  cmd = 'Copilot',
-  event = 'InsertEnter',
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
   config = function()
-    require('copilot').setup({
+    require("copilot").setup({
       suggestion = {
         auto_trigger = true,
-        debounce = 100,
+        debounce = 50,
         keymap = {
-          accept = '<C-l>',
+          accept = "<C-l>",
         },
       },
       filetypes = {
@@ -21,9 +20,12 @@ return {
         lua = true,
         php = true,
         ruby = true,
+        rust = true,
+        sql = true,
         typescript = true,
         vue = true,
-        ['*'] = false,
+        yaml = false,
+        ["*"] = false,
       },
       server_opts_overrides = {},
     })

@@ -1,10 +1,15 @@
 return {
-  'Eandrju/cellular-automaton.nvim',
+  "Eandrju/cellular-automaton.nvim",
   keys = {
     {
-      '<Leader>rain',
-      function() vim.cmd('CellularAutomaton make_it_rain') end,
-      desc = 'Cellular automaton',
+      "<Leader>cr",
+      function() vim.cmd("CellularAutomaton make_it_rain") end,
+      desc = "Cellular rain",
+    },
+    {
+      "<Leader>cs",
+      function() vim.cmd("CellularAutomaton scramble") end,
+      desc = "Cellular scramble",
     },
   },
 }
