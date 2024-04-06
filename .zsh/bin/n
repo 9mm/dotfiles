@@ -12,6 +12,7 @@
 # Note that ENV vars are also set in .zshrc for Neovide.app
 
 export NEOVIDE_FRAME=buttonless
+export NEOVIDE_TITLE_HIDDEN=1
 export NEOVIDE_VSYNC=0
 export NEOVIDE_FORK=1
 
@@ -29,7 +30,7 @@ if [ -z "$1" ]; then
   if [ "$current_dir" = "$HOME" ]; then
     exec $neovide_bin -- -c 'cd ~/Desktop' > /dev/null 2>&1
   else
-    exec $neovide_bin > /dev/null 2>&1
+    exec $neovide_bin -- -c "cd $current_dir" > /dev/null 2>&1
   fi
 else
   if [ -d "$1" ]; then
