@@ -14,6 +14,7 @@
 export NEOVIDE_FRAME=buttonless
 export NEOVIDE_TITLE_HIDDEN=1
 export NEOVIDE_VSYNC=0
+export NEOVIDE_FORK=1
 
 export ENABLE_EDGE=1
 

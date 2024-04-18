@@ -22,9 +22,17 @@ export HOMEBREW_NO_ENV_HINTS=true
 
 # Custom scripts
 export PATH="$PATH:$HOME/.zsh/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+# Neovide exports
+# Instead of using launchd properly, just put them here so we don't forget
+launchctl setenv NEOVIDE_FRAME "buttonless"
+launchctl setenv NEOVIDE_TITLE_HIDDEN "true"
+launchctl setenv NEOVIDE_VSYNC "0"
+launchctl setenv NEOVIDE_FORK "0"
 
 # Postgres
-export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/16/bin"
 
 # Ruby
 # eval "$(rbenv init - zsh --no-rehash)"
@@ -37,22 +45,25 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 # export NVM_COMPLETION=true
-# if you receive 'env: node: Not a directory' using a global yarn package, it must be added here
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'eslint' 'mvim' 'rollup' 'v' 'wrangler' 'yarn')
+# if you receive 'env: node: Not a directory' using a global pnpm package, it must be added here
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('create-vue' 'eslint' 'mvim' 'n' 'npm' 'nvim' 'pnpm' 'rollup' 'v' 'wrangler' 'yarn')
 
-# Yarn
-export PATH="$PATH:$HOME/.yarn/bin"
+# PNPM
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # Go
 export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin"
 
 # Elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-# FZF
-# ignore file comes from ~/.ignore
-export FZF_DEFAULT_COMMAND="fd --type f"
+# Ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Zoxide
 eval "$(zoxide init --cmd j zsh)"

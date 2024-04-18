@@ -1,0 +1,11 @@
+Layout:
+  Enabled: false
+
+Lint:
+  Severity: warning
+
+Metrics:
+  Enabled: false
+
+Style:
+  Enabled: false
