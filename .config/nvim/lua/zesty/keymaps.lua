@@ -49,7 +49,10 @@ vim.keymap.set("n", "<Leader>rn", function()
 end, { desc = "Rename word under cursor" })
 
 -- edit nvim config
-vim.keymap.set("n", "<Leader>ev", ":e ~/.config/nvim/init.lua<cr>", { desc = "Edit init.lua" })
+vim.keymap.set("n", "<Leader>ev", ":e ~/.config/nvim/init.lua<CR>", { desc = "Edit init.lua" })
+
+-- show full path
+vim.keymap.set("n", "<Leader>sp", ":echo expand('%:p')<CR>", { desc = "Show path" })
 
 -- dont skip wrapped lines
 vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Up" })

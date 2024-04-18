@@ -3,7 +3,7 @@ return {
   dependencies = {
     "L3MON4D3/LuaSnip",
     "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-cmdline",
+    -- "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
@@ -16,15 +16,16 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
     luasnip.config.setup()
 
-    cmp.setup.cmdline("/", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        {
-          name = "buffer",
-          keyword_length = 2,
-        },
-      },
-    })
+    -- currently breaks tab completion after searching a single time
+    -- cmp.setup.cmdline("/", {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = {
+    --     {
+    --       name = "buffer",
+    --       keyword_length = 2,
+    --     },
+    --   },
+    -- })
 
     cmp.setup({
       snippet = {
@@ -61,6 +62,7 @@ return {
             end,
           },
         },
+        { name = "crates" },
       },
       formatting = {
         expandable_indicator = true,

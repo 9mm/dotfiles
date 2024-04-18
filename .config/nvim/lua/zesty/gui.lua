@@ -21,8 +21,8 @@ if vim.g.neovide then
 
   local function confirm_close_tab()
     if buffer_modified() then
-      local choice = vim.fn.confirm("Exit without saving?", "&Yes\n&No\n&Cancel")
-      if choice == 1 then
+      local choice = vim.fn.confirm("Save changes?", "&Yes\n&No\n&Cancel")
+      if choice == 2 then
         close_tab(true)
       end
     else
@@ -70,8 +70,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_command_line = false
 
   -- other
-  -- vim.g.neovide_input_macos_option_key_is_meta = "OnlyLeft"
-  vim.g.neovide_input_macos_alt_is_meta = true
+  vim.g.neovide_input_macos_option_key_is_meta = "only_left"
 
   -- https://github.com/neovide/neovide/issues/1838
   vim.keymap.set("t", "<MouseMove>", "<NOP>")

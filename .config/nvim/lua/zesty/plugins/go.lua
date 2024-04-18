@@ -1,5 +1,6 @@
 return {
   "ray-x/go.nvim",
+  lazy = true,
   dependencies = {
     "nvim-dap",
     "nvim-dap-ui",

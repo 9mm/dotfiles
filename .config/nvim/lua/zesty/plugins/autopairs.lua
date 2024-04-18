@@ -6,14 +6,6 @@ return {
   config = function()
     require("ultimate-autopair").setup({
       cmap = false,
-      -- can be commented out in next update when he adds disable_in_macro
-      extensions = {
-        rules = {
-          rules = {
-            { "call", function() return not (vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= "") end },
-          },
-        },
-      },
     })
   end
 }

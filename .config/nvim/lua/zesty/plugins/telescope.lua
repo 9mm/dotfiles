@@ -5,6 +5,10 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
   },
   config = function()
     local telescope = require("telescope")
@@ -51,10 +55,17 @@ return {
         ["ui-select"] = {
           require("telescope.themes").get_cursor(),
         },
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
       },
     })
 
     telescope.load_extension("ui-select")
+    telescope.load_extension("fzf")
 
     -- keymaps
     vim.keymap.set("n", "<Leader>sh", require("telescope.builtin").help_tags, { desc = "Search help" })
@@ -68,7 +79,17 @@ return {
   keys = {
     {
       "<C-p>",
-      function() require("telescope.builtin").find_files() end,
+      function()
+        require("telescope.builtin").find_files({
+          find_command = function()
+            -- rg respects .ripgreprc due to RIPGREP_CONFIG_PATH. if you want to
+            -- override these, you can add them to the commands below, because the
+            -- arguments here are PRE-pended as described here:
+            -- https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+            return { "rg", "--files" }
+          end,
+        })
+      end,
       desc = "Find file",
     },
     {
@@ -77,7 +98,7 @@ return {
       desc = "Find buffer",
     },
     {
-      "<Leader>gg",
+      "<Leader>ff",
       function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end,
       desc = "Ripgrep",
     },

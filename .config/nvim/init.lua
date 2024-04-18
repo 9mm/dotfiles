@@ -26,6 +26,9 @@ require("lazy").setup("zesty.plugins", {
     enabled = true,
     notify = false,
   },
+  ui = {
+    backdrop = 100,
+  },
 })
 
 -- gui

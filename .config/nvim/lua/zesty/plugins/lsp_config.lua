@@ -99,22 +99,17 @@ return {
           },
         },
         psalm = {}, -- php :(
-        rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              diagnostics = {
-                enable = false,
-              },
-            },
-          },
-        },
         solargraph = {},
         tailwindcss = {
           suggestions = false,
           filetypes = { "css", "eruby", "html", "postcss", "vue" },
         },
+        terraformls = {},
+        tsserver = {
+          filetypes = { "javascript", "typescript", "vue" },
+        },
         volar = {
-          filetypes = { "javascript", "typescript", "vue" }, -- enable takeover mode for js files - https://github.com/johnsoncodehk/volar/discussions/471
+          filetypes = { "vue" },
         },
         yamlls = {},
       }

@@ -22,6 +22,7 @@ return {
         ruby = true,
         rust = true,
         sql = true,
+        toml = true,
         typescript = true,
         vue = true,
         yaml = false,
