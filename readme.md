@@ -66,8 +66,8 @@ includes `com.googlecode.iterm2.plist`. Before loading, you may want to change
 
     brew analytics off
     brew update
-    brew install make cmake git python zoxide ripgrep fzf fd wget tmux
-    brew install httpie jq htop lazygit tmux diff-so-fancy
+    brew install make cmake git python zoxide ripgrep fzf fd curl wget tmux
+    brew install lazygit tmux jq httpie htop diff-so-fancy
     brew install knqyf263/pet/pet
 
 ### Node
