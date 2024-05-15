@@ -1,6 +1,6 @@
 ## 9mm .dotfiles
 
-### Neovim
+### Neovim + Neovide
 
 ![Neovim + Neovide](https://raw.github.com/9mm/dotfiles/master/screenshots/home.png)
 ![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/mode-n.png)
@@ -25,10 +25,6 @@
 ![which-key.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/wk.png)
 ![cellular-automaton.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/car.png)
 
-### Vim (Legacy)
-
-![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
-
 ### Cool Features
 
 * A Neovim/Vim config with full LSP support that I have refined for 10+ years
@@ -38,7 +34,6 @@
 * Zoxide (previously autojump) to common directories with `j <partial name>`
 * Lots of Mac optimizations
 
-
 ### Basic Setup
 
 Set a super fast keyboard repeat
@@ -46,7 +41,6 @@ Set a super fast keyboard repeat
     defaults write NSGlobalDomain KeyRepeat -int 1
 
 If you're on a Mac, I recommend remapping your `Caps Lock` key to a `Control` key in keyboard settings.
-
 
 ### iTerm 3
 
@@ -59,54 +53,55 @@ Open iTerm preferences, and choose `General > Preferences`. Check the box for
 includes `com.googlecode.iterm2.plist`. Before loading, you may want to change
 `zesty` to your own home folder via find/replace.
 
+### Oh-My-ZSH
 
-### Git
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
-Enable colorization
+### Homebrew
 
-    git config --global color.ui true
-
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ### Homebrew
 
     brew analytics off
     brew update
-    brew install make git nvm python neovide ack zoxide ripgrep fzf fd wget rbenv
-    brew install pnpm httpie jq htop lazygit tmux diff-so-fancy # extra goodies
+    brew install make cmake git python zoxide ripgrep fzf fd wget tmux
+    brew install httpie jq htop lazygit tmux diff-so-fancy
     brew install knqyf263/pet/pet
 
 ### Node
 
-You should install latest node with `nvm`, and then globally add `yarn` with npm. From there, you can
-use yarn to globally install the rest of your packages. Do not use homebrew to install yarn.
+    brew install pnpm node@20 # LTS
+    pnpm -g install neovim nuxi@latest wrangler
 
-I use `pnpm` now, but I still use yarn for several projects, so that's where I keep my global packages.
+### Ruby
 
-### Other
-
-Set more cores for Bundler
-
+    brew install rbenv
+    rbenv install 3.3.1 # latest
+    gem install neovim
     bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
 
+### Rust
 
-### Fonts
+    brew install rustup
+    rustup-init
+    rustup component add rustfmt --toolchain nightly
+    rustup component add rust-analyzer
 
-Install the fonts in `Library/Fonts`
+To update:
 
+    rustup update nightly
 
-### Oh-My-ZSH
+### Python
 
-Add a ZSH distribution and Fish-style autosuggestions (plugin is already loaded
-within `~/.zshrc`):
+    python3 -m venv .venv
+    source .venv/bin/activate
+    python3 -m pip install neovim pynvim
 
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-    git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+### Neovide from source
 
-
-### Neovide
-
-Update plugins with `:Lazy`
+    cargo install --path .
 
 To create a `Neovide.app` icon that will always link to the current version, create an "Application" in Automator with the following:
 
@@ -115,8 +110,14 @@ Make sure to pass input as arguments, and for shell use `/bin/zsh`
     # only pass the first argument (file) to neovide launcher if multiple files are dragged
     /bin/zsh -l -c "~/.zsh/bin/n \"$1\""
 
+### Fonts
+
+Install the fonts in `Library/Fonts`
 
 ### Vim (Legacy)
+
+![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
+
 
 Once you install MacVim, start it and run
 
@@ -138,8 +139,7 @@ Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
 Now save that in /Applications to have a version for the Applications folder that you can link other apps to.
 
-
-### Spacemacs
+### Spacemacs (Legacy)
 
     brew tap d12frosted/emacs-plus
     brew install emacs-plus --with-24bit-color --with-natural-title-bar --without-spacemacs-icon
