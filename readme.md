@@ -95,6 +95,7 @@ To update:
 
 ### Python
 
+    cd ~/.local/share/nvim
     python3 -m venv .venv
     source .venv/bin/activate
     python3 -m pip install neovim pynvim
