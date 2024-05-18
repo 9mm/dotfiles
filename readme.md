@@ -76,7 +76,7 @@ includes `com.googlecode.iterm2.plist`. Before loading, you may want to change
 
 ### Oh-My-ZSH
 
-```bash
+```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 ```
