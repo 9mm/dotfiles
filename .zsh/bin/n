@@ -16,26 +16,20 @@ export NEOVIDE_TITLE_HIDDEN=1
 export NEOVIDE_VSYNC=0
 export NEOVIDE_FORK=1
 
-export ENABLE_EDGE=1
-
-if [ "$ENABLE_EDGE" = "1" ]; then
-  neovide_bin="/Users/zesty/.cargo/bin/neovide"
-else
-  neovide_bin="/opt/homebrew/bin/neovide"
-fi
+neovide_bin="/Users/zesty/.cargo/bin/neovide" # "/opt/homebrew/bin/neovide"
 
 current_dir=$(pwd)
 
 if [ -z "$1" ]; then
   if [ "$current_dir" = "$HOME" ]; then
-    exec $neovide_bin -- -c 'cd ~/Desktop' > /dev/null 2>&1
+    $neovide_bin -- -c ":cd ~/Desktop"
   else
-    exec $neovide_bin -- -c "cd $current_dir" > /dev/null 2>&1
+    $neovide_bin -- -c ":cd $current_dir"
   fi
 else
   if [ -d "$1" ]; then
-    exec $neovide_bin -- -c "cd $1" > /dev/null 2>&1
+    $neovide_bin -- -c ":cd $1"
   else
-    exec $neovide_bin "$@" > /dev/null 2>&1
+    $neovide_bin "$@"
   fi
 fi

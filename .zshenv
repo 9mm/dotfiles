@@ -1,0 +1,2 @@
+# Rust
+. "$HOME/.cargo/env"

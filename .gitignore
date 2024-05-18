@@ -1,4 +1,3 @@
 *.log
 .vim/tmp/
 .zsh/credentials
-.zshenv
