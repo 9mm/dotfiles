@@ -2,28 +2,49 @@
 
 ### Neovim + Neovide
 
-![Neovim + Neovide](https://raw.github.com/9mm/dotfiles/master/screenshots/home.png)
-![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/mode-n.png)
-![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/mode-r.png)
-![lualine.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/mode-i.png)
-![lazy.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/ls.png)
-![mason.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/mm.png)
-![LSP + nvim-cmp](https://raw.github.com/9mm/dotfiles/master/screenshots/cmp.png)
-![LSP + nvim-cmp](https://raw.github.com/9mm/dotfiles/master/screenshots/cmp2.png)
-![ccc.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/cp.png)
-![mini.files](https://raw.github.com/9mm/dotfiles/master/screenshots/fe.png)
-![vim-floaterm + oh-my-zsh](https://raw.github.com/9mm/dotfiles/master/screenshots/iterm.png)
-![vim-floaterm + oh-my-zsh](https://raw.github.com/9mm/dotfiles/master/screenshots/iterm2.png)
-![lsp-config](https://raw.github.com/9mm/dotfiles/master/screenshots/lspc.png)
-![vim-floaterm + lazygit](https://raw.github.com/9mm/dotfiles/master/screenshots/lz.png)
-![vim-floaterm + lazygit](https://raw.github.com/9mm/dotfiles/master/screenshots/lz2.png)
-![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/gg.png)
-![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/q.png)
-![telescope.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/telescope.png)
-![treesitter playground](https://raw.github.com/9mm/dotfiles/master/screenshots/ts.png)
-![undotree](https://raw.github.com/9mm/dotfiles/master/screenshots/undo.png)
-![which-key.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/wk.png)
-![cellular-automaton.nvim](https://raw.github.com/9mm/dotfiles/master/screenshots/car.png)
+<img src="https://raw.github.com/9mm/dotfiles/master/screenshots/home.png" width="100%" alt="Neovim + Neovide">
+
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/mode-n.png" width="49%" alt="lualine.nvim">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/mode-i.png" width="49%" alt="lualine.nvim">
+  <!-- <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/mode-r.png" width="49%" alt="lualine.nvim"> -->
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/ls.png" width="49%" alt="lazy.nvim">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/mm.png" width="49%" alt="mason.nvim">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/cmp.png" width="49%" alt="LSP + nvim-cmp">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/undo.png" width="49%" alt="undotree">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/cp.png" width="49%" alt="ccc.nvim">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/fe.png" width="49%" alt="mini.files">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/iterm.png" width="49%" alt="vim-floaterm + oh-my-zsh">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/iterm2.png" width="49%" alt="vim-floaterm + oh-my-zsh">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/lspc.png" width="49%" alt="lsp-config">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/lz.png" width="49%" alt="vim-floaterm + lazygit">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/lz2.png" width="49%" alt="vim-floaterm + lazygit">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/gg.png" width="49%" alt="telescope.nvim">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/q.png" width="49%" alt="telescope.nvim">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/telescope.png" width="49%" alt="telescope.nvim">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/ts.png" width="49%" alt="treesitter playground">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/cmp2.png" width="49%" alt="LSP + nvim-cmp">
+</div>
+<div>
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/wk.png" width="49%" alt="which-key.nvim">
+  <img src="https://raw.github.com/9mm/dotfiles/master/screenshots/car.png" width="49%" alt="cellular-automaton.nvim">
+</div>
 
 ### Cool Features
 
