@@ -76,61 +76,77 @@ includes `com.googlecode.iterm2.plist`. Before loading, you may want to change
 
 ### Oh-My-ZSH
 
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+```
 
 ### Homebrew
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-### Homebrew
-
-    brew analytics off
-    brew update
-    brew install make cmake git python zoxide ripgrep fzf fd curl wget tmux
-    brew install lazygit tmux jq tldr httpie htop diff-so-fancy
-    brew install knqyf263/pet/pet
+brew analytics off
+brew update
+brew install make cmake git python zoxide ripgrep fzf fd curl wget tmux
+brew install lazygit tmux jq tldr httpie htop diff-so-fancy
+brew install knqyf263/pet/pet
+```
 
 ### Node
 
-    brew install pnpm node@20 # LTS
-    pnpm -g install neovim nuxi@latest wrangler
+```bash
+brew install pnpm node@20 # LTS
+pnpm -g install neovim nuxi@latest wrangler
+```
 
 ### Ruby
 
-    brew install rbenv
-    rbenv install 3.3.1 # latest
-    gem install neovim
-    bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
+```bash
+brew install rbenv
+rbenv install 3.3.1 # latest
+gem install neovim
+bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
+```
 
 ### Rust
 
-    brew install rustup
-    rustup-init
-    rustup component add rustfmt --toolchain nightly
-    rustup component add rust-analyzer
+```bash
+brew install rustup
+rustup-init
+rustup component add rustfmt --toolchain nightly
+rustup component add rust-analyzer
+```
 
 To update:
 
-    rustup update nightly
+```bash
+rustup update nightly
+```
 
 ### Python
 
-    cd ~/.local/share/nvim
-    python3 -m venv .venv
-    source .venv/bin/activate
-    python3 -m pip install neovim pynvim
+```bash
+cd ~/.local/share/nvim
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install neovim pynvim
+```
 
 ### Neovide from source
 
-    cargo install --path .
+```bash
+cargo install --path .
+```
 
 To create a `Neovide.app` icon that will always link to the current version, create an "Application" in Automator with the following:
 
 Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
-    # only pass the first argument (file) to neovide launcher if multiple files are dragged
-    /bin/zsh -l -c "~/.zsh/bin/n \"$1\""
+```bash
+# only pass the first argument (file) to neovide launcher if multiple files are dragged
+/bin/zsh -l -c "~/.zsh/bin/n \"$1\""
+```
 
 ### Fonts
 
@@ -140,31 +156,30 @@ Install the fonts in `Library/Fonts`
 
 ![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
 
+Once you install MacVim, start it and install/update plugins
 
-Once you install MacVim, start it and run
-
-    :PlugInstall
-
-You can update plugins at any time by running
-
-    :PlugUpdate
-
-You can update `vim-plug` by running
-
-    :PlugUgrade
+```
+:PlugInstall
+:PlugUpdate
+:PlugUgrade
+```
 
 To create a `MacVim.app` icon that will always link to the current version, create an "Application" in Automator with the following:
 
 Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
-    open -a /opt/homebrew/opt/macvim/MacVim.app "$@"
+```bash
+open -a /opt/homebrew/opt/macvim/MacVim.app "$@"
+```
 
 Now save that in /Applications to have a version for the Applications folder that you can link other apps to.
 
 ### Spacemacs (Legacy)
 
-    brew tap d12frosted/emacs-plus
-    brew install emacs-plus --with-24bit-color --with-natural-title-bar --without-spacemacs-icon
-    yarn global add tern # for the javascript layer
+```bash
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --with-24bit-color --with-natural-title-bar --without-spacemacs-icon
+yarn global add tern # for the javascript layer
+```
 
 Helpful tips in [here](https://elixirforum.com/t/spacemacs-general-discussion-blog-posts-wiki/109?source_topic_id=3191)
