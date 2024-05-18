@@ -59,7 +59,9 @@
 
 Set a super fast keyboard repeat
 
-    defaults write NSGlobalDomain KeyRepeat -int 1
+```bash
+defaults write NSGlobalDomain KeyRepeat -int 1
+```
 
 If you're on a Mac, I recommend remapping your `Caps Lock` key to a `Control` key in keyboard settings.
 
@@ -76,7 +78,7 @@ includes `com.googlecode.iterm2.plist`. Before loading, you may want to change
 
 ### Oh-My-ZSH
 
-```shell
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 ```
