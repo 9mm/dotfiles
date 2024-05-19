@@ -116,8 +116,7 @@ bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
 ```bash
 brew install rustup
 rustup-init
-rustup component add rustfmt --toolchain nightly
-rustup component add rust-analyzer
+rustup toolchain install nightly --allow-downgrade
 ```
 
 To update:
