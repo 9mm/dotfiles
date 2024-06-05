@@ -92,6 +92,7 @@ brew analytics off
 brew update
 brew install make cmake git python zoxide ripgrep fzf fd curl wget tmux
 brew install lazygit tmux jq tldr httpie htop diff-so-fancy
+brew install saulpw/vd/visidata
 brew install knqyf263/pet/pet
 ```
 
