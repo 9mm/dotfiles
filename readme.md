@@ -97,6 +97,7 @@ brew install knqyf263/pet/pet
 ```
 
 ### Node
+### Node + Global Packages
 
 ```bash
 brew install pnpm node@20 # LTS
@@ -123,7 +124,7 @@ rustup toolchain install nightly --allow-downgrade
 To update:
 
 ```bash
-rustup update nightly
+rustup update
 ```
 
 ### Python
