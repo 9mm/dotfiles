@@ -96,7 +96,6 @@ brew install saulpw/vd/visidata
 brew install knqyf263/pet/pet
 ```
 
-### Node
 ### Node + Global Packages
 
 ```bash
