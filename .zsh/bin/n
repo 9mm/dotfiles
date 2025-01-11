@@ -11,10 +11,10 @@
 #
 # Note that ENV vars are also set in .zshrc for Neovide.app
 
+export NEOVIDE_FORK=1
 export NEOVIDE_FRAME=buttonless
 export NEOVIDE_TITLE_HIDDEN=1
 export NEOVIDE_VSYNC=0
-export NEOVIDE_FORK=1
 
 neovide_bin="/Users/zesty/.cargo/bin/neovide" # "/opt/homebrew/bin/neovide"
 

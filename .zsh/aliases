@@ -9,9 +9,6 @@ alias redodb='bin/rails db:environment:set RAILS_ENV=development && bundle exec 
 alias hc='heroku run rails console'
 alias hd='git push heroku master'
 
-# Fuck typing this
-alias np="pnpm"
-
 # Utility
 alias jsontidy="pbpaste | jq '.'"
 
