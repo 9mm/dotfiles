@@ -10,7 +10,7 @@ vim.opt.termguicolors = true
 
 -- lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -104,3 +104,6 @@ vim.filetype.add({
     pcss = "css",
   },
 })
+
+-- providers
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.local/share/nvim/.venv/bin/python"

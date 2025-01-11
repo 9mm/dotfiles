@@ -18,6 +18,7 @@ return {
         html = true,
         javascript = true,
         lua = true,
+        markdown = true,
         php = true,
         ruby = true,
         rust = true,

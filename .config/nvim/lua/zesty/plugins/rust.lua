@@ -4,15 +4,25 @@ return {
     ft = { "rust" },
     init = function()
       vim.g.rustaceanvim = {
+        tools = {
+          test_executor = "background",
+        },
         server = {
+          -- https://users.rust-lang.org/t/neovim-vs-blocking-waiting-for-file-lock-on-build-directory/72188
+          cmd_env = {
+            CARGO_TARGET_DIR = "target/lsp",
+          },
           default_settings = {
             ["rust-analyzer"] = {
               cargo = {
-                features = "all",
+                allFeatures = true,
+              },
+              rustfmt = {
+                extraArgs = { "+nightly" },
               },
             },
           },
-          on_attach = function(client, bufnr)
+          on_attach = function(_, bufnr)
             local lsp_map = function(mode, keys, func, desc)
               vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
             end
@@ -24,12 +34,16 @@ return {
             lsp_map("n", "<Leader>rue", function() vim.cmd.RustLsp("explainError") end, "Rust error explain")
             lsp_map("n", "<Leader>rud", function() vim.cmd.RustLsp("openDocs") end, "Rust docs")
             lsp_map("n", "<Leader>rum", function() vim.cmd.RustLsp("expandMacro") end, "Rust expand macro")
+            lsp_map("n", "<Leader>rut", function() vim.cmd.RustLsp("testables") end, "Rust test")
 
             -- copy from lsp_config
             lsp_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
             lsp_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
             lsp_map("n", "gI", vim.lsp.buf.implementation, "Goto implementation")
-            lsp_map("n", "go", vim.lsp.buf.type_definition, "Goto type definition")
+            lsp_map("n", "gT", vim.lsp.buf.type_definition, "Goto type definition")
+            lsp_map("n", "<Leader>rs", vim.lsp.buf.rename, "Rename symbol")
+            lsp_map("n", "<Leader>ds", require("telescope.builtin").lsp_document_symbols, "Document symbols")
+            lsp_map("n", "<Leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace symbols")
 
             local format_sync_grp = vim.api.nvim_create_augroup("RustaceanFormat", {})
             vim.api.nvim_create_autocmd("BufWritePre", {
@@ -53,7 +67,7 @@ return {
           completion = true,
           hover = true,
         },
-        src = {
+        completion = {
           cmp = {
             enabled = true,
           },

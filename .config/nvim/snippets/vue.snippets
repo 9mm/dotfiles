@@ -4,16 +4,22 @@ extends javascript
 snippet temp "template"
   <template>$0</template>
 
+snippet s "script setup (typescript)"
+	<script setup lang="ts">
+	$0
+	</script>
+
+snippet st "script setup + template (typescript)"
+	<script setup lang="ts">
+	$0
+	</script>
+
+	<template>
+		$1
+	</template>
+
 snippet impc "import component"
 	import $1 from "@/components/$2${1/(\w+).*/$1/}.vue";$0
-
-snippet impu "import composable"
-	import use$1 from "@/composables/use$2${1/(\w+).*/$1/}";$0
-
-snippet props "props (runtime)"
-	const props = defineProps({
-		$0
-	});
 
 snippet comp "computed"
 	computed(() => {
@@ -25,30 +31,44 @@ snippet watch "watch"
 		$0
 	});
 
-snippet emits "emits (runtime)"
-  const emit = defineEmits([$0]);
-
-# snippet ts "script setup (typescript)"
-# 	<template>
-# 		$1
-# 	</template>
-#
-# 	<script setup lang="ts">
-# 	$0
-# 	</script>
-
-# snippet propst "props (typescript)"
-# 	const props = defineProps<{
-# 		$0
-# 	}>();
-
-
-# snippet emitst "emits (typescript)"
-# 	const emit = defineEmits<{
-# 	  $0
-# 	}>();
+snippet mounted "onMounted"
+	onMounted(() => {
+		$0
+	});
 
 snippet style "style (scoped)"
 	<style scoped>
 	$0
 	</style>
+
+snippet props "props (typescript)"
+	defineProps<{
+		$0
+	}>();
+
+snippet propsd "props with defaults (typescript)"
+	withDefaults(
+		defineProps<{
+			$1
+		}>(), {
+			$0
+	});
+
+snippet propsi "props with interface (typescript)"
+	interface $1Props {
+		$0
+	}
+
+	defineProps<${1}Props>();
+
+snippet emits "emits (typescript)"
+	defineEmits<{
+	  $0
+	}>();
+
+snippet emitsi "emits with interface (typescript)"
+	interface $1Emits {
+		$0
+	}
+
+	defineProps<${1}Emits>();

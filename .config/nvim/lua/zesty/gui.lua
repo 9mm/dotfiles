@@ -9,9 +9,9 @@ if vim.g.neovide then
   local function close_tab(force)
     -- check if standard file buffer or a new unsaved buffer, otherwise do standard
     -- bd as barbar won't handle quickfix window, neotree, etc
-    local bufid = vim.api.nvim_get_current_buf()
-    local bufname = vim.fn.bufname(bufid)
-    local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
+    local bufnr = vim.api.nvim_get_current_buf()
+    local bufname = vim.fn.bufname(bufnr)
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
     if (buftype == "" and bufname ~= "") then
       vim.cmd(force and "BufferClose!" or "BufferClose")
     else
@@ -30,22 +30,6 @@ if vim.g.neovide then
     end
   end
 
-  local function ui_close_tab()
-    if buffer_modified() then
-      vim.ui.input(
-        { prompt = "Exit without saving? (y/n) " },
-        function(input)
-          if input == "y" then
-            close_tab(true)
-          end
-        end
-      )
-    else
-      close_tab(false)
-    end
-    vim.cmd("echo ''")
-  end
-
   -- padding
   vim.g.neovide_padding_top    = 20
   vim.g.neovide_padding_bottom = 20
@@ -59,6 +43,10 @@ if vim.g.neovide then
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_underline_stroke_scale = 1.2
 
+  -- blur
+  vim.g.neovide_floating_blur_amount_x = 0.0
+  vim.g.neovide_floating_blur_amount_y = 0.0
+
   -- window
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_confirm_quit = true
@@ -71,9 +59,6 @@ if vim.g.neovide then
 
   -- other
   vim.g.neovide_input_macos_option_key_is_meta = "only_left"
-
-  -- https://github.com/neovide/neovide/issues/1838
-  vim.keymap.set("t", "<MouseMove>", "<NOP>")
 
   -- command mapping
   vim.keymap.set({ "i", "n" }, "<D-a>", "<Esc>ggVG")                              -- select all

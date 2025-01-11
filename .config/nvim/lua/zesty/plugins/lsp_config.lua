@@ -7,7 +7,13 @@ return {
     tag = "legacy",
     event = "LspAttach",
     config = function()
-      require("fidget").setup()
+      require("fidget").setup({
+        notification = {
+          window = {
+            winblend = 0,
+          },
+        },
+      })
     end
   },
   {
@@ -66,7 +72,7 @@ return {
         lsp_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
         lsp_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
         lsp_map("n", "gI", vim.lsp.buf.implementation, "Goto implementation")
-        lsp_map("n", "go", vim.lsp.buf.type_definition, "Goto type definition")
+        lsp_map("n", "gT", vim.lsp.buf.type_definition, "Goto type definition")
         lsp_map("n", "gR", require("telescope.builtin").lsp_references, "List references")
         lsp_map("n", "<Leader>rs", vim.lsp.buf.rename, "Rename symbol")
         lsp_map("n", "<Leader>ca", vim.lsp.buf.code_action, "Code action")
@@ -80,7 +86,7 @@ return {
       end
 
       -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
       local servers = {
         bashls = {
@@ -99,15 +105,13 @@ return {
           },
         },
         psalm = {}, -- php :(
+        pyright = {},
         solargraph = {},
         tailwindcss = {
           suggestions = false,
           filetypes = { "css", "eruby", "html", "postcss", "vue" },
         },
         terraformls = {},
-        tsserver = {
-          filetypes = { "javascript", "typescript", "vue" },
-        },
         volar = {
           filetypes = { "vue" },
         },

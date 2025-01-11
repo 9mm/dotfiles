@@ -16,13 +16,13 @@ return {
       },
       {
         "il",
-        function() require("various-textobjs").lineCharacterwise(true) end,
+        function() require("various-textobjs").lineCharacterwise("inner") end,
         mode = { "x", "o" },
         desc = "inner line",
       },
       {
         "al",
-        function() require("various-textobjs").lineCharacterwise(false) end,
+        function() require("various-textobjs").lineCharacterwise("outer") end,
         mode = { "x", "o" },
         desc = "a line",
       },
@@ -109,6 +109,15 @@ return {
     end,
   },
   {
+    "windwp/nvim-ts-autotag",
+    ft = { "html", "vue" },
+    config = function()
+      require("nvim-ts-autotag").setup({
+        ["vue"] = "html",
+      })
+    end,
+  },
+  {
     "kiyoon/treesitter-indent-object.nvim",
     keys = {
       {
@@ -143,7 +152,6 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "RRethy/nvim-treesitter-endwise",
-      "windwp/nvim-ts-autotag",
       "yioneko/nvim-yati",
     },
     config = function()
@@ -208,9 +216,6 @@ return {
           disable = {},
           default_lazy = true,
           default_fallback = "auto",
-        },
-        autotag = {
-          enable = true,
         },
         endwise = {
           enable = true,

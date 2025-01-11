@@ -28,7 +28,7 @@ return {
   keys = {
     {
       "<Leader>x",
-      function() toggle_floaterm("--name=zsh --title=ZSH --autoclose=2 --width=0.7 --height=0.4") end,
+      function() toggle_floaterm("--name=zsh --title=ZSH --autoclose=2 --width=0.80 --height=0.4") end,
       mode = { "n", "t" },
       desc = "ZSH shell",
     },

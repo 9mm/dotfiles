@@ -1,19 +1,22 @@
 return {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "L3MON4D3/LuaSnip",
     "hrsh7th/cmp-buffer",
     -- "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
+    "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
+    "onsails/lspkind.nvim",
   },
   event = "InsertEnter",
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
 
     require("luasnip.loaders.from_vscode").lazy_load()
+
     luasnip.config.setup()
 
     -- currently breaks tab completion after searching a single time
@@ -66,17 +69,17 @@ return {
       },
       formatting = {
         expandable_indicator = true,
-        fields = { "abbr", "kind", "menu" },
-        format = function(entry, item)
-          local menu = {
-            luasnip = "[LS]",
-            path = "[Path]",
-            nvim_lsp = "[LSP]",
-            buffer = "[Buf]",
-          }
-          item.menu = menu[entry.source.name]
-          return item
-        end,
+        fields = {
+          "abbr",
+          "kind",
+          "menu",
+        },
+        format = lspkind.cmp_format({
+          mode = "symbol_text",
+          maxwidth = 42,
+          ellipsis_char = "...",
+          show_labelDetails = false,
+        })
       },
     })
   end,

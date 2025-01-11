@@ -11,6 +11,12 @@ end
 vim.keymap.set("n", "<Leader>ll", function() vim.cmd("Lazy") end, { desc = "LazyVim" })
 vim.keymap.set("n", "<Leader>ls", function() vim.cmd("Lazy sync") end, { desc = "LazyVim sync" })
 
+-- themes
+vim.keymap.set("n", "<Leader>vt", function()
+  vim.cmd("doautocmd User LazyColorscheme")
+  require("telescope.builtin").colorscheme({ ignore_builtins = true, enable_preview = true })
+end, { desc = "Change theme" })
+
 -- actions which center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Page down" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Page up" })

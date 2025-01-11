@@ -82,9 +82,10 @@ return {
       function()
         require("telescope.builtin").find_files({
           find_command = function()
-            -- rg respects .ripgreprc due to RIPGREP_CONFIG_PATH. if you want to
-            -- override these, you can add them to the commands below, because the
-            -- arguments here are PRE-pended as described here:
+            -- rg in find_files and live_grep respect ~/.ripgreprc
+            -- for project-specific settings, use .rgignore and .gitignore
+            -- the following flags are prepended if for some reason you need to override
+            -- defaults specific to neovim find_files
             -- https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
             return { "rg", "--files" }
           end,
@@ -93,8 +94,15 @@ return {
       desc = "Find file",
     },
     {
-      "<Leader>fb",
-      function() require("telescope.builtin").buffers() end,
+      "<Leader>b",
+      function()
+        require("telescope.builtin").buffers(require("telescope.themes").get_ivy({
+          layout_config = {
+            preview_cutoff = 100,
+            height = 10,
+          },
+        }))
+      end,
       desc = "Find buffer",
     },
     {
