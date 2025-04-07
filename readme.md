@@ -99,7 +99,9 @@ brew install knqyf263/pet/pet
 ### Node + Global Packages
 
 ```bash
-brew install pnpm node@20 # LTS
+brew install fnm pnpm
+fnm install 22
+fnm default 22
 pnpm -g install neovim nuxi@latest wrangler
 ```
 
