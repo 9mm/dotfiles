@@ -110,7 +110,7 @@ pnpm -g install neovim nuxi@latest wrangler
 ```bash
 brew install rbenv
 rbenv install x.x.x # latest
-gem install neovim solargraph rubocop
+gem install neovim
 bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
 ```
 
