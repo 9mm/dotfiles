@@ -57,10 +57,11 @@
 
 ### Basic Setup
 
-Set a super fast keyboard repeat
+Set a blazingly fast keyboard repeat
 
 ```bash
 defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 ```
 
 If you're on a Mac, I recommend remapping your `Caps Lock` key to a `Control` key in keyboard settings.
