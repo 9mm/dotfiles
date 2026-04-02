@@ -16,7 +16,7 @@ export NEOVIDE_FRAME=buttonless
 export NEOVIDE_TITLE_HIDDEN=1
 export NEOVIDE_VSYNC=0
 
-neovide_bin="/Users/zesty/.cargo/bin/neovide" # "/opt/homebrew/bin/neovide"
+neovide_bin="/Users/zesty/.cargo/bin/Neovide.app/Contents/MacOS/neovide"
 
 current_dir=$(pwd)
 
