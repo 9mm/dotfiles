@@ -23,19 +23,24 @@ eval "$(rbenv init - zsh)"
 # Rust
 source "$HOME/.cargo/env"
 
+# Q
+export QHOME="$HOME/.q"
+export PATH="$QHOME/m64:$PATH"
+
 # Go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
 # Node
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+eval "$(fnm env --use-on-cd --resolve-engines --shell zsh --log-level error)"
 
 # PNPM
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
+# pnpm end
 
 # fix Typhoeus crashing - https://github.com/rails/rails/issues/38560
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
