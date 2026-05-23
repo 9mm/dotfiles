@@ -8,6 +8,9 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.opt.termguicolors = true
 
+-- sfw
+vim.env.PATH = vim.fn.expand("~/.local/share/nvim/sfw-shims") .. ":" .. vim.env.PATH
+
 -- lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
@@ -102,6 +105,7 @@ vim.opt.shortmess:append("I")
 vim.filetype.add({
   extension = {
     pcss = "css",
+    q = "q"
   },
 })
 
