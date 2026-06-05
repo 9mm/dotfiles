@@ -1,0 +1,357 @@
+#!/usr/bin/env python3
+"""safely-download-skill - fetch an Agent Skill from GitHub, audit every file
+for hidden/dangerous content, and only then write it to disk.
+
+A skill (https://agentskills.io/specification) is a directory containing a
+SKILL.md plus optional supporting files. This tool downloads the whole skill,
+audits EVERY file in memory, and aborts the entire operation BEFORE writing
+anything if a single file looks unsafe. Nothing reaches disk unless all files
+pass.
+
+Audit failures (each one aborts, nothing is written):
+  * suspicious Unicode -- ASCII-smuggling (Unicode Tags), zero-width & format
+    characters, bidi controls (Trojan Source), invisible math, deprecated
+    format chars, control chars, lone surrogates, odd whitespace, etc.
+  * any non-text file -- NUL bytes or non-UTF-8 (images/binaries). These are
+    never silently skipped; they abort the download.
+
+Usage:
+    safely-download-skill <subfolder> <github-url>
+
+<github-url> points at a GitHub tree URL that is either:
+    a single skill   https://github.com/OWNER/REPO/tree/REF/path/to/skill-name
+    an index         https://github.com/OWNER/REPO/tree/REF/path/to/category
+
+Every skill found is written to skills/<subfolder>/<skill-name>/ next to this
+script (the source's own category folders are ignored). Each skill's source URL
+is recorded in the global skills/manifest.json. <subfolder> is required so
+skills stay organized under skills/ rather than dumped in a flat heap.
+
+Exit status: 0 = downloaded, 1 = aborted (unsafe content), 2 = usage/network.
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import sys
+import unicodedata
+import urllib.error
+import urllib.request
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterator
+
+# --------------------------------------------------------------------------- #
+# Audit core: classify suspicious codepoints and decode smuggled payloads.
+# --------------------------------------------------------------------------- #
+
+_BIDI = {0x061C, 0x200E, 0x200F}
+_ZERO_WIDTH = {0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF, 0x180E}
+_TAG_RUN = re.compile(r"[\U000E0000-\U000E007F]+")
+
+
+def classify(cp: int) -> str | None:
+    """Return a label for a suspicious codepoint, else None for plain text."""
+    if cp < 0x80:                            # fast path for plain ASCII
+        if cp in (0x09, 0x0A, 0x0D) or 0x20 <= cp <= 0x7E:
+            return None
+        return "CONTROL"                     # C0 controls + DEL
+    if 0xE0000 <= cp <= 0xE007F:
+        return "TAG"                         # ASCII smuggling
+    if cp in _BIDI or 0x202A <= cp <= 0x202E or 0x2066 <= cp <= 0x2069:
+        return "BIDI"                        # Trojan-source reordering
+    if cp in _ZERO_WIDTH:
+        return "ZERO_WIDTH"
+    if 0x2061 <= cp <= 0x2064:
+        return "INVISIBLE_MATH"
+    if 0xFFF9 <= cp <= 0xFFFB or 0x206A <= cp <= 0x206F:
+        return "DEPRECATED_FORMAT"
+    if 0xFE00 <= cp <= 0xFE0F or 0xE0100 <= cp <= 0xE01EF:
+        return "VARIATION_SELECTOR"
+    cat = unicodedata.category(chr(cp))
+    if cat == "Cs":
+        return "INVALID_UTF8"                # lone surrogate (bad bytes)
+    if cat == "Cc":
+        return "CONTROL"
+    if cat == "Cf":
+        return "FORMAT"
+    if cat in ("Zl", "Zp"):
+        return "LINE_SEPARATOR"
+    if cat == "Cn":
+        return "UNASSIGNED"
+    if cat == "Co":
+        return "PRIVATE_USE"
+    if cat == "Zs" and cp != 0x20:
+        return "ODD_SPACE"
+    return None
+
+
+@dataclass(frozen=True)
+class Finding:
+    line: int
+    col: int
+    codepoint: str
+    label: str
+    name: str
+
+
+def find_suspicious(text: str) -> Iterator[Finding]:
+    # split only on \n so NEL/LS/PS/VT/FF survive into the line and get checked
+    for line_no, line in enumerate(text.split("\n"), 1):
+        for col, ch in enumerate(line, 1):
+            label = classify(ord(ch))
+            if label is None:
+                continue
+            yield Finding(line_no, col, f"U+{ord(ch):04X}", label,
+                          unicodedata.name(ch, "<unnamed>"))
+
+
+def decode_tag_runs(text: str) -> Iterator[tuple[int, int, str]]:
+    for line_no, line in enumerate(text.split("\n"), 1):
+        for match in _TAG_RUN.finditer(line):
+            decoded = "".join(chr(ord(c) - 0xE0000) for c in match.group())
+            yield (line_no, match.start() + 1, decoded)
+
+
+class UnsafeSkill(Exception):
+    """Raised the moment a file fails the audit; halts before any write."""
+
+
+def audit(rel_path: str, data: bytes) -> str:
+    """Audit one file's raw bytes. Return its text, or raise UnsafeSkill."""
+    if b"\x00" in data:
+        raise UnsafeSkill(f"{rel_path}: non-text file (NUL byte) -- "
+                          f"images/binaries are not allowed")
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise UnsafeSkill(f"{rel_path}: not valid UTF-8 text "
+                          f"(binary or image?) -- {exc}") from None
+
+    findings = list(find_suspicious(text))
+    payloads = list(decode_tag_runs(text))
+    if findings or payloads:
+        lines = [f"{rel_path}: suspicious content detected"]
+        for f in findings:
+            lines.append(f"  {rel_path}:{f.line}:{f.col}  {f.codepoint:<8} "
+                         f"{f.label:<18} {f.name}")
+        for line_no, col, decoded in payloads:
+            lines.append(f"  {rel_path}:{line_no}:{col}  "
+                         f"!! DECODED TAG PAYLOAD {decoded!r}")
+        raise UnsafeSkill("\n".join(lines))
+    return text
+
+
+# --------------------------------------------------------------------------- #
+# GitHub fetching.
+# --------------------------------------------------------------------------- #
+
+_TREE_URL = re.compile(
+    r"^https?://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/tree/"
+    r"(?P<ref>[^/]+)(?:/(?P<path>.+))?/?$"
+)
+
+
+@dataclass(frozen=True)
+class Source:
+    owner: str
+    repo: str
+    ref: str
+    path: str
+
+    @property
+    def repo_url(self) -> str:
+        return f"https://github.com/{self.owner}/{self.repo}"
+
+    def tree_url(self, path: str) -> str:
+        return f"{self.repo_url}/tree/{self.ref}/{path}"
+
+
+def parse_source(url: str) -> Source:
+    match = _TREE_URL.match(url.strip())
+    if not match:
+        raise ValueError(
+            "expected a GitHub tree URL like "
+            "https://github.com/OWNER/REPO/tree/REF/path/to/skill")
+    return Source(match["owner"], match["repo"], match["ref"],
+                  (match["path"] or "").strip("/"))
+
+
+MAX_FETCH_BYTES = 25_000_000  # per-response cap; skills are small text files
+
+
+def _http_get(url: str) -> bytes:
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "safely-download-skill",
+                      "Accept": "application/vnd.github+json"})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        data = response.read(MAX_FETCH_BYTES + 1)
+    if len(data) > MAX_FETCH_BYTES:
+        raise RuntimeError(f"{url}: response exceeds {MAX_FETCH_BYTES}-byte cap")
+    return data
+
+
+def list_blobs(src: Source) -> list[str]:
+    """Return every file path in the repo tree (one API call)."""
+    api = (f"https://api.github.com/repos/{src.owner}/{src.repo}"
+           f"/git/trees/{src.ref}?recursive=1")
+    tree = json.loads(_http_get(api))
+    if tree.get("truncated"):
+        raise RuntimeError("repository tree is too large to list in one call")
+    return [e["path"] for e in tree.get("tree", []) if e.get("type") == "blob"]
+
+
+def fetch_raw(src: Source, path: str) -> bytes:
+    raw = (f"https://raw.githubusercontent.com/{src.owner}/{src.repo}"
+           f"/{src.ref}/{path}")
+    return _http_get(raw)
+
+
+# --------------------------------------------------------------------------- #
+# Skill discovery.
+# --------------------------------------------------------------------------- #
+
+@dataclass(frozen=True)
+class Skill:
+    name: str
+    root: str             # repo-relative directory holding SKILL.md
+    files: list[str]      # repo-relative paths of every file in the skill
+
+
+def _under(path: str, base: str) -> bool:
+    return base == "" or path == base or path.startswith(base + "/")
+
+
+def discover_skills(blobs: list[str], base: str) -> list[Skill]:
+    """A skill is any directory that directly contains a SKILL.md."""
+    in_scope = [p for p in blobs if _under(p, base)]
+    roots = sorted({os.path.dirname(p) for p in in_scope
+                    if os.path.basename(p) == "SKILL.md"})
+    if not roots:
+        raise ValueError(f"no SKILL.md found under '{base or '/'}'")
+
+    skills: list[Skill] = []
+    seen: dict[str, str] = {}
+    for root in roots:
+        name = os.path.basename(root)
+        if not name:
+            raise ValueError("SKILL.md sits at the repo root; point the URL at "
+                             "the skill's own directory so it has a name")
+        if name in seen:
+            raise ValueError(
+                f"duplicate skill name '{name}' from '{seen[name]}' and "
+                f"'{root}'; refusing to overwrite within one download")
+        seen[name] = root
+        files = sorted(p for p in in_scope if _under(p, root))
+        skills.append(Skill(name=name, root=root, files=files))
+    return skills
+
+
+# --------------------------------------------------------------------------- #
+# Orchestration.
+# --------------------------------------------------------------------------- #
+
+SKILLS_DIR = Path(__file__).resolve().parent / "skills"
+MANIFEST = SKILLS_DIR / "manifest.json"
+
+
+def load_manifest() -> dict[str, str]:
+    """Read the global skills/manifest.json (skill-name -> source URL)."""
+    if not MANIFEST.exists():
+        return {}
+    entries = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    if not isinstance(entries, dict):
+        raise ValueError(f"{MANIFEST} is not a JSON object")
+    return entries
+
+
+def write_manifest(entries: dict[str, str]) -> None:
+    MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    MANIFEST.write_text(
+        json.dumps(dict(sorted(entries.items())), indent=2) + "\n",
+        encoding="utf-8")
+
+
+def download(url: str, dest_dir: Path) -> int:
+    src = parse_source(url)
+    print(f"source: {src.repo_url} @ {src.ref}")
+
+    blobs = list_blobs(src)
+    skills = discover_skills(blobs, src.path)
+    print(f"found {len(skills)} skill(s): "
+          f"{', '.join(s.name for s in skills)}")
+
+    # Pre-flight, all BEFORE any download or write: load the manifest (aborts
+    # if it is corrupt) and refuse to clobber an existing skill directory.
+    manifest = load_manifest()
+    for skill in skills:
+        if (dest_dir / skill.name).exists():
+            print(f"abort: '{dest_dir / skill.name}' already exists",
+                  file=sys.stderr)
+            return 1
+
+    # Download + audit EVERYTHING in memory. Any failure aborts here, before
+    # a single byte is written to disk.
+    staged: dict[str, dict[str, bytes]] = {}
+    for skill in skills:
+        safe_root = (dest_dir / skill.name).resolve()
+        staged[skill.name] = {}
+        for path in skill.files:
+            rel = os.path.relpath(path, skill.root)
+            if not (safe_root / rel).resolve().is_relative_to(safe_root):
+                raise UnsafeSkill(
+                    f"{skill.name}/{rel}: path escapes the target directory")
+            data = fetch_raw(src, path)
+            audit(f"{skill.name}/{rel}", data)   # raises UnsafeSkill on failure
+            staged[skill.name][rel] = data
+        print(f"audited {skill.name}: {len(skill.files)} file(s) clean")
+
+    # All clear -- now write.
+    for skill in skills:
+        target = dest_dir / skill.name
+        for rel, data in staged[skill.name].items():
+            out = target / rel
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes(data)
+        manifest[skill.name] = src.tree_url(skill.root)
+        print(f"wrote {target}")
+
+    write_manifest(manifest)
+    return 0
+
+
+def resolve_dest(subfolder: str) -> Path:
+    """Skills always land under skills/<subfolder>/ to keep them organized."""
+    dest = (SKILLS_DIR / subfolder).resolve()
+    if SKILLS_DIR not in dest.parents:
+        raise ValueError(
+            f"subfolder '{subfolder}' must be a directory within skills/")
+    return dest
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 2:
+        print("usage: safely-download-skill <subfolder> <github-url>",
+              file=sys.stderr)
+        return 2
+    subfolder, url = argv
+    try:
+        return download(url, resolve_dest(subfolder))
+    except UnsafeSkill as exc:
+        print(f"ABORTED -- nothing written. Unsafe content:\n{exc}",
+              file=sys.stderr)
+        return 1
+    except (ValueError, RuntimeError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    except urllib.error.HTTPError as exc:
+        print(f"error: HTTP {exc.code} fetching {exc.url}", file=sys.stderr)
+        return 2
+    except urllib.error.URLError as exc:
+        print(f"error: network failure: {exc.reason}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
