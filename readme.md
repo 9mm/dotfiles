@@ -108,12 +108,13 @@ pnpm -g install neovim nuxi@latest wrangler
 
 ### Ruby
 
+`~/.bundle/config` `jobs` should be set to one less than `sysctl -n hw.ncpu`
+
 ```bash
 brew install rbenv
 rbenv install x.x.x # latest
 rbenv rehash # fixes neovim gem issues after ruby upgrades
 gem install neovim
-bundle config --global jobs 15 # 1 less than `sysctl -n hw.ncpu`
 ```
 
 ### Rust
