@@ -14,6 +14,6 @@ alias jsontidy="pbpaste | jq '.'"
 
 # DNS
 alias a='f() { dig +short a $1 };f'
-alias cname='f() { dig +short cname $1 };f'
+alias cname='f() { curl -s "https://crt.name/v1/search?apex=$1" };f'
 alias mx='f() { dig +short mx $1 };f'
 alias txt='f() { dig +short txt $1 };f'
