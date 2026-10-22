@@ -1,5 +1,6 @@
 return {
   "petertriho/nvim-scrollbar",
+  branch = "v1",
   config = function()
     require("scrollbar").setup({
       hide_if_all_visible = true,
