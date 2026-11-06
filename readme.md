@@ -159,6 +159,14 @@ Make sure to pass input as arguments, and for shell use `/bin/zsh`
 
 Install the fonts in `Library/Fonts`
 
+### Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+ln -sfn ~/Code/dotfiles/.claude/CLAUDE.md ~/.claude/CLAUDE.md
+for skill in ~/Code/dotfiles/.claude/skills/*; do ln -sfn "$skill" ~/.claude/skills/; done
+```
+
 ### Vim (Legacy)
 
 ![screenshot](https://raw.github.com/9mm/dotfiles/master/screenshot.png)
